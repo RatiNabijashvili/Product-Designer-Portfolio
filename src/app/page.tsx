@@ -52,7 +52,7 @@ export default function Home() {
               <span>Confident</span>
             </div>
             <div className="w-full mt-4">
-              <h1 className="font-headline text-[clamp(4rem,20vw,14rem)] leading-[0.8] text-primary text-center uppercase -tracking-tight">
+              <h1 className="font-headline text-[clamp(4rem,10vw,10rem)] leading-[0.8] text-primary text-center uppercase -tracking-tight whitespace-nowrap">
                 Product Designer
               </h1>
             </div>
