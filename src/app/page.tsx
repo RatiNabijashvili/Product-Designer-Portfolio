@@ -51,8 +51,8 @@ export default function Home() {
               <span className="flex-grow text-center">Quietly</span>
               <span>Confident</span>
             </div>
-            <div className="w-full mt-4">
-              <h1 className="flex justify-center gap-x-[56px] font-headline text-[clamp(4rem,13.68vw,197px)] leading-[0.8] text-primary uppercase w-full">
+            <div className="w-full mt-4 @container">
+              <h1 className="flex justify-center gap-x-[56px] font-headline text-[clamp(4rem,13.68cqw,20rem)] leading-[0.8] text-primary uppercase w-full">
                 <span>Product</span>
                 <span>Designer</span>
               </h1>
