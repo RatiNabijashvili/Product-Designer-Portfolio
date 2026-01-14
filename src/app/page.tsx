@@ -52,8 +52,9 @@ export default function Home() {
               <span>Confident</span>
             </div>
             <div className="w-full mt-4">
-              <h1 className="font-headline text-[clamp(4rem,10vw,10rem)] leading-[0.8] text-primary text-center uppercase -tracking-tight whitespace-nowrap">
-                Product Designer
+              <h1 className="flex justify-between font-headline text-[clamp(4rem,10vw,8rem)] leading-[0.8] text-primary uppercase -tracking-tight w-full">
+                <span>Product</span>
+                <span>Designer</span>
               </h1>
             </div>
           </section>
