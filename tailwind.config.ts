@@ -10,7 +10,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Poppins', 'sans-serif'],
+        body: ['Satoshi', 'sans-serif'],
         headline: ['Anton', 'sans-serif'],
         code: ['monospace'],
       },
