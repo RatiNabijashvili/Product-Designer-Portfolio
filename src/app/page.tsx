@@ -52,7 +52,7 @@ export default function Home() {
               <span className="absolute right-0 top-0">Confident</span>
             </div>
             <div className="w-full mt-4 @container">
-              <h1 className="flex justify-center gap-x-[5.5cqw] font-headline text-[clamp(4rem,13.68cqw,20rem)] leading-[0.8] text-primary uppercase w-full">
+              <h1 className="flex justify-center gap-x-[5.5cqw] font-headline text-[max(4rem,min(13.6cqw,20rem))] leading-[0.8] text-primary uppercase w-full">
                 <span>Product</span>
                 <span>Designer</span>
               </h1>
