@@ -4,27 +4,15 @@ import { ArrowDown } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export default function Home() {
-  const logoImage = PlaceHolderImages.find(p => p.id === 'logo');
   const heroVideoImage = PlaceHolderImages.find(p => p.id === 'hero-video');
 
   return (
     <div className="bg-background min-h-screen text-primary antialiased">
       <main className="p-8 font-body max-w-[1440px] mx-auto">
         <header className="flex justify-between items-center w-full">
-          {logoImage ? (
-            <Image
-              src={logoImage.imageUrl}
-              alt={logoImage.description}
-              width={120}
-              height={20}
-              data-ai-hint={logoImage.imageHint}
-              priority
-            />
-          ) : (
-             <div className="h-5 w-32 bg-muted rounded-sm" />
-          )}
+          <div className="font-bold text-2xl tracking-wider">LOGO</div>
           <Button
-            className="w-40 h-14 rounded-full bg-accent text-accent-foreground font-bold text-xl leading-tight hover:bg-accent/90"
+            className="w-40 h-14 rounded-full bg-[#181818] text-[#FCFAFA] font-bold text-xl leading-tight hover:bg-[#181818]/90"
             asChild
           >
             <a href="#contact">Contact Me</a>
