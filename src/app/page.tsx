@@ -8,7 +8,7 @@ export default function Home() {
 
   return (
     <div className="bg-background min-h-screen text-primary antialiased">
-      <main className="p-8 font-body mx-auto">
+      <main className="p-8 font-body">
         <header className="flex justify-between items-center w-full">
           <div className="font-bold text-2xl tracking-wider">LOGO</div>
           <Button
@@ -46,10 +46,10 @@ export default function Home() {
 
           {/* Bottom Block */}
           <section className="flex flex-col gap-4 w-full">
-            <div className="flex justify-between items-center w-full font-bold text-xl uppercase leading-none">
-              <span>A</span>
-              <span className="flex-grow text-center">Quietly</span>
-              <span>Confident</span>
+            <div className="relative w-full font-bold text-xl uppercase leading-none">
+              <span className="absolute left-0">A</span>
+              <span className="text-center block">Quietly</span>
+              <span className="absolute right-0 top-0">Confident</span>
             </div>
             <div className="w-full mt-4 @container">
               <h1 className="flex justify-center gap-x-[5.5cqw] font-headline text-[clamp(4rem,13.68cqw,20rem)] leading-[0.8] text-primary uppercase w-full">
