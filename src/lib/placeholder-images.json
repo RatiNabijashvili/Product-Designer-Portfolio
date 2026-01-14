@@ -1,3 +1,16 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "logo",
+      "description": "Placeholder for the portfolio logo",
+      "imageUrl": "https://images.unsplash.com/photo-1764601842167-ba701eed47f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtaW5pbWFsaXN0JTIwbG9nb3xlbnwwfHx8fDE3NjgzMjIzODh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "minimalist logo"
+    },
+    {
+      "id": "hero-video",
+      "description": "Placeholder for the hero section video",
+      "imageUrl": "https://images.unsplash.com/photo-1750727688838-063053458397?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxhYnN0cmFjdCUyMGFuaW1hdGlvbnxlbnwwfHx8fDE3NjgzMTM4ODB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract animation"
+    }
+  ]
 }
