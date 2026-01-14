@@ -8,7 +8,7 @@ export default function Home() {
 
   return (
     <div className="bg-background min-h-screen text-primary antialiased">
-      <main className="p-8 font-body max-w-[1440px] mx-auto">
+      <main className="p-8 font-body mx-auto">
         <header className="flex justify-between items-center w-full">
           <div className="font-bold text-2xl tracking-wider">LOGO</div>
           <Button
