@@ -52,7 +52,7 @@ export default function Home() {
               <span>Confident</span>
             </div>
             <div className="w-full mt-4">
-              <h1 className="flex justify-center gap-x-4 font-headline text-[clamp(4rem,12vw,14rem)] leading-[0.8] text-primary uppercase w-full">
+              <h1 className="flex justify-center gap-x-16 font-headline text-[clamp(4rem,10vw,12rem)] leading-[0.8] text-primary uppercase w-full">
                 <span>Product</span>
                 <span>Designer</span>
               </h1>
