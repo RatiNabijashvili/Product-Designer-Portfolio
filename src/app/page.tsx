@@ -1,11 +1,8 @@
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { ArrowDown } from 'lucide-react';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { HeroVideo } from '@/components/shared/hero-video';
 
 export default function Home() {
-  const heroVideoImage = PlaceHolderImages.find(p => p.id === 'hero-video');
-
   return (
     <div className="bg-background min-h-screen text-primary antialiased">
       <main className="p-8 font-body">
@@ -28,20 +25,7 @@ export default function Home() {
               </span>
               <ArrowDown className="size-6" />
             </div>
-            {heroVideoImage ? (
-              <div className="w-[568px] h-[320px] bg-muted rounded-xl overflow-hidden shadow-lg">
-                <Image
-                  src={heroVideoImage.imageUrl}
-                  alt={heroVideoImage.description}
-                  width={568}
-                  height={320}
-                  className="w-full h-full object-cover"
-                  data-ai-hint={heroVideoImage.imageHint}
-                />
-              </div>
-            ) : (
-                <div className="w-[568px] h-[320px] bg-muted rounded-xl shadow-lg" />
-            )}
+            <HeroVideo />
           </section>
 
           {/* Bottom Block */}
@@ -52,7 +36,7 @@ export default function Home() {
               <span className="absolute right-0 top-0">Confident</span>
             </div>
             <div className="w-full mt-4 @container">
-              <h1 className="flex justify-center gap-x-[5.5cqw] font-headline text-[max(4rem,min(13.6cqw,20rem))] leading-[0.8] text-primary uppercase w-full">
+              <h1 className="flex justify-center text-center gap-x-[5.5cqw] font-headline text-[max(4rem,min(13.6cqw,20rem))] leading-[0.8] text-primary uppercase w-full">
                 <span>Product</span>
                 <span>Designer</span>
               </h1>
