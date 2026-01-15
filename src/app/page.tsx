@@ -19,7 +19,7 @@ export default function Home() {
           </header>
 
           <div className="mt-20 flex flex-col gap-[112px]">
-            <div className="relative flex justify-start items-start w-full h-[40vh]">
+            <div className="relative flex justify-end items-start w-full h-[40vh]">
               <div className="flex flex-col items-start gap-1 pt-2">
                 <span className="font-bold text-base leading-tight">
                   Scroll Me
