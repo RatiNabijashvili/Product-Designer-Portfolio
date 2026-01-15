@@ -18,9 +18,9 @@ export default function Home() {
         </header>
 
         {/* This container defines the scrollable "scene" for the animation */}
-        <div id="hero-scene" className="relative h-[200vh]">
+        <div id="hero-scene" className="relative h-[100vh]">
           {/* This container will be "pinned" by GSAP, making it sticky during the animation */}
-          <div id="hero-pin-container" className="sticky top-0 flex flex-col justify-start pt-20">
+          <div id="hero-pin-container" className="sticky top-0 flex flex-col justify-start pt-20 h-screen">
             <div className="relative flex justify-between items-start w-full">
               <div className="flex flex-col items-start gap-1">
                 <span className="font-bold text-base leading-tight">
@@ -51,9 +51,9 @@ export default function Home() {
           </div>
         </div>
 
-        <div id="works-section" className="mt-12 h-[100vh]">
+        <div id="works-section" className="h-[100vh]">
           {/* The video will animate to fill this grid item */}
-          <div className="grid grid-cols-1 gap-4 -mt-[100vh]">
+          <div className="grid grid-cols-1 gap-4">
             <div id="work-item-1" className="rounded-xl h-[100vh] bg-background">
               {/* This space is where the video will land */}
             </div>

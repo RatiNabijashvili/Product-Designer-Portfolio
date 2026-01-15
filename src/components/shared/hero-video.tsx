@@ -46,9 +46,9 @@ export function HeroVideo() {
         scale: scale,
         y: y,
         x: x,
-        ease: 'power1.inOut', // Changed from 'none' for a smoother feel
+        ease: 'power1.inOut',
       });
-    }, 100); // A small delay can help ensure accurate measurements
+    }, 100); 
 
     return () => {
       clearTimeout(timer);
@@ -63,8 +63,8 @@ export function HeroVideo() {
   return (
     <div
       ref={videoRef}
-      className={cn('w-[568px] h-[320px] will-change-transform z-10')} // Added z-index
-      style={{ transformOrigin: 'top left' }} // Animate from top-left
+      className={cn('w-[568px] h-[320px] will-change-transform z-10')} 
+      style={{ transformOrigin: 'top left' }} 
     >
       <div
         className={cn(
