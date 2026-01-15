@@ -19,14 +19,14 @@ export default function Home() {
           </header>
 
           <div className="mt-20 flex flex-col gap-[112px]">
-            <div className="relative w-full h-[40vh]">
-              <div className="absolute top-0 left-0 flex flex-col items-start gap-1 pt-2">
+            <div className="relative flex justify-between items-start w-full h-[40vh]">
+              <div className="flex flex-col items-start gap-1 pt-2">
                 <span className="font-bold text-base leading-tight">
                   Scroll Me
                 </span>
                 <ArrowDown className="size-6" />
               </div>
-              <div className="flex justify-end w-full">
+              <div className="flex justify-end">
                 <HeroVideo />
               </div>
             </div>
