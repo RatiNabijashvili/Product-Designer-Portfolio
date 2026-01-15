@@ -19,14 +19,16 @@ export default function Home() {
           </header>
 
           <div className="mt-20 flex flex-col gap-[112px]">
-            <div className="relative flex justify-end items-start w-full h-[40vh]">
-              <div className="flex flex-col items-start gap-1 pt-2">
+            <div className="relative w-full h-[40vh]">
+              <div className="absolute top-0 left-0 flex flex-col items-start gap-1 pt-2">
                 <span className="font-bold text-base leading-tight">
                   Scroll Me
                 </span>
                 <ArrowDown className="size-6" />
               </div>
-              <HeroVideo />
+              <div className="flex justify-end w-full">
+                <HeroVideo />
+              </div>
             </div>
 
             <div
@@ -49,12 +51,12 @@ export default function Home() {
         </div>
 
         <div id="works-section" className="mt-12">
-            <div className="grid grid-cols-2 gap-4 h-[100vh] -mt-32 -z-10">
-              <div className="col-span-1 rounded-xl"></div>
-              <div className="col-span-1 rounded-xl"></div>
-              <div className="col-span-1 rounded-xl"></div>
-              <div className="col-span-1 rounded-xl"></div>
-            </div>
+          <div className="grid grid-cols-2 gap-4 h-[100vh] -mt-32 -z-10">
+            <div className="col-span-1 rounded-xl"></div>
+            <div className="col-span-1 rounded-xl"></div>
+            <div className="col-span-1 rounded-xl"></div>
+            <div className="col-span-1 rounded-xl"></div>
+          </div>
         </div>
       </main>
     </div>
