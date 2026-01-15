@@ -1,3 +1,4 @@
+
 import { Button } from '@/components/ui/button';
 import { ArrowDown } from 'lucide-react';
 import { HeroVideo } from '@/components/shared/hero-video';
@@ -31,7 +32,7 @@ export default function Home() {
 
           {/* Bottom Block */}
           <div
-            id="works-section"
+            id="works-section-text"
             className="relative flex flex-col gap-4 w-full"
           >
             <div className="relative w-full font-bold text-xl uppercase leading-none">
@@ -45,6 +46,11 @@ export default function Home() {
                 <span>Designer</span>
               </h1>
             </div>
+          </div>
+        </div>
+        
+        {/* New Works Section */}
+        <div id="works-section" className="mt-12">
             {/* The grid that the video will become a background for */}
             <div className="grid grid-cols-2 gap-4 h-[100vh] -mt-32 -z-10">
               <div className="col-span-1 rounded-xl"></div>
@@ -52,7 +58,6 @@ export default function Home() {
               <div className="col-span-1 rounded-xl"></div>
               <div className="col-span-1 rounded-xl"></div>
             </div>
-          </div>
         </div>
       </main>
     </div>
