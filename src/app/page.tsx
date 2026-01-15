@@ -19,7 +19,8 @@ export default function Home() {
 
         {/* This container defines the scrollable "scene" for the animation */}
         <div id="hero-scene" className="relative h-[200vh]">
-          <div className="sticky top-0 flex flex-col justify-start pt-20">
+          {/* This container will be "pinned" by GSAP, making it sticky during the animation */}
+          <div id="hero-pin-container" className="sticky top-0 flex flex-col justify-start pt-20">
             <div className="relative flex justify-between items-start w-full">
               <div className="flex flex-col items-start gap-1">
                 <span className="font-bold text-base leading-tight">
@@ -27,6 +28,7 @@ export default function Home() {
                 </span>
                 <ArrowDown className="size-6" />
               </div>
+              {/* The HeroVideo component is what will be animated */}
               <HeroVideo />
             </div>
 
@@ -50,10 +52,10 @@ export default function Home() {
         </div>
 
         <div id="works-section" className="mt-12 h-[100vh]">
-          {/* Content that will scroll over the pinned video */}
+          {/* The video will animate to fill this grid item */}
           <div className="grid grid-cols-1 gap-4 -mt-[100vh]">
-            <div className="rounded-xl h-[100vh] bg-background">
-              {/* This space is now effectively filled by the animated video */}
+            <div id="work-item-1" className="rounded-xl h-[100vh] bg-background">
+              {/* This space is where the video will land */}
             </div>
           </div>
         </div>
