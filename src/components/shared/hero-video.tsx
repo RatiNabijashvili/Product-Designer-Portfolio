@@ -20,10 +20,10 @@ export function HeroVideo() {
   }, []);
 
   const getAnimationValues = () => {
-    if (typeof window === 'undefined' || !containerRef.current) return { scale: 1, y: 0 };
+    if (typeof window === 'undefined' || !containerRef.current) return { scale: 1, y: 0, opacity: 1 };
     
     const worksSection = document.getElementById('works-section');
-    if (!worksSection) return { scale: 1, y: 0 };
+    if (!worksSection) return { scale: 1, y: 0, opacity: 1 };
 
     const rect = containerRef.current.getBoundingClientRect();
     const worksRect = worksSection.getBoundingClientRect();
@@ -39,20 +39,23 @@ export function HeroVideo() {
     // Calculate target scale to fill the width of the grid.
     const screenWidth = window.innerWidth;
     const currentWidth = rect.width;
-    // Assume padding of 8 (2rem) on each side
+    // p-8 on main means 2rem (32px) padding on each side
     const targetGridWidth = screenWidth - (2 * 32); 
     const targetScale = targetGridWidth / currentWidth;
     
     // Target Y to move it to the top of the "works-section"
+    // It's the top of works-section relative to viewport, plus scrollY to get absolute doc position
+    // minus the video's current top position in the document.
     const targetY = worksRect.top + window.scrollY - rect.top;
 
     const scale = 1 + (targetScale - 1) * progress;
     const y = targetY * progress;
+    const opacity = 1 - progress * 0.5; // Slightly fade the overlay as it expands
 
-    return { scale, y };
+    return { scale, y, opacity };
   };
 
-  const { scale, y } = getAnimationValues();
+  const { scale, y, opacity } = getAnimationValues();
 
   if (!heroVideoImage) {
     return <div className="w-[568px] h-[320px] bg-muted rounded-xl shadow-lg" />;
@@ -81,6 +84,7 @@ export function HeroVideo() {
           data-ai-hint={heroVideoImage.imageHint}
           priority
         />
+        <div className="absolute inset-0 bg-background/20" style={{opacity}}/>
       </div>
     </div>
   );
