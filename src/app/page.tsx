@@ -11,7 +11,7 @@ export default function Home() {
           <header className="flex justify-between items-center w-full">
             <div className="font-bold text-2xl tracking-wider">LOGO</div>
             <Button
-              className="w-40 h-14 rounded-full bg-[#181818] text-[#FCFAFA] font-bold text-xl leading-tight hover:bg-[#181818]/90"
+              className="w-40 h-14 rounded-full bg-primary text-primary-foreground font-bold text-xl leading-tight hover:bg-primary/90"
               asChild
             >
               <a href="#contact">Contact Me</a>
@@ -19,7 +19,6 @@ export default function Home() {
           </header>
 
           <div className="mt-20 flex flex-col gap-[112px]">
-            {/* Upper Block */}
             <div className="relative flex justify-end items-end w-full h-[40vh]">
               <div className="flex flex-col items-end gap-1 pt-2">
                 <span className="font-bold text-base leading-tight">
@@ -27,11 +26,9 @@ export default function Home() {
                 </span>
                 <ArrowDown className="size-6" />
               </div>
-              {/* The video component is positioned absolutely by the animation hook */}
               <HeroVideo />
             </div>
 
-            {/* Bottom Block */}
             <div
               id="works-section-text"
               className="relative flex flex-col gap-4 w-full"
@@ -51,9 +48,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* New Works Section */}
         <div id="works-section" className="mt-12">
-            {/* The grid that the video will become a background for */}
             <div className="grid grid-cols-2 gap-4 h-[100vh] -mt-32 -z-10">
               <div className="col-span-1 rounded-xl"></div>
               <div className="col-span-1 rounded-xl"></div>
