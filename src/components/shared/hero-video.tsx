@@ -9,9 +9,7 @@ import { cn } from '@/lib/utils';
 export function HeroVideo() {
   const heroVideoImage = PlaceHolderImages.find((p) => p.id === 'hero-video');
   const [scrollY, setScrollY] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const initialTop = useRef<number | null>(null);
-  const initialLeft = useRef<number | null>(null);
+  const videoRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -19,73 +17,59 @@ export function HeroVideo() {
   }, []);
 
   useEffect(() => {
-    if (!isMounted) return;
-
     const handleScroll = () => {
       setScrollY(window.scrollY);
     };
 
-    if (containerRef.current && initialTop.current === null) {
-      const rect = containerRef.current.getBoundingClientRect();
-      initialTop.current = rect.top + window.scrollY;
-      initialLeft.current = rect.left + window.scrollX;
-    }
-
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isMounted]);
+  }, []);
 
   const getAnimationValues = () => {
-    if (typeof window === 'undefined' || !containerRef.current || initialTop.current === null || !isMounted) {
-        return { scale: 1, y: 0, x: 0, opacity: 1, position: 'relative' as const, top: 0, left: 0, zIndex: 1 };
+    if (typeof window === 'undefined' || !isMounted || !videoRef.current) {
+      return { scale: 1, y: 0, opacity: 1 };
     }
+
+    const heroScene = document.getElementById('hero-scene');
+    if (!heroScene) return { scale: 1, y: 0, opacity: 1 };
+
+    const sceneRect = heroScene.getBoundingClientRect();
     
-    const worksSection = document.getElementById('works-section');
-    if (!worksSection) return { scale: 1, y: 0, x: 0, opacity: 1, position: 'relative' as const, top: 0, left: 0, zIndex: 1 };
+    // Start animation when the scene top is at the viewport top
+    const animationStart = heroScene.offsetTop;
+    // End after scrolling 100vh
+    const animationEnd = animationStart + window.innerHeight;
 
-    const worksRect = worksSection.getBoundingClientRect();
+    let progress = (scrollY - animationStart) / (animationEnd - animationStart);
+    progress = Math.max(0, Math.min(1, progress));
 
-    const animationStart = 0;
-    const animationEnd = window.innerHeight * 0.5;
-    const progress = Math.max(
-      0,
-      Math.min(1, (scrollY - animationStart) / (animationEnd - animationStart))
-    );
-
-    const screenWidth = window.innerWidth;
-    // p-8 on main means 2rem (32px) padding on each side
-    const contentPadding = 32;
-    const currentWidth = 568; // The video's initial width
-    const targetGridWidth = screenWidth - (2 * contentPadding); 
-    const targetScale = targetGridWidth / currentWidth;
+    // Calculate scale
+    const mainElement = document.querySelector('main');
+    if (!mainElement) return { scale: 1, y: 0, opacity: 1 };
     
-    const targetY = worksRect.top + window.scrollY;
-
+    const contentWidth = mainElement.clientWidth;
+    const initialWidth = videoRef.current.offsetWidth;
+    const targetScale = contentWidth / initialWidth;
     const scale = 1 + (targetScale - 1) * progress;
-    const y = (targetY - initialTop.current) * progress;
-    // We want it to be centered in the content area
-    const targetX = contentPadding; 
-    const x = (targetX - initialLeft.current) * progress;
     
+    // Calculate Y translation
+    // We want it to end up looking like it's at the top of the next section
+    const targetY = window.innerHeight - (videoRef.current.offsetHeight * scale);
+    const y = targetY * progress;
+
     const opacity = 1 - progress * 0.5;
 
-    const position = progress > 0 ? 'fixed' : 'relative';
-    const top = progress > 0 ? initialTop.current : 0;
-    const left = progress > 0 ? initialLeft.current : 0;
-    const zIndex = progress > 0 ? 10 : 1;
-
-
-    return { scale, y, x, opacity, position, top, left, zIndex };
+    return { scale, y, opacity };
   };
 
-  const { scale, y, x, opacity, position, top, left, zIndex } = getAnimationValues();
+  const { scale, y, opacity } = getAnimationValues();
 
   if (!heroVideoImage) {
     return <div className="w-[568px] h-[320px] bg-muted rounded-xl shadow-lg" />;
   }
-
+  
+  // Static placeholder for SSR and initial render
   if (!isMounted) {
-    // Render a static placeholder on the server and initial client render
     return (
       <div
         className="w-[568px] h-[320px] relative"
@@ -112,17 +96,13 @@ export function HeroVideo() {
 
   return (
     <div
-      ref={containerRef}
+      ref={videoRef}
       style={{
         width: '568px',
         height: '320px',
-        position,
-        top: `${top}px`,
-        left: `${left}px`,
-        transform: `translate(${x}px, ${y}px) scale(${scale})`,
-        transformOrigin: 'top left',
-        willChange: 'transform, position, top, left',
-        zIndex,
+        transform: `translateY(${y}px) scale(${scale})`,
+        transformOrigin: 'top right',
+        willChange: 'transform',
       }}
     >
       <div
@@ -139,7 +119,7 @@ export function HeroVideo() {
           data-ai-hint={heroVideoImage.imageHint}
           priority
         />
-        <div className="absolute inset-0 bg-background/20" style={{opacity}}/>
+        <div className="absolute inset-0 bg-background/20" style={{ opacity }} />
       </div>
     </div>
   );

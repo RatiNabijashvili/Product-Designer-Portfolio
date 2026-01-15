@@ -7,33 +7,32 @@ export default function Home() {
   return (
     <div className="bg-background min-h-screen text-primary antialiased">
       <main className="p-8 font-body">
-        <div id="hero-section">
-          <header className="flex justify-between items-center w-full">
-            <div className="font-bold text-2xl tracking-wider">LOGO</div>
-            <Button
-              className="w-40 h-14 rounded-full bg-primary text-primary-foreground font-bold text-xl leading-tight hover:bg-primary/90"
-              asChild
-            >
-              <a href="#contact">Contact Me</a>
-            </Button>
-          </header>
+        <header className="flex justify-between items-center w-full">
+          <div className="font-bold text-2xl tracking-wider">LOGO</div>
+          <Button
+            className="w-40 h-14 rounded-full bg-primary text-primary-foreground font-bold text-xl leading-tight hover:bg-primary/90"
+            asChild
+          >
+            <a href="#contact">Contact Me</a>
+          </Button>
+        </header>
 
-          <div className="mt-20 flex flex-col gap-[112px]">
-            <div className="relative flex justify-between items-start w-full h-[40vh]">
+        {/* This container defines the scrollable "scene" for the animation */}
+        <div id="hero-scene" className="relative h-[200vh]">
+          <div className="sticky top-0 flex flex-col justify-start pt-20">
+            <div className="relative flex justify-between items-start w-full">
               <div className="flex flex-col items-start gap-1">
                 <span className="font-bold text-base leading-tight">
                   Scroll Me
                 </span>
                 <ArrowDown className="size-6" />
               </div>
-              <div className="flex justify-end">
-                <HeroVideo />
-              </div>
+              <HeroVideo />
             </div>
 
             <div
               id="works-section-text"
-              className="relative flex flex-col gap-4 w-full"
+              className="relative flex flex-col gap-4 w-full mt-28"
             >
               <div className="relative w-full font-bold text-xl uppercase leading-none">
                 <span className="absolute left-0">A</span>
@@ -50,9 +49,12 @@ export default function Home() {
           </div>
         </div>
 
-        <div id="works-section" className="mt-12">
-          <div className="grid grid-cols-1 gap-4 h-[100vh] -mt-32 -z-10">
-            <div className="rounded-xl"></div>
+        <div id="works-section" className="mt-12 h-[100vh]">
+          {/* Content that will scroll over the pinned video */}
+          <div className="grid grid-cols-1 gap-4 -mt-[100vh]">
+            <div className="rounded-xl h-[100vh] bg-background">
+              {/* This space is now effectively filled by the animated video */}
+            </div>
           </div>
         </div>
       </main>
