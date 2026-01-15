@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
@@ -11,9 +12,15 @@ export function HeroVideo() {
   const containerRef = useRef<HTMLDivElement>(null);
   const initialTop = useRef<number | null>(null);
   const initialLeft = useRef<number | null>(null);
-
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+
     const handleScroll = () => {
       setScrollY(window.scrollY);
     };
@@ -26,10 +33,10 @@ export function HeroVideo() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isMounted]);
 
   const getAnimationValues = () => {
-    if (typeof window === 'undefined' || !containerRef.current || initialTop.current === null) {
+    if (typeof window === 'undefined' || !containerRef.current || initialTop.current === null || !isMounted) {
         return { scale: 1, y: 0, x: 0, opacity: 1, position: 'relative' as const, top: 0, left: 0, zIndex: 1 };
     }
     
@@ -75,6 +82,32 @@ export function HeroVideo() {
 
   if (!heroVideoImage) {
     return <div className="w-[568px] h-[320px] bg-muted rounded-xl shadow-lg" />;
+  }
+
+  if (!isMounted) {
+    // Render a static placeholder on the server and initial client render
+    return (
+      <div
+        className="w-[568px] h-[320px] relative"
+      >
+        <div
+          className={cn(
+            'relative w-full h-full rounded-xl overflow-hidden shadow-lg'
+          )}
+        >
+          <Image
+            src={heroVideoImage.imageUrl}
+            alt={heroVideoImage.description}
+            width={568}
+            height={320}
+            className="w-full h-full object-cover"
+            data-ai-hint={heroVideoImage.imageHint}
+            priority
+          />
+          <div className="absolute inset-0 bg-background/20" />
+        </div>
+      </div>
+    );
   }
 
   return (
