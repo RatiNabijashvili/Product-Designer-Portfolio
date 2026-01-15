@@ -16,9 +16,9 @@ export default function Home() {
           </Button>
         </header>
 
-        <div className="mt-20 flex flex-col gap-[112px]">
+        <div className="mt-20 flex flex-col gap-2">
           {/* Upper Block */}
-          <section className="flex justify-between items-start w-full">
+          <section className="flex justify-between items-start w-full h-[40vh]">
             <div className="flex flex-col items-end gap-1 pt-2">
               <span className="font-bold text-base leading-tight">
                 Scroll Me
@@ -28,8 +28,8 @@ export default function Home() {
             <HeroVideo />
           </section>
 
-          {/* Bottom Block */}
-          <section className="flex flex-col gap-4 w-full">
+          {/* Bottom Block - The target for the animation */}
+          <section id="works-section" className="relative flex flex-col gap-4 w-full mt-24">
             <div className="relative w-full font-bold text-xl uppercase leading-none">
               <span className="absolute left-0">A</span>
               <span className="text-center block">Quietly</span>
@@ -40,6 +40,13 @@ export default function Home() {
                 <span>Product</span>
                 <span>Designer</span>
               </h1>
+            </div>
+            {/* The grid that the video will become a background for */}
+            <div className="grid grid-cols-2 gap-4 h-[100vh] -mt-32">
+                <div className="col-span-1 rounded-xl"></div>
+                <div className="col-span-1 rounded-xl"></div>
+                <div className="col-span-1 rounded-xl"></div>
+                <div className="col-span-1 rounded-xl"></div>
             </div>
           </section>
         </div>

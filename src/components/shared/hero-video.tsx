@@ -20,9 +20,14 @@ export function HeroVideo() {
   }, []);
 
   const getAnimationValues = () => {
-    if (!containerRef.current) return { scale: 1, y: 0 };
+    if (typeof window === 'undefined' || !containerRef.current) return { scale: 1, y: 0 };
+    
+    const worksSection = document.getElementById('works-section');
+    if (!worksSection) return { scale: 1, y: 0 };
 
     const rect = containerRef.current.getBoundingClientRect();
+    const worksRect = worksSection.getBoundingClientRect();
+
     const animationStart = 0;
     // Animate over a scroll distance equal to 50% of the viewport height
     const animationEnd = window.innerHeight * 0.5;
@@ -31,15 +36,15 @@ export function HeroVideo() {
       Math.min(1, (scrollY - animationStart) / (animationEnd - animationStart))
     );
 
-    // Calculate target scale to fill the width.
-    // Assuming the grid is roughly the viewport width minus padding.
+    // Calculate target scale to fill the width of the grid.
     const screenWidth = window.innerWidth;
     const currentWidth = rect.width;
-    const targetScale = screenWidth / currentWidth;
+    // Assume padding of 8 (2rem) on each side
+    const targetGridWidth = screenWidth - (2 * 32); 
+    const targetScale = targetGridWidth / currentWidth;
     
-    // Target Y to move it down into the next section.
-    // This value may need tweaking based on the exact layout.
-    const targetY = 300; 
+    // Target Y to move it to the top of the "works-section"
+    const targetY = worksRect.top + window.scrollY - rect.top;
 
     const scale = 1 + (targetScale - 1) * progress;
     const y = targetY * progress;
@@ -56,7 +61,7 @@ export function HeroVideo() {
   return (
     <div
       ref={containerRef}
-      className="w-[568px] h-[320px] origin-center"
+      className="w-[568px] h-[320px] origin-top"
       style={{
         transform: `translateY(${y}px) scale(${scale})`,
         willChange: 'transform',
