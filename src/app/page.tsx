@@ -51,11 +51,11 @@ export default function Home() {
         </div>
 
         <div id="works-section" className="mt-12">
-          <div className="grid grid-cols-2 gap-4 h-[100vh] -mt-32 -z-10">
-            <div className="col-span-1 rounded-xl"></div>
-            <div className="col-span-1 rounded-xl"></div>
-            <div className="col-span-1 rounded-xl"></div>
-            <div className="col-span-1 rounded-xl"></div>
+          <div className="grid grid-cols-1 gap-4 h-[100vh] -mt-32 -z-10">
+            <div className="rounded-xl"></div>
+            <div className="rounded-xl"></div>
+            <div className="rounded-xl"></div>
+            <div className="rounded-xl"></div>
           </div>
         </div>
       </main>
