@@ -20,18 +20,26 @@ export function HeroVideo() {
   }, []);
 
   const getAnimationValues = () => {
-    if (!containerRef.current) return { scale: 1, y: 0, opacity: 1 };
+    if (!containerRef.current) return { scale: 1, y: 0 };
 
     const rect = containerRef.current.getBoundingClientRect();
     const animationStart = 0;
+    // Animate over a scroll distance equal to 50% of the viewport height
     const animationEnd = window.innerHeight * 0.5;
     const progress = Math.max(
       0,
       Math.min(1, (scrollY - animationStart) / (animationEnd - animationStart))
     );
 
-    const targetScale = 2.4;
-    const targetY = 170;
+    // Calculate target scale to fill the width.
+    // Assuming the grid is roughly the viewport width minus padding.
+    const screenWidth = window.innerWidth;
+    const currentWidth = rect.width;
+    const targetScale = screenWidth / currentWidth;
+    
+    // Target Y to move it down into the next section.
+    // This value may need tweaking based on the exact layout.
+    const targetY = 300; 
 
     const scale = 1 + (targetScale - 1) * progress;
     const y = targetY * progress;
