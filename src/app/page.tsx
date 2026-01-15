@@ -22,7 +22,7 @@ export default function Home() {
         <div className="mt-20 flex flex-col gap-[112px]">
           {/* Upper Block */}
           <section className="flex justify-between items-start w-full">
-            <div className="flex flex-col items-start gap-1 pt-2">
+            <div className="flex flex-col items-end gap-1 pt-2">
               <span className="font-bold text-base leading-tight">
                 Scroll Me
               </span>
