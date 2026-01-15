@@ -23,6 +23,7 @@ export function HeroVideo() {
 
     // Use a timeout to ensure all elements are rendered and have their final dimensions
     const timer = setTimeout(() => {
+      if (!videoEl || !target) return;
       const targetRect = target.getBoundingClientRect();
       const videoRect = videoEl.getBoundingClientRect();
       
@@ -45,7 +46,7 @@ export function HeroVideo() {
         scale: scale,
         y: y,
         x: x,
-        ease: 'none',
+        ease: 'power1.inOut', // Changed from 'none' for a smoother feel
       });
     }, 100); // A small delay can help ensure accurate measurements
 
@@ -62,7 +63,7 @@ export function HeroVideo() {
   return (
     <div
       ref={videoRef}
-      className={cn('w-[568px] h-[320px] will-change-transform')}
+      className={cn('w-[568px] h-[320px] will-change-transform z-10')} // Added z-index
       style={{ transformOrigin: 'top left' }} // Animate from top-left
     >
       <div
