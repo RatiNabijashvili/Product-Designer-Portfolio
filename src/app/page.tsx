@@ -20,7 +20,7 @@ export default function Home() {
 
           <div className="mt-20 flex flex-col gap-[112px]">
             <div className="relative flex justify-between items-start w-full h-[40vh]">
-              <div className="flex flex-col items-start gap-1 pt-2">
+              <div className="flex flex-col items-start gap-1">
                 <span className="font-bold text-base leading-tight">
                   Scroll Me
                 </span>
