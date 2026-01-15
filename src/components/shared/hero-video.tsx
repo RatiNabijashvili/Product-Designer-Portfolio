@@ -9,53 +9,69 @@ export function HeroVideo() {
   const heroVideoImage = PlaceHolderImages.find((p) => p.id === 'hero-video');
   const [scrollY, setScrollY] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const initialTop = useRef<number | null>(null);
+  const initialLeft = useRef<number | null>(null);
+
 
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY);
     };
 
+    if (containerRef.current && initialTop.current === null) {
+      const rect = containerRef.current.getBoundingClientRect();
+      initialTop.current = rect.top + window.scrollY;
+      initialLeft.current = rect.left + window.scrollX;
+    }
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const getAnimationValues = () => {
-    if (typeof window === 'undefined' || !containerRef.current) return { scale: 1, y: 0, opacity: 1 };
+    if (typeof window === 'undefined' || !containerRef.current || initialTop.current === null) {
+        return { scale: 1, y: 0, x: 0, opacity: 1, position: 'relative' as const, top: 0, left: 0, zIndex: 1 };
+    }
     
     const worksSection = document.getElementById('works-section');
-    if (!worksSection) return { scale: 1, y: 0, opacity: 1 };
+    if (!worksSection) return { scale: 1, y: 0, x: 0, opacity: 1, position: 'relative' as const, top: 0, left: 0, zIndex: 1 };
 
-    const rect = containerRef.current.getBoundingClientRect();
     const worksRect = worksSection.getBoundingClientRect();
 
     const animationStart = 0;
-    // Animate over a scroll distance equal to 50% of the viewport height
     const animationEnd = window.innerHeight * 0.5;
     const progress = Math.max(
       0,
       Math.min(1, (scrollY - animationStart) / (animationEnd - animationStart))
     );
 
-    // Calculate target scale to fill the width of the grid.
     const screenWidth = window.innerWidth;
-    const currentWidth = rect.width;
     // p-8 on main means 2rem (32px) padding on each side
-    const targetGridWidth = screenWidth - (2 * 32); 
+    const contentPadding = 32;
+    const currentWidth = 568; // The video's initial width
+    const targetGridWidth = screenWidth - (2 * contentPadding); 
     const targetScale = targetGridWidth / currentWidth;
     
-    // Target Y to move it to the top of the "works-section"
-    // It's the top of works-section relative to viewport, plus scrollY to get absolute doc position
-    // minus the video's current top position in the document.
-    const targetY = worksRect.top + window.scrollY - rect.top;
+    const targetY = worksRect.top + window.scrollY;
 
     const scale = 1 + (targetScale - 1) * progress;
-    const y = targetY * progress;
-    const opacity = 1 - progress * 0.5; // Slightly fade the overlay as it expands
+    const y = (targetY - initialTop.current) * progress;
+    // We want it to be centered in the content area
+    const targetX = contentPadding; 
+    const x = (targetX - initialLeft.current) * progress;
+    
+    const opacity = 1 - progress * 0.5;
 
-    return { scale, y, opacity };
+    const position = progress > 0 ? 'fixed' : 'relative';
+    const top = progress > 0 ? initialTop.current : 0;
+    const left = progress > 0 ? initialLeft.current : 0;
+    const zIndex = progress > 0 ? 10 : 1;
+
+
+    return { scale, y, x, opacity, position, top, left, zIndex };
   };
 
-  const { scale, y, opacity } = getAnimationValues();
+  const { scale, y, x, opacity, position, top, left, zIndex } = getAnimationValues();
 
   if (!heroVideoImage) {
     return <div className="w-[568px] h-[320px] bg-muted rounded-xl shadow-lg" />;
@@ -64,10 +80,16 @@ export function HeroVideo() {
   return (
     <div
       ref={containerRef}
-      className="w-[568px] h-[320px] origin-top"
       style={{
-        transform: `translateY(${y}px) scale(${scale})`,
-        willChange: 'transform',
+        width: '568px',
+        height: '320px',
+        position,
+        top: `${top}px`,
+        left: `${left}px`,
+        transform: `translate(${x}px, ${y}px) scale(${scale})`,
+        transformOrigin: 'top left',
+        willChange: 'transform, position, top, left',
+        zIndex,
       }}
     >
       <div

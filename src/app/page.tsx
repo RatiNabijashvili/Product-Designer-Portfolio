@@ -18,18 +18,22 @@ export default function Home() {
 
         <div className="mt-20 flex flex-col gap-2">
           {/* Upper Block */}
-          <section className="flex justify-between items-start w-full h-[40vh]">
+          <section className="relative flex justify-between items-start w-full h-[40vh]">
             <div className="flex flex-col items-end gap-1 pt-2">
               <span className="font-bold text-base leading-tight">
                 Scroll Me
               </span>
               <ArrowDown className="size-6" />
             </div>
+            {/* The video component is positioned absolutely by the animation hook */}
             <HeroVideo />
           </section>
 
           {/* Bottom Block - The target for the animation */}
-          <section id="works-section" className="relative flex flex-col gap-4 w-full mt-24">
+          <section
+            id="works-section"
+            className="relative flex flex-col gap-4 w-full mt-24"
+          >
             <div className="relative w-full font-bold text-xl uppercase leading-none">
               <span className="absolute left-0">A</span>
               <span className="text-center block">Quietly</span>
@@ -42,11 +46,11 @@ export default function Home() {
               </h1>
             </div>
             {/* The grid that the video will become a background for */}
-            <div className="grid grid-cols-2 gap-4 h-[100vh] -mt-32">
-                <div className="col-span-1 rounded-xl"></div>
-                <div className="col-span-1 rounded-xl"></div>
-                <div className="col-span-1 rounded-xl"></div>
-                <div className="col-span-1 rounded-xl"></div>
+            <div className="grid grid-cols-2 gap-4 h-[100vh] -mt-32 -z-10">
+              <div className="col-span-1 rounded-xl"></div>
+              <div className="col-span-1 rounded-xl"></div>
+              <div className="col-span-1 rounded-xl"></div>
+              <div className="col-span-1 rounded-xl"></div>
             </div>
           </section>
         </div>
