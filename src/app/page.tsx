@@ -53,9 +53,6 @@ export default function Home() {
         <div id="works-section" className="mt-12">
           <div className="grid grid-cols-1 gap-4 h-[100vh] -mt-32 -z-10">
             <div className="rounded-xl"></div>
-            <div className="rounded-xl"></div>
-            <div className="rounded-xl"></div>
-            <div className="rounded-xl"></div>
           </div>
         </div>
       </main>
