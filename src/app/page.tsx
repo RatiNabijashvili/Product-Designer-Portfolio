@@ -32,7 +32,7 @@ export default function Home() {
           {/* Bottom Block - The target for the animation */}
           <section
             id="works-section"
-            className="relative flex flex-col gap-4 w-full mt-24"
+            className="relative flex flex-col gap-4 w-full mt-12"
           >
             <div className="relative w-full font-bold text-xl uppercase leading-none">
               <span className="absolute left-0">A</span>
