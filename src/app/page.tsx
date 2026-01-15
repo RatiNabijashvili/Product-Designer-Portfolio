@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="bg-background min-h-screen text-primary antialiased">
       <main className="p-8 font-body">
-        <div>
+        <div id="hero-section">
           <header className="flex justify-between items-center w-full">
             <div className="font-bold text-2xl tracking-wider">LOGO</div>
             <Button
