@@ -16,7 +16,7 @@ export default function Home() {
           </Button>
         </header>
 
-        <div className="mt-20 flex flex-col">
+        <div className="mt-20 flex flex-col gap-[112px]">
           {/* Upper Block */}
           <div className="relative flex justify-end items-end w-full h-[40vh]">
             <div className="flex flex-col items-end gap-1 pt-2">
@@ -28,30 +28,30 @@ export default function Home() {
             {/* The video component is positioned absolutely by the animation hook */}
             <HeroVideo />
           </div>
-        </div>
 
-        {/* Bottom Block - The target for the animation */}
-        <div
-          id="works-section"
-          className="relative flex flex-col gap-4 w-full mt-28"
-        >
-          <div className="relative w-full font-bold text-xl uppercase leading-none">
-            <span className="absolute left-0">A</span>
-            <span className="text-center block">Quietly</span>
-            <span className="absolute right-0 top-0">Confident</span>
-          </div>
-          <div className="w-full mt-4 @container">
-            <h1 className="flex justify-center text-center gap-x-[5.5cqw] font-headline text-[max(4rem,min(13.6cqw,20rem))] leading-[0.8] text-primary uppercase w-full">
-              <span>Product</span>
-              <span>Designer</span>
-            </h1>
-          </div>
-          {/* The grid that the video will become a background for */}
-          <div className="grid grid-cols-2 gap-4 h-[100vh] -mt-32 -z-10">
-            <div className="col-span-1 rounded-xl"></div>
-            <div className="col-span-1 rounded-xl"></div>
-            <div className="col-span-1 rounded-xl"></div>
-            <div className="col-span-1 rounded-xl"></div>
+          {/* Bottom Block */}
+          <div
+            id="works-section"
+            className="relative flex flex-col gap-4 w-full"
+          >
+            <div className="relative w-full font-bold text-xl uppercase leading-none">
+              <span className="absolute left-0">A</span>
+              <span className="text-center block">Quietly</span>
+              <span className="absolute right-0 top-0">Confident</span>
+            </div>
+            <div className="w-full mt-4 @container">
+              <h1 className="flex justify-center text-center gap-x-[5.5cqw] font-headline text-[max(4rem,min(13.6cqw,20rem))] leading-[0.8] text-primary uppercase w-full">
+                <span>Product</span>
+                <span>Designer</span>
+              </h1>
+            </div>
+            {/* The grid that the video will become a background for */}
+            <div className="grid grid-cols-2 gap-4 h-[100vh] -mt-32 -z-10">
+              <div className="col-span-1 rounded-xl"></div>
+              <div className="col-span-1 rounded-xl"></div>
+              <div className="col-span-1 rounded-xl"></div>
+              <div className="col-span-1 rounded-xl"></div>
+            </div>
           </div>
         </div>
       </main>
