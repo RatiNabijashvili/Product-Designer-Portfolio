@@ -55,8 +55,8 @@ export function PhilosophySection() {
   const line1 = 'I design with purpose, creating clarity, simplicity and';
   const line2Bold = 'experiences that';
   const line2Rest = ' feel effortless. Every detail matters and';
-  const line3 = 'every choice has meaning. My work reflects how I live:';
-  const line4 = 'focused, intentional and always thinking several steps ahead.';
+  const line3 = 'every choice has meaning. My work reflects how I live: focused,';
+  const line4 = 'intentional and always thinking several steps ahead.';
 
   return (
     <section ref={sectionRef} className="min-h-screen flex items-center justify-center px-8">
