@@ -2,12 +2,12 @@
 export function PhilosophySection() {
   return (
     <section className="py-32 px-8">
-      <p className="text-center text-3xl leading-relaxed max-w-4xl mx-auto font-body uppercase">
-        <span className="text-primary font-medium">
+      <p className="text-right text-[32px] leading-normal max-w-4xl ml-auto font-body uppercase font-bold">
+        <span className="text-primary">
           I design with purpose, creating clarity, simplicity and experiences
           that feel effortless.
         </span>
-        <span className="text-muted-foreground">
+        <span className="text-[#919191]">
           {' '}
           Every detail matters and every choice has meaning. My work reflects
           how I live: focused, intentional and always thinking several steps
