@@ -22,8 +22,8 @@ export default function Home() {
           <div className="flex flex-grow flex-col justify-center px-8">
             {/* The video is now statically positioned to the right */}
             <div className="relative flex w-full justify-end">
-              <div className="absolute left-0 top-0 flex flex-col items-center gap-2 text-primary">
-                <span className="font-body text-sm uppercase tracking-widest [writing-mode:vertical-rl] rotate-180">
+              <div className="absolute left-0 top-0 flex flex-col items-start gap-2 text-primary">
+                <span className="font-body text-sm uppercase tracking-widest">
                   Scroll Me
                 </span>
                 <ArrowDown className="h-6 w-6" />
