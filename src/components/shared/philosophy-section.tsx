@@ -8,8 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function PhilosophySection() {
   const sectionRef = useRef(null);
-  const text1Ref = useRef(null);
-  const text2Ref = useRef(null);
+  const animatedTextContainerRef = useRef(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -24,30 +23,43 @@ export function PhilosophySection() {
       });
 
       tl.fromTo(
-        [text1Ref.current, text2Ref.current],
-        { opacity: 0 },
-        { opacity: 1, stagger: 0.2 }
+        animatedTextContainerRef.current,
+        { clipPath: 'inset(0% 0% 100% 0%)' },
+        { clipPath: 'inset(0% 0% 0% 0%)' }
       );
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
+  const text1 = 'I design with purpose, creating clarity, simplicity and';
+  const text2Bold = 'experiences that';
+  const text2Rest =
+    ' feel effortless. Every detail matters and every choice has meaning. My work reflects how I live: focused, intentional and always thinking several steps ahead.';
+
   return (
     <section ref={sectionRef} className="min-h-screen flex items-center justify-center px-8">
-      <div className="text-[32px] leading-normal max-w-7xl font-body uppercase">
-        <p ref={text1Ref} className="font-bold text-primary text-right">
-          I design with purpose, creating clarity, simplicity and
-        </p>
-        <p ref={text2Ref} className="text-left">
-          <span className="font-bold text-primary">experiences that</span>
-          <span className="text-[#919191]">
-            {' '}
-            feel effortless. Every detail matters and every choice has meaning. My work reflects
-            how I live: focused, intentional and always thinking several steps
-            ahead.
-          </span>
-        </p>
+      <div className="text-[32px] leading-normal max-w-7xl font-body uppercase relative">
+        {/* Base layer (gray text) */}
+        <div className="text-[#919191]">
+          <p className="font-bold text-right">{text1}</p>
+          <p className="text-left">
+            <span className="font-bold">{text2Bold}</span>
+            <span>{text2Rest}</span>
+          </p>
+        </div>
+
+        {/* Animated layer (primary color text) */}
+        <div
+          ref={animatedTextContainerRef}
+          className="absolute top-0 left-0 w-full h-full"
+        >
+          <p className="font-bold text-primary text-right">{text1}</p>
+          <p className="text-left">
+            <span className="font-bold text-primary">{text2Bold}</span>
+            <span className="text-primary">{text2Rest}</span>
+          </p>
+        </div>
       </div>
     </section>
   );
