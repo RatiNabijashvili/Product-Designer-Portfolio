@@ -24,7 +24,7 @@ export function PhilosophySection() {
 
       tl.fromTo(
         animatedTextContainerRef.current,
-        { clipPath: 'inset(0% 0% 100% 0%)' },
+        { clipPath: 'inset(0% 100% 0% 0%)' },
         { clipPath: 'inset(0% 0% 0% 0%)' }
       );
     }, sectionRef);
