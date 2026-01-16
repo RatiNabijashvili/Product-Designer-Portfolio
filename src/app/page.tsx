@@ -59,8 +59,8 @@ export default function Home() {
               {/* This space is where the video will land */}
             </div>
           </div>
-          <PhilosophySection />
         </div>
+        <PhilosophySection />
       </main>
     </div>
   );
