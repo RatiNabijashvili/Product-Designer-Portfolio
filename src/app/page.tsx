@@ -52,17 +52,15 @@ export default function Home() {
           </div>
         </div>
 
-        <div id="works-section" className="h-[100vh]">
+        <div id="works-section">
           {/* The video will animate to fill this grid item */}
           <div className="grid grid-cols-1 gap-4">
             <div id="work-item-1" className="rounded-xl h-[100vh] bg-background">
               {/* This space is where the video will land */}
             </div>
           </div>
+          <PhilosophySection />
         </div>
-        
-        <PhilosophySection />
-
       </main>
     </div>
   );
