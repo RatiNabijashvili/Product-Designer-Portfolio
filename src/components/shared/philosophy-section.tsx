@@ -2,7 +2,7 @@
 export function PhilosophySection() {
   return (
     <section className="min-h-screen flex items-center justify-center px-8">
-      <div className="text-[32px] leading-normal max-w-4xl font-body uppercase text-left">
+      <div className="text-[32px] leading-normal max-w-5xl font-body uppercase text-left">
         <p className="font-bold text-primary">
           I design with purpose, creating clarity, simplicity and
         </p>
