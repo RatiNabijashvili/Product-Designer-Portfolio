@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function PhilosophySection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const textContainerRef = useRef<HTMLDivElement>(null);
   const line1Ref = useRef<HTMLDivElement>(null);
   const line2Ref = useRef<HTMLDivElement>(null);
   const line3Ref = useRef<HTMLDivElement>(null);
@@ -15,7 +16,7 @@ export function PhilosophySection() {
 
   useLayoutEffect(() => {
     // A guard to ensure the refs are mounted before running the animation
-    if (!sectionRef.current || !line1Ref.current || !line2Ref.current || !line3Ref.current || !line4Ref.current) {
+    if (!sectionRef.current || !textContainerRef.current || !line1Ref.current || !line2Ref.current || !line3Ref.current || !line4Ref.current) {
       return;
     }
 
@@ -24,13 +25,18 @@ export function PhilosophySection() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top top',
-          end: '+=200%', // Adjust scroll duration for a smoother effect
+          end: '+=250%', // Adjust scroll duration for a smoother effect
           pin: true,
           scrub: 1,
         },
       });
 
       tl.fromTo(
+        textContainerRef.current,
+        { scale: 0.8, opacity: 0 },
+        { scale: 1, opacity: 1, ease: 'power1.inOut' }
+      )
+      .fromTo(
         line1Ref.current,
         { clipPath: 'inset(0 100% 0 0)' },
         { clipPath: 'inset(0 0% 0 0)', ease: 'none' }
@@ -54,13 +60,13 @@ export function PhilosophySection() {
 
   const line1 = 'I design with purpose, creating clarity, simplicity and';
   const line2Bold = 'experiences that';
-  const line2Rest = ' feel effortless. Every detail matters and';
-  const line3 = 'every choice has meaning. My work reflects how I live: focused,';
+  const line2Rest = ' feel effortless. Every detail matters and every';
+  const line3 = ' choice has meaning. My work reflects how I live: focused,';
   const line4 = 'intentional and always thinking several steps ahead.';
 
   return (
     <section ref={sectionRef} className="min-h-screen flex items-center justify-center px-8">
-      <div className="text-[32px] leading-normal max-w-7xl font-body uppercase w-full space-y-1">
+      <div ref={textContainerRef} className="text-[32px] leading-normal max-w-7xl font-body uppercase w-full space-y-1">
         
         {/* Line 1 */}
         <div className="relative">
