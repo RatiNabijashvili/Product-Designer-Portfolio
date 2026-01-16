@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useLayoutEffect, useRef } from 'react';
@@ -33,7 +34,7 @@ export function PhilosophySection() {
 
       tl.fromTo(
         textContainerRef.current,
-        { scale: 0.8, opacity: 0 },
+        { scale: 0.5, opacity: 0 },
         { scale: 1, opacity: 1, ease: 'power1.inOut' }
       )
       .fromTo(
