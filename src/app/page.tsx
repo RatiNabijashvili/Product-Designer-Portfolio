@@ -2,6 +2,7 @@
 import { Button } from '@/components/ui/button';
 import { ArrowDown } from 'lucide-react';
 import { HeroVideo } from '@/components/shared/hero-video';
+import { PhilosophySection } from '@/components/shared/philosophy-section';
 
 export default function Home() {
   return (
@@ -50,6 +51,8 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        <PhilosophySection />
 
         <div id="works-section" className="h-[100vh]">
           {/* The video will animate to fill this grid item */}
