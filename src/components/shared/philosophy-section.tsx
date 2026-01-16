@@ -7,10 +7,15 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 export function PhilosophySection() {
-  const sectionRef = useRef(null);
-  const animatedTextContainerRef = useRef(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const animatedTextContainerRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
+    // A guard to ensure the refs are mounted before running the animation
+    if (!sectionRef.current || !animatedTextContainerRef.current) {
+      return;
+    }
+
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
