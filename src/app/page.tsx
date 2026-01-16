@@ -19,7 +19,7 @@ export default function Home() {
           </header>
 
           {/* This container holds the main hero content and centers it vertically. */}
-          <div className="flex flex-grow flex-col justify-center px-8">
+          <div className="flex flex-grow flex-col justify-center px-8 pt-16">
             {/* The video is now statically positioned to the right */}
             <div className="relative flex w-full justify-end">
               <div className="absolute left-0 top-0 flex flex-col items-end gap-2 text-[#030C0C]">
