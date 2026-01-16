@@ -22,7 +22,7 @@ export default function Home() {
           <div className="flex flex-grow flex-col justify-center px-8">
             {/* The video is now statically positioned to the right */}
             <div className="relative flex w-full justify-end">
-              <div className="absolute left-0 top-0 flex flex-col items-center gap-2 text-[#030C0C]">
+              <div className="absolute left-0 top-0 flex flex-col items-end gap-2 text-[#030C0C]">
                 <span className="font-body text-base font-bold leading-tight">
                   Scroll Me
                 </span>
