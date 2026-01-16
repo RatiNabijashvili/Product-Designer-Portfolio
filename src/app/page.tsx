@@ -52,8 +52,6 @@ export default function Home() {
           </div>
         </div>
 
-        <PhilosophySection />
-
         <div id="works-section" className="h-[100vh]">
           {/* The video will animate to fill this grid item */}
           <div className="grid grid-cols-1 gap-4">
@@ -62,6 +60,9 @@ export default function Home() {
             </div>
           </div>
         </div>
+        
+        <PhilosophySection />
+
       </main>
     </div>
   );
