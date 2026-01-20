@@ -35,7 +35,7 @@ export function WorkSection() {
             trigger: sectionRef.current,
             start: 'top 70%',
             end: 'top 40%',
-            scrub: true,
+            scrub: 1, // Makes the animation smooth and linked to scroll
           },
         }
       );
@@ -49,7 +49,7 @@ export function WorkSection() {
           {
             opacity: 1,
             y: 0,
-            duration: 0.5,
+            duration: 1.2, // Slower animation
             ease: 'power2.out',
             scrollTrigger: {
               trigger: item as HTMLElement,
