@@ -80,14 +80,15 @@ export function WorkSection() {
               {/* Right Column */}
               <div className="flex items-center justify-center">
                 {projectImage && (
+                  <div className="relative w-full aspect-[680/382] rounded-lg overflow-hidden">
                     <Image
-                    src={projectImage.imageUrl}
-                    alt={project.name}
-                    width={680}
-                    height={382}
-                    className="rounded-lg object-cover"
-                    data-ai-hint={projectImage.imageHint}
-                  />
+                      src={projectImage.imageUrl}
+                      alt={project.name}
+                      fill
+                      className="object-cover"
+                      data-ai-hint={projectImage.imageHint}
+                    />
+                  </div>
                 )}
               </div>
             </div>
