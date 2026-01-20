@@ -48,7 +48,7 @@ export function WorkSection() {
                   <h3 className="text-3xl font-bold uppercase text-[#030C0C]">
                     {project.name}
                   </h3>
-                  <p className="text-xl font-medium text-[#919191] capitalize leading-[150%] lg:min-h-40">
+                  <p className="text-xl font-medium text-[#919191] capitalize leading-[150%]">
                     {project.description}
                   </p>
                 </div>
