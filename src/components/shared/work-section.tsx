@@ -1,30 +1,86 @@
 'use client';
 
+import { useLayoutEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Lock } from 'lucide-react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { projects } from '@/lib/projects-data';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
+gsap.registerPlugin(ScrollTrigger);
+
 export function WorkSection() {
   const fixedWidthTags = ['SaaS', 'B2B', 'B2C'];
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLHeadingElement>(null);
+
+  useLayoutEffect(() => {
+    // A guard to ensure all refs are mounted
+    if (!sectionRef.current || !headerRef.current) {
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      // Animate the header
+      gsap.fromTo(
+        headerRef.current,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 70%',
+            end: 'top 40%',
+            scrub: true,
+          },
+        }
+      );
+
+      // Animate each project item as it scrolls into view
+      const projectItems = gsap.utils.toArray('.project-item');
+      projectItems.forEach((item) => {
+        gsap.fromTo(
+          item as HTMLElement,
+          { opacity: 0, y: 32 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: item as HTMLElement,
+              start: 'top 85%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="mt-40 px-8">
-      <header className="mb-12">
+    <section ref={sectionRef} className="mt-40 px-8">
+      <header ref={headerRef} className="mb-12">
         <h2 className="text-xl font-bold uppercase leading-none text-[#919191]">
           01 / WORK
         </h2>
       </header>
       <div className="flex flex-col">
         {projects.map((project, index) => {
-          const projectImage = PlaceHolderImages.find(p => p.id === project.imageId);
+          const projectImage = PlaceHolderImages.find(
+            (p) => p.id === project.imageId
+          );
 
           return (
             <div
               key={project.id}
-              className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-8 border-t border-[#DCDCDC]"
+              className="project-item grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-8 border-t border-[#DCDCDC]"
             >
               {/* Left Column */}
               <div className="flex flex-col justify-center space-y-10">
@@ -68,9 +124,7 @@ export function WorkSection() {
                       </div>
                     </div>
                   ) : (
-                    <Button
-                      className="w-[136px] h-12 rounded-full bg-[#181818] text-[#FCFAFA] font-bold text-base leading-[120%] capitalize hover:bg-[#181818]/90"
-                    >
+                    <Button className="w-[136px] h-12 rounded-full bg-[#181818] text-[#FCFAFA] font-bold text-base leading-[120%] capitalize hover:bg-[#181818]/90">
                       View Project
                     </Button>
                   )}
