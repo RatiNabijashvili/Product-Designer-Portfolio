@@ -59,38 +59,31 @@ export function PhilosophySection() {
   }, []);
 
   const line1 = 'I design with purpose, creating clarity, simplicity and';
-  const line2Bold = 'experiences that';
-  const line2Rest = ' feel effortless. Every detail matters and every';
+  const line2 = 'experiences that feel effortless. Every detail matters and every';
   const line3 = ' choice has meaning. My work reflects how I live: focused,';
   const line4 = 'intentional and always thinking several steps ahead.';
 
   return (
     <section ref={sectionRef} className="min-h-screen flex items-center justify-center px-8">
-      <div ref={textContainerRef} className="text-[32px] leading-normal max-w-7xl uppercase w-full space-y-1">
+      <div ref={textContainerRef} className="text-[32px] leading-normal max-w-7xl uppercase w-full space-y-1 font-bold">
         
         {/* Line 1 */}
         <div className="relative">
           {/* Base layer (gray) */}
-          <p className="font-bold text-right text-[#919191]">{line1}</p>
+          <p className="text-right text-[#919191]">{line1}</p>
           {/* Animated layer (primary) */}
           <div ref={line1Ref} className="absolute top-0 left-0 w-full h-full">
-            <p className="font-bold text-right text-primary">{line1}</p>
+            <p className="text-right text-primary">{line1}</p>
           </div>
         </div>
 
         {/* Line 2 */}
         <div className="relative">
           {/* Base layer (gray) */}
-          <p className="text-left text-[#919191]">
-            <span className="font-bold">{line2Bold}</span>
-            <span>{line2Rest}</span>
-          </p>
+          <p className="text-left text-[#919191]">{line2}</p>
           {/* Animated layer (primary) */}
           <div ref={line2Ref} className="absolute top-0 left-0 w-full h-full">
-            <p className="text-left text-primary">
-              <span className="font-bold">{line2Bold}</span>
-              <span>{line2Rest}</span>
-            </p>
+            <p className="text-left text-primary">{line2}</p>
           </div>
         </div>
 
