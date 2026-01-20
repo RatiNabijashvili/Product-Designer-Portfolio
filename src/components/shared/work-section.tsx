@@ -46,10 +46,9 @@ export function WorkSection() {
       const projectItems = gsap.utils.toArray('.project-item');
       gsap.set(projectItems, { opacity: 0, y: 64 });
 
-      // Batch animate project items after the header animation
+      // Batch animate project items. Each item will be its own trigger.
       ScrollTrigger.batch(projectItems, {
-        trigger: sectionRef.current,
-        start: 'top 30%', // Start after the header animation is complete
+        start: 'top 85%', // Start when the top of an item is 85% from the top of the viewport
         onEnter: (batch) =>
           gsap.to(batch, {
             opacity: 1,
@@ -58,7 +57,7 @@ export function WorkSection() {
             ease: 'power2.out',
             stagger: 0.2,
           }),
-        once: true, // Run the animation only once
+        once: true, // Run the animation only once for each batch
       });
     }, sectionRef);
 
