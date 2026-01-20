@@ -27,7 +27,7 @@ export function WorkSection() {
               className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-8 border-t border-[#DCDCDC]"
             >
               {/* Left Column */}
-              <div className="flex flex-col justify-center space-y-8">
+              <div className="flex flex-col justify-center space-y-10">
                 <div className="flex flex-wrap gap-3">
                   {project.tags.map((tag) => (
                     <div
