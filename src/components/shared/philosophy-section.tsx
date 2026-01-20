@@ -67,7 +67,7 @@ export function PhilosophySection() {
 
   return (
     <section ref={sectionRef} className="min-h-screen flex items-center justify-center px-8">
-      <div ref={textContainerRef} className="text-[32px] leading-normal max-w-7xl font-body uppercase w-full space-y-1">
+      <div ref={textContainerRef} className="text-[32px] leading-normal max-w-7xl uppercase w-full space-y-1">
         
         {/* Line 1 */}
         <div className="relative">
