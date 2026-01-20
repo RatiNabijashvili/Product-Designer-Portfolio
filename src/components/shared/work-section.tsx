@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export function WorkSection() {
+  const fixedWidthTags = ['SaaS', 'B2B', 'B2C'];
   return (
     <section className="mt-40 px-8">
       <header className="mb-12">
@@ -19,7 +20,6 @@ export function WorkSection() {
       <div className="flex flex-col">
         {projects.map((project, index) => {
           const projectImage = PlaceHolderImages.find(p => p.id === project.imageId);
-          const fixedWidthTags = ['SaaS', 'B2B', 'B2C'];
 
           return (
             <div
@@ -59,7 +59,7 @@ export function WorkSection() {
                       <Button
                         variant="secondary"
                         disabled
-                        className="bg-[#E4E4E4] text-[#030C0C] font-bold text-base leading-[120%] capitalize rounded-full h-12 hover:bg-[#E4E4E4]"
+                        className="bg-[#E4E4E4] text-[#030C0C] font-bold text-base leading-[120%] capitalize rounded-full h-12 px-6 hover:bg-[#E4E4E4] disabled:opacity-100"
                       >
                         In Development
                       </Button>
