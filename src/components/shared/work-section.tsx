@@ -24,7 +24,7 @@ export function WorkSection() {
           return (
             <div
               key={project.id}
-              className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center py-8 border-t border-[#DCDCDC]"
+              className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-8 border-t border-[#DCDCDC]"
             >
               {/* Left Column */}
               <div className="flex flex-col justify-center space-y-8">
