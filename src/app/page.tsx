@@ -2,6 +2,7 @@ import { ArrowDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { HeroVideo } from '@/components/shared/hero-video';
 import { PhilosophySection } from '@/components/shared/philosophy-section';
+import { WorkSection } from '@/components/shared/work-section';
 
 export default function Home() {
   return (
@@ -11,7 +12,8 @@ export default function Home() {
           <header className="flex w-full items-center justify-between p-8">
             <div className="font-bold tracking-wider text-2xl">LOGO</div>
             <Button
-              className="h-14 w-40 rounded-full bg-primary font-bold text-xl leading-tight text-primary-foreground hover:bg-primary/90"
+              variant="default"
+              className="h-14 w-40 rounded-full bg-accent font-bold text-xl leading-tight text-accent-foreground hover:bg-accent/90"
               asChild
             >
               <a href="#contact">Contact Me</a>
@@ -49,6 +51,7 @@ export default function Home() {
           </div>
         </div>
         <PhilosophySection />
+        <WorkSection />
       </main>
     </div>
   );
