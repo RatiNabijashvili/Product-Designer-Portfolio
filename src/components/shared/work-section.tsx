@@ -53,7 +53,7 @@ export function WorkSection() {
           gsap.to(batch, {
             opacity: 1,
             y: 0,
-            duration: 1.2,
+            duration: 1.4,
             ease: 'power2.out',
             stagger: 0.2,
           }),
