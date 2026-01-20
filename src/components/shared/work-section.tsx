@@ -40,24 +40,23 @@ export function WorkSection() {
         }
       );
 
-      // Animate each project item as it scrolls into view
+      // Set initial state for project items
       const projectItems = gsap.utils.toArray('.project-item');
-      projectItems.forEach((item) => {
-        gsap.fromTo(
-          item as HTMLElement,
-          { opacity: 0, y: 32 },
-          {
+      gsap.set(projectItems, { opacity: 0, y: 32 });
+
+      // Batch animate project items after the header animation
+      ScrollTrigger.batch(projectItems, {
+        trigger: sectionRef.current,
+        start: 'top 30%', // Start after the header animation is complete
+        onEnter: (batch) =>
+          gsap.to(batch, {
             opacity: 1,
             y: 0,
-            duration: 1.2, // Slower animation
+            duration: 1.2,
             ease: 'power2.out',
-            scrollTrigger: {
-              trigger: item as HTMLElement,
-              start: 'top 85%',
-              toggleActions: 'play none none none',
-            },
-          }
-        );
+            stagger: 0.2,
+          }),
+        once: true, // Run the animation only once
       });
     }, sectionRef);
 
