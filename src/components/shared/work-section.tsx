@@ -28,9 +28,10 @@ export function WorkSection() {
       // Animate the header
       gsap.fromTo(
         headerRef.current,
-        { opacity: 0 },
+        { opacity: 0, y: 64 },
         {
           opacity: 1,
+          y: 0,
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top 70%',
@@ -43,7 +44,7 @@ export function WorkSection() {
 
       // Set initial state for project items
       const projectItems = gsap.utils.toArray('.project-item');
-      gsap.set(projectItems, { opacity: 0, y: 32 });
+      gsap.set(projectItems, { opacity: 0, y: 64 });
 
       // Batch animate project items after the header animation
       ScrollTrigger.batch(projectItems, {
