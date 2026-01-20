@@ -44,11 +44,11 @@ export function WorkSection() {
                   ))}
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 lg:max-w-[720px]">
                   <h3 className="text-3xl font-bold uppercase text-[#030C0C]">
                     {project.name}
                   </h3>
-                  <p className="text-xl font-medium text-[#919191] capitalize leading-[150%]">
+                  <p className="text-xl font-medium text-[#919191] capitalize leading-[150%] lg:min-h-40">
                     {project.description}
                   </p>
                 </div>
