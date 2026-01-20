@@ -7,7 +7,7 @@ import { WorkSection } from '@/components/shared/work-section';
 export default function Home() {
   return (
     <div className="bg-background min-h-screen text-primary antialiased">
-      <main className="font-body">
+      <main>
         <div className="relative flex h-screen flex-col">
           <header className="flex w-full items-center justify-between p-8">
             <div className="font-bold tracking-wider text-2xl">LOGO</div>
