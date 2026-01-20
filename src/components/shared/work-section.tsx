@@ -36,6 +36,7 @@ export function WorkSection() {
             start: 'top 70%',
             end: 'top 40%',
             scrub: 1, // Makes the animation smooth and linked to scroll
+            once: true, // Run the animation only once
           },
         }
       );
