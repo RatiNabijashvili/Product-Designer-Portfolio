@@ -17,15 +17,15 @@ export function ServicesSection() {
           const Icon = service.icon;
 
           const iconDiv = (
-            <div className="flex h-[480px] w-1/4 items-center justify-center">
+            <div className="col-span-1 flex h-[480px] items-center justify-center">
               <Icon className="h-[200px] w-[200px] text-[#DCDCDC]" />
             </div>
           );
 
-          const emptyDiv = <div className="h-[480px] w-1/4"></div>;
+          const emptyDiv = <div className="col-span-1 h-[480px]"></div>;
 
           const textDiv = (
-            <div className="flex h-[480px] w-1/2 flex-col items-center justify-center space-y-2 border-x border-[#DCDCDC] px-6 text-center">
+            <div className="col-span-2 flex h-[480px] flex-col items-center justify-center space-y-2 border-x border-[#DCDCDC] px-6 text-center">
               <h3 className="font-body text-[32px] font-bold uppercase leading-[1.2] text-primary">
                 {service.title}
               </h3>
@@ -40,7 +40,7 @@ export function ServicesSection() {
               key={service.id}
               className="border-b border-[#DCDCDC] last:border-b-0"
             >
-              <div className="mx-auto flex w-full max-w-[1440px] items-center justify-center">
+              <div className="mx-auto grid w-full max-w-[1440px] grid-cols-4 items-center">
                 {isIconOnLeft ? iconDiv : emptyDiv}
                 {textDiv}
                 {isIconOnLeft ? emptyDiv : iconDiv}
