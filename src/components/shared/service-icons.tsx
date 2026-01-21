@@ -9,7 +9,7 @@ export const IconProductDesign: React.FC<React.SVGProps<SVGSVGElement>> = (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g opacity="0.2">
+    <g opacity="1">
       {[...Array(12)].map((_, i) => (
         <path
           key={i}
@@ -42,7 +42,7 @@ export const IconDesignSystems: React.FC<React.SVGProps<SVGSVGElement>> = (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g opacity="0.2">
+    <g opacity="1">
       <path
         d="M50 10 C 20 20, 20 80, 50 90"
         stroke="currentColor"
@@ -88,7 +88,7 @@ export const IconResearch: React.FC<React.SVGProps<SVGSVGElement>> = (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g opacity="0.2">
+    <g opacity="1">
       {[...Array(20)].map((_, i) =>
         [...Array(20)].map((_, j) => (
           <circle
@@ -113,7 +113,7 @@ export const IconCreativeDevelopment: React.FC<React.SVGProps<SVGSVGElement>> = 
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g opacity="0.2">
+    <g opacity="1">
       {[...Array(20)].map((_, i) => (
         <path
           key={i}
