@@ -29,7 +29,7 @@ export function ServicesSection() {
               <h3 className="font-body text-[32px] font-bold uppercase leading-[1.2] text-primary">
                 {service.title}
               </h3>
-              <p className="font-body text-xl font-medium capitalize leading-[1.5] text-[#919191]">
+              <p className="max-w-[720px] font-body text-xl font-medium capitalize leading-[1.5] text-[#919191]">
                 {service.description}
               </p>
             </div>
