@@ -109,7 +109,7 @@ export function LogoCarousel() {
             'linear-gradient(to right, transparent, white 20%, white 80%, transparent)',
         }}
       >
-        <div className="flex animate-scroll [backface-visibility:hidden] [transform-style:preserve-3d] [will-change:transform]">
+        <div className="flex whitespace-nowrap animate-scroll [backface-visibility:hidden] [transform-style:preserve-3d] [will-change:transform]">
           {allLogos.map((Logo, index) => (
             <div
               key={index}
