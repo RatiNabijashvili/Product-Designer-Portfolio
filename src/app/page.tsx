@@ -54,10 +54,10 @@ export default function Home() {
         </div>
         <PhilosophySection />
         <WorkSection />
-        <ServicesSection />
         <section className="mt-40">
           <LogoCarousel />
         </section>
+        <ServicesSection />
       </main>
     </div>
   );
