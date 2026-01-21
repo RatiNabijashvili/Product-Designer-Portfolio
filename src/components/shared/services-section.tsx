@@ -10,7 +10,7 @@ export function ServicesSection() {
           </h2>
         </header>
       </div>
-      <div className="flex flex-col items-center border-y border-[#E4E4E4]">
+      <div className="border-y border-[#E4E4E4]">
         {services.map((service, index) => {
           // even index (0, 2) => icon on right, odd index (1, 3) => icon on left
           const isIconOnLeft = index % 2 !== 0;
@@ -38,11 +38,13 @@ export function ServicesSection() {
           return (
             <div
               key={service.id}
-              className="flex w-full max-w-[1440px] items-center justify-center border-b border-[#E4E4E4] last:border-b-0"
+              className="border-b border-[#E4E4E4] last:border-b-0"
             >
-              {isIconOnLeft ? iconDiv : emptyDiv}
-              {textDiv}
-              {isIconOnLeft ? emptyDiv : iconDiv}
+              <div className="mx-auto flex w-full max-w-[1440px] items-center justify-center">
+                {isIconOnLeft ? iconDiv : emptyDiv}
+                {textDiv}
+                {isIconOnLeft ? emptyDiv : iconDiv}
+              </div>
             </div>
           );
         })}
