@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { HeroVideo } from '@/components/shared/hero-video';
 import { PhilosophySection } from '@/components/shared/philosophy-section';
 import { WorkSection } from '@/components/shared/work-section';
+import { LogoCarousel } from '@/components/shared/logo-carousel';
 
 export default function Home() {
   return (
@@ -52,6 +53,9 @@ export default function Home() {
         </div>
         <PhilosophySection />
         <WorkSection />
+        <section className="mt-40">
+          <LogoCarousel />
+        </section>
       </main>
     </div>
   );
