@@ -40,7 +40,7 @@ export function ServicesSection() {
               key={service.id}
               className="border-b border-[#DCDCDC] last:border-b-0"
             >
-              <div className="mx-auto grid w-full max-w-[1440px] grid-cols-4 items-center">
+              <div className="grid w-full grid-cols-4 items-center">
                 {isIconOnLeft ? iconDiv : emptyDiv}
                 {textDiv}
                 {isIconOnLeft ? emptyDiv : iconDiv}
