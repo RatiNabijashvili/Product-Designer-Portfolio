@@ -18,7 +18,7 @@ export function ServicesSection() {
 
           const iconDiv = (
             <div className="flex h-[480px] w-[360px] items-center justify-center">
-              <Icon className="h-[200px] w-[200px] text-gray-300" />
+              <Icon className="h-[200px] w-[200px] text-[#DCDCDC]" />
             </div>
           );
 
