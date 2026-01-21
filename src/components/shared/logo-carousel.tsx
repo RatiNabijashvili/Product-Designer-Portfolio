@@ -1,6 +1,7 @@
 'use client';
-import React from 'react';
-import { cn } from '@/lib/utils';
+
+import React, { useLayoutEffect, useRef } from 'react';
+import { gsap } from 'gsap';
 
 const logos: React.FC<React.SVGProps<SVGSVGElement>>[] = [
   (props) => (
@@ -99,6 +100,23 @@ const logos: React.FC<React.SVGProps<SVGSVGElement>>[] = [
 
 export function LogoCarousel() {
   const allLogos = [...logos, ...logos];
+  const marqueeRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const marquee = marqueeRef.current;
+    if (!marquee) return;
+
+    const ctx = gsap.context(() => {
+      gsap.to(marquee, {
+        xPercent: -50,
+        repeat: -1,
+        duration: 40,
+        ease: 'none',
+      });
+    }, marqueeRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <div className="bg-[#E4E4E4] py-10">
@@ -109,10 +127,10 @@ export function LogoCarousel() {
             'linear-gradient(to right, transparent, white 20%, white 80%, transparent)',
         }}
       >
-        <div className="flex whitespace-nowrap animate-scroll [backface-visibility:hidden] [transform-style:preserve-3d] [will-change:transform]">
+        <div ref={marqueeRef} className="flex w-max">
           {allLogos.map((Logo, index) => (
             <div
-              key={index}
+              key={`logo-${index}`}
               className="mx-8 flex flex-shrink-0 items-center justify-center"
               style={{ width: 'auto', height: '1.5rem' }}
             >
