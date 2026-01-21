@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils';
 const logos: React.FC<React.SVGProps<SVGSVGElement>>[] = [
   (props) => (
     <svg
-      height="25"
       viewBox="0 0 95 25"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +18,6 @@ const logos: React.FC<React.SVGProps<SVGSVGElement>>[] = [
   ),
   (props) => (
     <svg
-      height="24"
       viewBox="0 0 162 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +43,6 @@ const logos: React.FC<React.SVGProps<SVGSVGElement>>[] = [
   ),
   (props) => (
     <svg
-      height="25"
       viewBox="0 0 110 25"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +60,6 @@ const logos: React.FC<React.SVGProps<SVGSVGElement>>[] = [
   ),
   (props) => (
     <svg
-      height="30"
       viewBox="0 0 160 30"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -75,7 +71,6 @@ const logos: React.FC<React.SVGProps<SVGSVGElement>>[] = [
   ),
   (props) => (
     <svg
-      height="25"
       viewBox="0 0 150 25"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +82,7 @@ const logos: React.FC<React.SVGProps<SVGSVGElement>>[] = [
     </svg>
   ),
   (props) => (
-    <svg height="25" viewBox="0 0 100 25" fill="currentColor" {...props}>
+    <svg viewBox="0 0 100 25" fill="currentColor" {...props}>
       <path d="M11.66 18.25L10.5 17.37C11.16 16.59 11.96 16.07 12.9 15.85V3H15.1V18H11.66V18.25ZM18.72 18H20.94L24.84 9.51V18H27.06V3H24.54L20.64 11.49V3H18.42V18H18.72ZM37.36 18H30.04V15.7H35.2V12.85H30.04V9.1H35.2V6.3H30.04V3H37.36V18ZM46.92 18H39.6V3H46.92V6.3H41.82V9.1H46.92V12.85H41.82V15.7H46.92V18ZM50.04 18V3H52.26V18H50.04ZM61.32 18H54V3H61.32V6.3H56.22V9.1H61.32V12.85H56.22V15.7H61.32V18ZM69.66 18H62.34V3H69.66V18ZM67.44 5.25H64.56V15.75H67.44V5.25ZM79.62 18H72.3V3H79.62V6.3H74.52V9.1H79.62V12.85H74.52V15.7H79.62V18Z" fill="#030C0C"/>
       <path d="M92.5 10.5C89.46 10.5 87 12.96 87 16C87 19.04 89.46 21.5 92.5 21.5C95.54 21.5 98 19.04 98 16C98 12.96 95.54 10.5 92.5 10.5ZM92.5 19.25C90.73 19.25 89.25 17.77 89.25 16C89.25 14.23 90.73 12.75 92.5 12.75C94.27 12.75 95.75 14.23 95.75 16C95.75 17.77 94.27 19.25 92.5 19.25Z" fill="#030C0C"/>
     </svg>
@@ -111,7 +106,7 @@ export function LogoCarousel() {
             <div
               key={index}
               className="mx-8 flex flex-shrink-0 items-center justify-center"
-              style={{ width: 'auto', height: '2rem' }}
+              style={{ width: 'auto', height: '1.5rem' }}
             >
               <Logo className="h-full w-auto text-black" />
             </div>
