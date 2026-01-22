@@ -59,28 +59,30 @@ export function ServicesSection() {
         }
       );
 
-      // NEW PARALLAX ANIMATION FOR TEXT
+      // NEW "WATERFALL" ANIMATION FOR TEXT
       serviceBlockRefs.current.forEach((block) => {
         if (!block) return;
         const textWrapper = block.querySelector('.service-text-wrapper');
         if (!textWrapper) return;
-        
-        // Animate the text from a starting position of -50% (above center) to +50% (below center)
-        // This creates a much more noticeable parallax effect as the user scrolls.
-        gsap.fromTo(
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: block,
+            start: 'top center',
+            end: 'bottom center',
+            scrub: 1.5,
+          },
+        });
+
+        tl.fromTo(
           textWrapper,
-          { yPercent: -50 },
-          {
-            yPercent: 50,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: block,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: true,
-            },
-          }
-        );
+          { yPercent: -20, opacity: 0 },
+          { yPercent: 0, opacity: 1, ease: 'power2.inOut' }
+        ).to(textWrapper, {
+          yPercent: 20,
+          opacity: 0,
+          ease: 'power2.inOut',
+        });
       });
     }, sectionRef);
 
@@ -110,13 +112,12 @@ export function ServicesSection() {
           const emptyDiv = <div className="col-span-1 h-[480px]"></div>;
 
           const textContainer = (
-            <div className="col-span-2 flex h-[480px] flex-col items-center justify-center border-x border-[#DCDCDC] px-6 text-center">
-              {/* This wrapper is what we will animate for the parallax effect */}
-              <div className="service-text-wrapper">
+            <div className="relative col-span-2 h-[480px] overflow-hidden border-x border-[#DCDCDC]">
+              <div className="service-text-wrapper absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 px-6 text-center">
                 <h3 className="font-body text-[32px] font-bold uppercase leading-[1.2] text-primary">
                   {service.title}
                 </h3>
-                <p className="max-w-[720px] mx-auto font-body text-xl font-medium capitalize leading-[1.5] text-[#919191]">
+                <p className="mx-auto max-w-[720px] font-body text-xl font-medium capitalize leading-[1.5] text-[#919191]">
                   {service.description}
                 </p>
               </div>
