@@ -126,13 +126,12 @@ export function LogoCarousel() {
         { opacity: 0 },
         {
           opacity: 1,
-          duration: 1.5,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: section,
             start: 'top 80%',
             end: 'top 50%',
-            scrub: 1,
+            scrub: 2,
             once: true,
           },
         }
