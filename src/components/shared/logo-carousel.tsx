@@ -2,6 +2,9 @@
 
 import React, { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const logos: React.FC<React.SVGProps<SVGSVGElement>>[] = [
   (props) => (
@@ -101,25 +104,46 @@ const logos: React.FC<React.SVGProps<SVGSVGElement>>[] = [
 export function LogoCarousel() {
   const allLogos = [...logos, ...logos];
   const marqueeRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const marquee = marqueeRef.current;
-    if (!marquee) return;
+    const section = sectionRef.current;
+    if (!marquee || !section) return;
 
     const ctx = gsap.context(() => {
+      // Infinite scroll animation
       gsap.to(marquee, {
         xPercent: -50,
         repeat: -1,
         duration: 40,
         ease: 'none',
       });
-    }, marqueeRef);
+
+      // Fade-in on scroll
+      gsap.fromTo(
+        section,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 1.5,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 80%',
+            end: 'top 50%',
+            scrub: 1,
+            once: true,
+          },
+        }
+      );
+    }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <div className="bg-[#E4E4E4] py-10">
+    <div ref={sectionRef} className="bg-[#E4E4E4] py-10 opacity-0">
       <div
         className="relative w-full overflow-hidden"
         style={{
