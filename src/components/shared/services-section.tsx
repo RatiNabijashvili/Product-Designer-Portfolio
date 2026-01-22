@@ -65,18 +65,22 @@ export function ServicesSection() {
         const textWrapper = block.querySelector('.service-text-wrapper');
         if (!textWrapper) return;
         
-        // This will move the text down as the user scrolls down the page,
-        // creating a simple parallax effect.
-        gsap.to(textWrapper, {
-          y: 100, // Move down by 100px relative to its starting position
-          ease: 'none',
-          scrollTrigger: {
-            trigger: block,
-            start: 'top bottom', // Animation starts when the block's top hits the viewport bottom
-            end: 'bottom top', // Animation ends when the block's bottom hits the viewport top
-            scrub: true, // Link animation directly to scroll
-          },
-        });
+        // Animate the text from a starting position of -50% (above center) to +50% (below center)
+        // This creates a much more noticeable parallax effect as the user scrolls.
+        gsap.fromTo(
+          textWrapper,
+          { yPercent: -50 },
+          {
+            yPercent: 50,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: block,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true,
+            },
+          }
+        );
       });
     }, sectionRef);
 
