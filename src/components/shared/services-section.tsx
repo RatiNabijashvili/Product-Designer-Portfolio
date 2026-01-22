@@ -59,7 +59,7 @@ export function ServicesSection() {
         }
       );
 
-      // NEW "WATERFALL" ANIMATION FOR TEXT
+      // Animate text for each service block
       serviceBlockRefs.current.forEach((block) => {
         if (!block) return;
         const textWrapper = block.querySelector('.service-text-wrapper');
@@ -68,20 +68,20 @@ export function ServicesSection() {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: block,
-            start: 'top center',
-            end: 'bottom center',
-            scrub: 1.5,
+            start: 'top bottom', // When top of block hits bottom of viewport
+            end: 'bottom top',   // When bottom of block hits top of viewport
+            scrub: 1,
           },
         });
 
         tl.fromTo(
           textWrapper,
-          { yPercent: -20, opacity: 0 },
-          { yPercent: 0, opacity: 1, ease: 'power2.inOut' }
+          { y: -240, opacity: 0 },
+          { y: 0, opacity: 1, ease: 'power1.in' }
         ).to(textWrapper, {
-          yPercent: 20,
+          y: 240,
           opacity: 0,
-          ease: 'power2.inOut',
+          ease: 'power1.out',
         });
       });
     }, sectionRef);
