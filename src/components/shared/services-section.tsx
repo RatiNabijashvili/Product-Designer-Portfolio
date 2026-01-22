@@ -59,51 +59,24 @@ export function ServicesSection() {
         }
       );
 
-      // NEW TEXT ANIMATION
-      serviceBlockRefs.current.forEach((block, index) => {
+      // NEW PARALLAX ANIMATION FOR TEXT
+      serviceBlockRefs.current.forEach((block) => {
         if (!block) return;
         const textWrapper = block.querySelector('.service-text-wrapper');
         if (!textWrapper) return;
         
-        // Animate Y from top to bottom of the block
-        gsap.fromTo(textWrapper, {
-          y: 0
-        }, {
-          y: block.clientHeight,
+        // This will move the text down as the user scrolls down the page,
+        // creating a simple parallax effect.
+        gsap.to(textWrapper, {
+          y: 100, // Move down by 100px relative to its starting position
           ease: 'none',
           scrollTrigger: {
             trigger: block,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: true,
+            start: 'top bottom', // Animation starts when the block's top hits the viewport bottom
+            end: 'bottom top', // Animation ends when the block's bottom hits the viewport top
+            scrub: true, // Link animation directly to scroll
           },
         });
-
-        // Fade in from the top
-        gsap.fromTo(textWrapper, {
-          opacity: 0,
-        }, {
-          opacity: 1,
-          scrollTrigger: {
-            trigger: block,
-            start: 'top 70%',
-            end: 'top 40%',
-            scrub: true,
-          },
-        });
-        
-        // Fade out at the bottom
-        if(index < services.length - 1) {
-            gsap.to(textWrapper, {
-            opacity: 0,
-            scrollTrigger: {
-                trigger: block,
-                start: 'bottom 60%',
-                end: 'bottom 30%',
-                scrub: true,
-            },
-            });
-        }
       });
     }, sectionRef);
 
@@ -132,11 +105,10 @@ export function ServicesSection() {
 
           const emptyDiv = <div className="col-span-1 h-[480px]"></div>;
 
-          // The middle column now needs to handle the positioning of the animating text
           const textContainer = (
-            <div className="col-span-2 flex h-[480px] flex-col items-center justify-start border-x border-[#DCDCDC] px-6 text-center relative overflow-hidden">
-              {/* This is the div we will be animating. It's absolutely positioned to move within the container. */}
-              <div className="service-text-wrapper absolute top-0 w-full px-6 pt-[calc(240px-5rem)]"> {/* Vertical centering with padding */}
+            <div className="col-span-2 flex h-[480px] flex-col items-center justify-center border-x border-[#DCDCDC] px-6 text-center">
+              {/* This wrapper is what we will animate for the parallax effect */}
+              <div className="service-text-wrapper">
                 <h3 className="font-body text-[32px] font-bold uppercase leading-[1.2] text-primary">
                   {service.title}
                 </h3>
