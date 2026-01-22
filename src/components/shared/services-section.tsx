@@ -1,16 +1,73 @@
+'use client';
+
+import { useLayoutEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
 import { services } from '@/lib/services-data';
 
+gsap.registerPlugin(ScrollTrigger);
+
 export function ServicesSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    // A guard to ensure all refs are mounted
+    if (!sectionRef.current || !headerRef.current || !contentRef.current) {
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      // Animate the header
+      gsap.fromTo(
+        headerRef.current,
+        { opacity: 0, y: 64 },
+        {
+          opacity: 1,
+          y: 0,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 70%',
+            end: 'top 40%',
+            scrub: 1,
+            once: true,
+          },
+        }
+      );
+
+      // Animate the content block
+      gsap.fromTo(
+        contentRef.current,
+        { opacity: 0, y: 64 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.4,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: contentRef.current,
+            start: 'top 85%',
+            once: true,
+          },
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="mt-40">
+    <section ref={sectionRef} className="mt-40">
       <div className="px-8">
-        <header className="mb-12">
+        <header ref={headerRef} className="mb-12">
           <h2 className="text-xl font-bold uppercase leading-none text-[#919191]">
             02 / SERVICES
           </h2>
         </header>
       </div>
-      <div className="border-y border-[#DCDCDC]">
+      <div ref={contentRef} className="border-y border-[#DCDCDC]">
         {services.map((service, index) => {
           // even index (0, 2) => icon on right, odd index (1, 3) => icon on left
           const isIconOnLeft = index % 2 !== 0;
