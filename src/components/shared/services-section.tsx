@@ -12,11 +12,9 @@ export function ServicesSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  // We need refs to the individual service blocks to use as triggers
   const serviceBlockRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useLayoutEffect(() => {
-    // A guard to ensure all refs are mounted
     if (
       !sectionRef.current ||
       !headerRef.current ||
@@ -64,66 +62,47 @@ export function ServicesSection() {
       // NEW TEXT ANIMATION
       serviceBlockRefs.current.forEach((block, index) => {
         if (!block) return;
-
-        // Find the text wrapper inside the block
         const textWrapper = block.querySelector('.service-text-wrapper');
         if (!textWrapper) return;
-
-        // 1. Animate text moving down with scroll
-        gsap.to(textWrapper, {
-          y: 100, // Move down by 100px
+        
+        // Animate Y from top to bottom of the block
+        gsap.fromTo(textWrapper, {
+          y: 0
+        }, {
+          y: block.clientHeight,
           ease: 'none',
           scrollTrigger: {
             trigger: block,
-            start: 'top bottom', // Start when block top enters viewport bottom
-            end: 'bottom top', // End when block bottom leaves viewport top
-            scrub: 0.5,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
           },
         });
 
-        // 2. Animate opacity for transitions
-        if (index === 0) {
-          // First item: Fade out at the bottom
-          gsap.to(textWrapper, {
-            opacity: 0,
-            ease: 'power1.in',
-            scrollTrigger: {
-              trigger: block,
-              start: 'bottom 70%', // Start fade when bottom of block is at 70% of viewport height
-              end: 'bottom 50%',
-              scrub: true,
-            },
-          });
-        } else {
-          // Other items: Fade in at the top, then fade out at the bottom
-          // Set initial opacity to 0
-          gsap.set(textWrapper, { opacity: 0 });
-
-          // Fade In
-          gsap.to(textWrapper, {
-            opacity: 1,
-            ease: 'power1.out',
-            scrollTrigger: {
-              trigger: block,
-              start: 'top 70%', // Start fade in when top of block is at 70% of viewport height
-              end: 'top 50%',
-              scrub: true,
-            },
-          });
-
-          // Fade Out (for all except the last item)
-          if (index < services.length - 1) {
+        // Fade in from the top
+        gsap.fromTo(textWrapper, {
+          opacity: 0,
+        }, {
+          opacity: 1,
+          scrollTrigger: {
+            trigger: block,
+            start: 'top 70%',
+            end: 'top 40%',
+            scrub: true,
+          },
+        });
+        
+        // Fade out at the bottom
+        if(index < services.length - 1) {
             gsap.to(textWrapper, {
-              opacity: 0,
-              ease: 'power1.in',
-              scrollTrigger: {
+            opacity: 0,
+            scrollTrigger: {
                 trigger: block,
-                start: 'bottom 70%',
-                end: 'bottom 50%',
+                start: 'bottom 60%',
+                end: 'bottom 30%',
                 scrub: true,
-              },
+            },
             });
-          }
         }
       });
     }, sectionRef);
@@ -147,21 +126,21 @@ export function ServicesSection() {
 
           const iconDiv = (
             <div className="col-span-1 flex h-[480px] items-center justify-center">
-              <Icon className="h-[200px] w-[200px] text-primary opacity-1" />
+              <Icon className="h-[200px] w-[200px] text-primary" />
             </div>
           );
 
           const emptyDiv = <div className="col-span-1 h-[480px]"></div>;
 
-          // The middle column now just acts as a container for the text wrapper
+          // The middle column now needs to handle the positioning of the animating text
           const textContainer = (
-            <div className="col-span-2 flex h-[480px] flex-col items-center justify-center border-x border-[#DCDCDC] px-6 text-center">
-              {/* This is the div we will be animating */}
-              <div className="service-text-wrapper space-y-2">
+            <div className="col-span-2 flex h-[480px] flex-col items-center justify-start border-x border-[#DCDCDC] px-6 text-center relative overflow-hidden">
+              {/* This is the div we will be animating. It's absolutely positioned to move within the container. */}
+              <div className="service-text-wrapper absolute top-0 w-full px-6 pt-[calc(240px-5rem)]"> {/* Vertical centering with padding */}
                 <h3 className="font-body text-[32px] font-bold uppercase leading-[1.2] text-primary">
                   {service.title}
                 </h3>
-                <p className="max-w-[720px] font-body text-xl font-medium capitalize leading-[1.5] text-[#919191]">
+                <p className="max-w-[720px] mx-auto font-body text-xl font-medium capitalize leading-[1.5] text-[#919191]">
                   {service.description}
                 </p>
               </div>
