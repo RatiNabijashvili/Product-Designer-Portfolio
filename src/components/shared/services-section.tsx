@@ -147,7 +147,7 @@ export function ServicesSection() {
 
           const iconDiv = (
             <div className="col-span-1 flex h-[480px] items-center justify-center">
-              <Icon className="h-[200px] w-[200px] text-[#DCDCDC]" />
+              <Icon className="h-[200px] w-[200px] text-primary opacity-1" />
             </div>
           );
 
