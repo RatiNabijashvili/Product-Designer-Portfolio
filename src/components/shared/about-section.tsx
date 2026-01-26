@@ -45,10 +45,10 @@ export function AboutSection() {
           </h2>
         </header>
       </div>
-      <div className="border-y border-[#DCDCDC]">
+      <div>
         <div className="grid grid-cols-1 lg:grid-cols-2">
           {/* Left Column */}
-          <div className="flex flex-col justify-between gap-32 border-r border-[#DCDCDC] p-8">
+          <div className="flex flex-col justify-between gap-32 p-8">
             <h3 className="font-body text-[32px] font-bold uppercase leading-[1.5] text-primary">
               I’M RATI.
               <br />
@@ -57,18 +57,21 @@ export function AboutSection() {
               CURRENTLY AT @NOXTTON.
             </h3>
 
-            <div className="grid grid-cols-2 items-end gap-8">
-              <div className="flex flex-col gap-4">
-                {interests.map((interest, index) => (
-                  <div key={index} className="flex items-center gap-1.5">
-                    <interest.icon className="h-6 w-6 text-[#919191]" />
-                    <span className="font-body text-base font-bold capitalize leading-[1.2] text-[#919191]">
-                      {interest.text}
-                    </span>
-                  </div>
-                ))}
-              </div>
-              <div className="space-y-4 text-xl font-medium leading-[1.5] text-[#919191]">
+            <div className="flex flex-col gap-4">
+              {interests.map((interest, index) => (
+                <div key={index} className="flex items-center gap-1.5">
+                  <interest.icon className="h-6 w-6 text-[#919191]" />
+                  <span className="font-body text-base font-bold capitalize leading-[1.2] text-[#919191]">
+                    {interest.text}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Column */}
+          <div className="flex flex-col justify-between gap-8 p-8">
+            <div className="space-y-4 text-xl font-medium leading-[1.5] text-[#919191]">
                 <p>
                   With 3+ years of experience in the design industry, I’ve had
                   the opportunity to work with both corporate teams and
@@ -79,12 +82,8 @@ export function AboutSection() {
                   I’m pushing boundaries and exploring the creative development
                   world, using AI to craft innovative, next-level experiences.
                 </p>
-              </div>
             </div>
-          </div>
-
-          {/* Right Column */}
-          <div className="flex items-center justify-center p-8">
+            
             {aboutImage && (
               <div className="relative h-[640px] w-[480px] overflow-hidden rounded-lg">
                 <Image
