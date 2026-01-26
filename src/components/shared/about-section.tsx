@@ -54,7 +54,7 @@ export function AboutSection() {
           CURRENTLY AT @NOXTTON.
         </h3>
         
-        <div className="w-full flex flex-col lg:flex-row items-start lg:items-end justify-between gap-16">
+        <div className="w-full flex flex-col lg:flex-row items-end justify-between gap-16">
           
           <div className="flex flex-col gap-4">
             {interests.map((interest, index) => (
@@ -68,7 +68,7 @@ export function AboutSection() {
           </div>
 
           <div className="flex flex-col-reverse lg:flex-row items-end gap-4">
-            <div className="flex-1 min-w-[287px] space-y-4 text-xl font-medium leading-[1.5] text-[#919191]">
+            <div className="max-w-[320px] space-y-4 text-xl font-medium leading-[1.5] text-[#919191]">
                 <p>
                   With 3+ years of experience in the design industry, I’ve had
                   the opportunity to work with both corporate teams and
