@@ -71,7 +71,7 @@ export function AboutSection() {
 
           {/* Right Column */}
           <div className="mt-16 flex flex-1 flex-row items-end gap-4 lg:mt-0">
-            <div className="flex-1 space-y-4 text-xl font-medium leading-[1.5] text-[#919191]">
+            <div className="flex-1 min-w-[287px] space-y-4 text-xl font-medium leading-[1.5] text-[#919191]">
                 <p>
                   With 3+ years of experience in the design industry, I’ve had
                   the opportunity to work with both corporate teams and
