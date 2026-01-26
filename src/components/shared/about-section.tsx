@@ -45,10 +45,10 @@ export function AboutSection() {
           </h2>
         </header>
       </div>
-      <div>
-        <div className="grid grid-cols-1 lg:grid-cols-2">
+      <div className="px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-16">
           {/* Left Column */}
-          <div className="flex flex-col justify-between gap-32 p-8">
+          <div className="flex flex-col justify-between gap-32">
             <h3 className="font-body text-[32px] font-bold uppercase leading-[1.5] text-primary">
               I’M RATI.
               <br />
@@ -70,7 +70,7 @@ export function AboutSection() {
           </div>
 
           {/* Right Column */}
-          <div className="flex flex-row items-end gap-4 p-8">
+          <div className="flex flex-row items-end gap-4">
             <div className="space-y-4 text-xl font-medium leading-[1.5] text-[#919191]">
                 <p>
                   With 3+ years of experience in the design industry, I’ve had
