@@ -70,7 +70,7 @@ export function AboutSection() {
           </div>
 
           {/* Right Column */}
-          <div className="flex flex-col justify-between gap-8 p-8">
+          <div className="flex flex-row items-end gap-4 p-8">
             <div className="space-y-4 text-xl font-medium leading-[1.5] text-[#919191]">
                 <p>
                   With 3+ years of experience in the design industry, I’ve had
@@ -85,7 +85,7 @@ export function AboutSection() {
             </div>
             
             {aboutImage && (
-              <div className="relative h-[640px] w-[480px] overflow-hidden rounded-lg">
+              <div className="relative h-[640px] w-[480px] shrink-0 overflow-hidden rounded-lg">
                 <Image
                   src={aboutImage.imageUrl}
                   alt={aboutImage.description}
