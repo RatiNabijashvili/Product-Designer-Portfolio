@@ -46,7 +46,7 @@ export function AboutSection() {
         </header>
       </div>
       <div className="px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-16">
+        <div className="flex flex-col lg:flex-row lg:gap-16">
           {/* Left Column */}
           <div className="flex flex-col justify-between gap-32">
             <h3 className="font-body text-[32px] font-bold uppercase leading-[1.5] text-primary">
@@ -70,8 +70,8 @@ export function AboutSection() {
           </div>
 
           {/* Right Column */}
-          <div className="flex flex-row items-end gap-4">
-            <div className="space-y-4 text-xl font-medium leading-[1.5] text-[#919191]">
+          <div className="mt-16 flex flex-1 flex-row items-end gap-4 lg:mt-0">
+            <div className="flex-1 space-y-4 text-xl font-medium leading-[1.5] text-[#919191]">
                 <p>
                   With 3+ years of experience in the design industry, I’ve had
                   the opportunity to work with both corporate teams and
@@ -85,7 +85,7 @@ export function AboutSection() {
             </div>
             
             {aboutImage && (
-              <div className="relative h-[640px] w-[480px] shrink-0 overflow-hidden rounded-lg">
+              <div className="relative basis-2/5 grow-0 shrink max-w-[480px] aspect-[3/4] overflow-hidden rounded-lg">
                 <Image
                   src={aboutImage.imageUrl}
                   alt={aboutImage.description}
