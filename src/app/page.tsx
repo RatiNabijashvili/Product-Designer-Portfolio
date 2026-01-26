@@ -5,6 +5,7 @@ import { PhilosophySection } from '@/components/shared/philosophy-section';
 import { WorkSection } from '@/components/shared/work-section';
 import { ServicesSection } from '@/components/shared/services-section';
 import { LogoCarousel } from '@/components/shared/logo-carousel';
+import { AboutSection } from '@/components/shared/about-section';
 
 export default function Home() {
   return (
@@ -58,6 +59,7 @@ export default function Home() {
           <LogoCarousel />
         </section>
         <ServicesSection />
+        <AboutSection />
       </main>
     </div>
   );
