@@ -46,7 +46,7 @@ export function AboutSection() {
         </header>
       </div>
       <div className="px-8">
-        <div className="flex flex-col lg:flex-row lg:gap-16">
+        <div className="flex flex-col lg:flex-row">
           {/* Left Column */}
           <div className="flex flex-col justify-between gap-32">
             <h3 className="font-body text-[32px] font-bold uppercase leading-[1.5] text-primary">
