@@ -85,7 +85,7 @@ export function AboutSection() {
             </div>
             
             {aboutImage && (
-              <div className="relative basis-2/5 grow-0 shrink max-w-[480px] aspect-[3/4] overflow-hidden rounded-lg">
+              <div className="relative w-[480px] h-[640px] shrink-0 overflow-hidden rounded-lg">
                 <Image
                   src={aboutImage.imageUrl}
                   alt={aboutImage.description}
