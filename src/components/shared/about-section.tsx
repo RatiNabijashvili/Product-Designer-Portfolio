@@ -45,7 +45,7 @@ export function AboutSection() {
           </h2>
         </header>
       </div>
-      <div className="relative px-8 pt-36">
+      <div className="relative px-8">
         <h3 className="absolute top-0 left-8 font-body text-[32px] font-bold uppercase leading-[1.5] text-primary min-w-[593px]">
           I’M RATI.
           <br />
@@ -53,9 +53,8 @@ export function AboutSection() {
           <br />
           CURRENTLY AT @NOXTTON.
         </h3>
-        
-        <div className="w-full flex flex-col lg:flex-row items-end justify-between gap-16">
-          
+
+        <div className="w-full flex flex-col lg:flex-row items-end justify-between gap-16 mt-36">
           <div className="flex flex-col gap-4">
             {interests.map((interest, index) => (
               <div key={index} className="flex items-center gap-1.5">
