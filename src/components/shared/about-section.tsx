@@ -45,32 +45,29 @@ export function AboutSection() {
           </h2>
         </header>
       </div>
-      <div className="px-8">
-        <div className="flex flex-col lg:flex-row">
-          {/* Left Column */}
-          <div className="flex flex-col justify-between gap-32">
-            <h3 className="font-body text-[32px] font-bold uppercase leading-[1.5] text-primary">
-              I’M RATI.
-              <br />
-              PRODUCT DESIGNER FROM GEORGIA.
-              <br />
-              CURRENTLY AT @NOXTTON.
-            </h3>
-
-            <div className="flex flex-col gap-4">
-              {interests.map((interest, index) => (
-                <div key={index} className="flex items-center gap-1.5">
-                  <interest.icon className="h-6 w-6 text-[#919191]" />
-                  <span className="font-body text-base font-bold capitalize leading-[1.2] text-[#919191]">
-                    {interest.text}
-                  </span>
-                </div>
-              ))}
-            </div>
+      <div className="relative px-8 pt-36">
+        <h3 className="absolute top-0 left-8 font-body text-[32px] font-bold uppercase leading-[1.5] text-primary min-w-[593px]">
+          I’M RATI.
+          <br />
+          PRODUCT DESIGNER FROM GEORGIA.
+          <br />
+          CURRENTLY AT @NOXTTON.
+        </h3>
+        
+        <div className="w-full flex flex-col lg:flex-row items-start lg:items-end justify-between gap-16">
+          
+          <div className="flex flex-col gap-4">
+            {interests.map((interest, index) => (
+              <div key={index} className="flex items-center gap-1.5">
+                <interest.icon className="h-6 w-6 text-[#919191]" />
+                <span className="font-body text-base font-bold capitalize leading-[1.2] text-[#919191]">
+                  {interest.text}
+                </span>
+              </div>
+            ))}
           </div>
 
-          {/* Right Column */}
-          <div className="mt-16 flex flex-1 flex-row items-end gap-4 lg:mt-0">
+          <div className="flex flex-col-reverse lg:flex-row items-end gap-4">
             <div className="flex-1 min-w-[287px] space-y-4 text-xl font-medium leading-[1.5] text-[#919191]">
                 <p>
                   With 3+ years of experience in the design industry, I’ve had
@@ -85,7 +82,7 @@ export function AboutSection() {
             </div>
             
             {aboutImage && (
-              <div className="relative w-[480px] h-[640px] shrink-0 overflow-hidden rounded-lg">
+              <div className="relative w-full lg:w-[480px] h-auto aspect-[3/4] lg:h-[640px] shrink-0 overflow-hidden rounded-lg">
                 <Image
                   src={aboutImage.imageUrl}
                   alt={aboutImage.description}
