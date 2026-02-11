@@ -70,7 +70,7 @@ export function ServicesSection() {
             trigger: block,
             start: 'top bottom', // When top of block hits bottom of viewport
             end: 'bottom 50%',   // When bottom of block hits middle of viewport
-            scrub: 2,
+            scrub: 1.5,
           },
         });
 
