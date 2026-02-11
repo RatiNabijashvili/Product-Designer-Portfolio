@@ -71,7 +71,7 @@ export function ServicesSection() {
             trigger: block,
             start: 'top bottom',
             end: 'bottom 50%',
-            scrub: 2,
+            scrub: 1.5,
           },
         });
 
