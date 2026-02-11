@@ -65,24 +65,39 @@ export function ServicesSection() {
         const textWrapper = block.querySelector('.service-text-wrapper');
         if (!textWrapper) return;
 
-        const tl = gsap.timeline({
+        // Timeline for movement (y position)
+        const moveTl = gsap.timeline({
           scrollTrigger: {
             trigger: block,
-            start: 'top bottom', // When top of block hits bottom of viewport
-            end: 'bottom 50%',   // When bottom of block hits middle of viewport
+            start: 'top bottom',
+            end: 'bottom 50%',
+            scrub: 3,
+          },
+        });
+
+        moveTl
+          .fromTo(textWrapper, { y: -240 }, { y: 0, ease: 'power1.in' })
+          .to(textWrapper, {
+            y: 240,
+            ease: 'power1.out',
+          });
+
+        // Timeline for fading (opacity)
+        const fadeTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: block,
+            start: 'top bottom',
+            end: 'bottom 50%',
             scrub: 1.5,
           },
         });
 
-        tl.fromTo(
-          textWrapper,
-          { y: -240, opacity: 0 },
-          { y: 0, opacity: 1, ease: 'power1.in' }
-        ).to(textWrapper, {
-          y: 240,
-          opacity: 0,
-          ease: 'power1.out',
-        });
+        fadeTl
+          .fromTo(textWrapper, { opacity: 0 }, { opacity: 1, ease: 'power1.in' })
+          .to(textWrapper, {
+            opacity: 0,
+            ease: 'power1.out',
+          });
       });
     }, sectionRef);
 
