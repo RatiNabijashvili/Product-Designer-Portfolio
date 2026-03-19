@@ -123,17 +123,6 @@ export function LogoCarousel() {
       // Fade-in on scroll
       gsap.fromTo(
         section,
-<<<<<<< HEAD
-        { opacity: 0 },
-        {
-          opacity: 1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 80%',
-            end: 'top 50%',
-            scrub: 2,
-=======
         { opacity: 0, y: 30 },
         {
           opacity: 1,
@@ -143,7 +132,6 @@ export function LogoCarousel() {
           scrollTrigger: {
             trigger: section,
             start: 'top 85%',
->>>>>>> 1ab173d (Initial commit)
             once: true,
           },
         }
@@ -154,11 +142,7 @@ export function LogoCarousel() {
   }, []);
 
   return (
-<<<<<<< HEAD
-    <div ref={sectionRef} className="bg-[#E4E4E4] py-10 opacity-0">
-=======
     <div ref={sectionRef} className="bg-[#E4E4E4] py-10">
->>>>>>> 1ab173d (Initial commit)
       <div
         className="relative w-full overflow-hidden"
         style={{
@@ -170,17 +154,10 @@ export function LogoCarousel() {
           {allLogos.map((Logo, index) => (
             <div
               key={`logo-${index}`}
-<<<<<<< HEAD
-              className="mx-8 flex flex-shrink-0 items-center justify-center"
-              style={{ width: 'auto', height: '1.5rem' }}
-            >
-              <Logo className="h-full w-auto text-black" />
-=======
               className="mx-12 flex flex-shrink-0 items-center justify-center"
               style={{ minWidth: '120px', height: '24px' }}
             >
               <Logo className="h-full w-auto" style={{ color: '#030C0C' }} />
->>>>>>> 1ab173d (Initial commit)
             </div>
           ))}
         </div>

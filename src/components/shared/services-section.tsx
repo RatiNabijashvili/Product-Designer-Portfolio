@@ -60,43 +60,24 @@ export function ServicesSection() {
       );
 
       // Animate text for each service block
-<<<<<<< HEAD
-      serviceBlockRefs.current.forEach((block) => {
-=======
       serviceBlockRefs.current.forEach((block, index) => {
->>>>>>> 1ab173d (Initial commit)
         if (!block) return;
         const textWrapper = block.querySelector('.service-text-wrapper');
         if (!textWrapper) return;
 
-<<<<<<< HEAD
-=======
         const isFirstService = index === 0;
         const isLastService = index === serviceBlockRefs.current.length - 1;
 
->>>>>>> 1ab173d (Initial commit)
         // Timeline for movement (y position)
         const moveTl = gsap.timeline({
           scrollTrigger: {
             trigger: block,
             start: 'top bottom',
-<<<<<<< HEAD
-            end: 'bottom 50%',
-=======
             end: isLastService ? 'center center' : 'bottom 50%', // Last service centers when in middle of viewport
->>>>>>> 1ab173d (Initial commit)
             scrub: 1.5,
           },
         });
 
-<<<<<<< HEAD
-        moveTl
-          .fromTo(textWrapper, { y: -240 }, { y: 0, ease: 'power1.in' })
-          .to(textWrapper, {
-            y: 240,
-            ease: 'power1.out',
-          });
-=======
         if (isFirstService) {
           // First service: starts centered (y: 0), then moves down
           moveTl
@@ -118,30 +99,17 @@ export function ServicesSection() {
               ease: 'power1.out',
             });
         }
->>>>>>> 1ab173d (Initial commit)
 
         // Timeline for fading (opacity)
         const fadeTl = gsap.timeline({
           scrollTrigger: {
             trigger: block,
             start: 'top bottom',
-<<<<<<< HEAD
-            end: 'bottom 50%',
-=======
             end: isLastService ? 'center center' : 'bottom 50%', // Last service fully visible when in middle of viewport
->>>>>>> 1ab173d (Initial commit)
             scrub: 1,
           },
         });
 
-<<<<<<< HEAD
-        fadeTl
-          .fromTo(textWrapper, { opacity: 0 }, { opacity: 1, ease: 'power1.in' })
-          .to(textWrapper, {
-            opacity: 0,
-            ease: 'power1.out',
-          });
-=======
         if (isFirstService) {
           // First service: starts fully visible, then fades out
           fadeTl
@@ -163,7 +131,6 @@ export function ServicesSection() {
               ease: 'power1.out',
             });
         }
->>>>>>> 1ab173d (Initial commit)
       });
     }, sectionRef);
 
@@ -208,13 +175,9 @@ export function ServicesSection() {
           return (
             <div
               key={service.id}
-<<<<<<< HEAD
-              ref={(el) => (serviceBlockRefs.current[index] = el)}
-=======
               ref={(el) => {
                 serviceBlockRefs.current[index] = el;
               }}
->>>>>>> 1ab173d (Initial commit)
               className="border-b border-[#DCDCDC] last:border-b-0"
             >
               <div className="grid w-full grid-cols-4 items-center">

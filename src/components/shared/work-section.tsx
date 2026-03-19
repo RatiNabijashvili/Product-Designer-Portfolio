@@ -1,10 +1,6 @@
 'use client';
 
-<<<<<<< HEAD
-import { useLayoutEffect, useRef } from 'react';
-=======
 import { useLayoutEffect, useRef, useState } from 'react';
->>>>>>> 1ab173d (Initial commit)
 import Image from 'next/image';
 import { Lock } from 'lucide-react';
 import { gsap } from 'gsap';
@@ -47,11 +43,7 @@ export function WorkSection() {
       );
 
       // Set initial state for project items
-<<<<<<< HEAD
-      const projectItems = gsap.utils.toArray('.project-item');
-=======
       const projectItems = gsap.utils.toArray<HTMLElement>('.project-item');
->>>>>>> 1ab173d (Initial commit)
       gsap.set(projectItems, { opacity: 0, y: 64 });
 
       // Batch animate project items. Each item will be its own trigger.
@@ -128,11 +120,7 @@ export function WorkSection() {
                         In Development
                       </Button>
                       <div className="flex items-center justify-center w-12 h-12 rounded-full bg-[#E4E4E4]">
-<<<<<<< HEAD
-                        <Lock className="w-6 h-6 text-[#030C0C]" />
-=======
                         <img src="/block.svg" alt="Locked" className="w-6 h-6" />
->>>>>>> 1ab173d (Initial commit)
                       </div>
                     </div>
                   ) : (
@@ -146,24 +134,12 @@ export function WorkSection() {
               {/* Right Column */}
               <div className="flex items-center justify-center">
                 {projectImage && (
-<<<<<<< HEAD
-                  <div className="relative w-full aspect-[680/382] rounded-lg overflow-hidden">
-                    <Image
-                      src={projectImage.imageUrl}
-                      alt={project.name}
-                      fill
-                      className="object-cover"
-                      data-ai-hint={projectImage.imageHint}
-                    />
-                  </div>
-=======
                   <ProjectMedia
                     imageUrl={projectImage.imageUrl}
                     projectName={project.name}
                     imageHint={projectImage.imageHint}
                     inDevelopment={project.inDevelopment}
                   />
->>>>>>> 1ab173d (Initial commit)
                 )}
               </div>
             </div>
@@ -173,8 +149,6 @@ export function WorkSection() {
     </section>
   );
 }
-<<<<<<< HEAD
-=======
 
 function ProjectMedia({ 
   imageUrl, 
@@ -272,4 +246,3 @@ function ProjectMedia({
     </div>
   );
 }
->>>>>>> 1ab173d (Initial commit)

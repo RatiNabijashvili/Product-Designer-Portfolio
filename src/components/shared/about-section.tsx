@@ -1,11 +1,5 @@
 'use client';
 
-<<<<<<< HEAD
-import Image from 'next/image';
-import { Trophy, Clapperboard } from 'lucide-react';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
-
-=======
 import { useLayoutEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Trophy, Clapperboard } from 'lucide-react';
@@ -15,7 +9,6 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 gsap.registerPlugin(ScrollTrigger);
 
->>>>>>> 1ab173d (Initial commit)
 const FootballIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -40,26 +33,13 @@ const FootballIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 const interests = [
-<<<<<<< HEAD
-  { icon: FootballIcon, text: 'Visca Barca' },
-  { icon: Trophy, text: 'Scuderia Ferrari' },
-  { icon: Clapperboard, text: 'Interstellar' },
-=======
   { icon: () => <img src="/ball.svg" alt="Football" className="h-6 w-6" />, text: 'Visca Barca' },
   { icon: () => <img src="/trophy.svg" alt="Trophy" className="h-6 w-6" />, text: 'Scuderia Ferrari' },
   { icon: () => <img src="/popcorn.svg" alt="Movie" className="h-6 w-6" />, text: 'Interstellar' },
->>>>>>> 1ab173d (Initial commit)
 ];
 
 export function AboutSection() {
   const aboutImage = PlaceHolderImages.find((p) => p.id === 'about-portrait');
-<<<<<<< HEAD
-
-  return (
-    <section id="about" className="mt-40">
-      <div className="px-8">
-        <header className="mb-12">
-=======
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -146,18 +126,13 @@ export function AboutSection() {
     <section ref={sectionRef} id="about" className="mt-40">
       <div className="px-8">
         <header ref={headerRef} className="mb-12">
->>>>>>> 1ab173d (Initial commit)
           <h2 className="text-xl font-bold uppercase leading-none text-[#919191]">
             03 / ABOUT
           </h2>
         </header>
       </div>
       <div className="relative px-8">
-<<<<<<< HEAD
-        <h3 className="absolute top-0 left-8 font-body text-[32px] font-bold uppercase leading-[1.5] text-primary min-w-[593px]">
-=======
         <h3 ref={titleRef} className="absolute top-0 left-8 font-body text-[32px] font-bold uppercase leading-[1.5] text-primary min-w-[593px]">
->>>>>>> 1ab173d (Initial commit)
           I’M RATI.
           <br />
           PRODUCT DESIGNER FROM GEORGIA.
@@ -166,17 +141,10 @@ export function AboutSection() {
         </h3>
 
         <div className="w-full flex flex-col lg:flex-row items-end justify-between gap-16 mt-36">
-<<<<<<< HEAD
-          <div className="flex flex-col gap-4">
-            {interests.map((interest, index) => (
-              <div key={index} className="flex items-center gap-1.5">
-                <interest.icon className="h-6 w-6 text-[#919191]" />
-=======
           <div ref={interestsRef} className="flex flex-col gap-4">
             {interests.map((interest, index) => (
               <div key={index} className="flex items-center gap-1.5">
                 <interest.icon />
->>>>>>> 1ab173d (Initial commit)
                 <span className="font-body text-base font-bold capitalize leading-[1.2] text-[#919191]">
                   {interest.text}
                 </span>
@@ -185,11 +153,7 @@ export function AboutSection() {
           </div>
 
           <div className="flex flex-col-reverse lg:flex-row items-end gap-4">
-<<<<<<< HEAD
-            <div className="max-w-[320px] space-y-4 text-xl font-medium leading-[1.5] text-[#919191]">
-=======
             <div ref={textRef} className="max-w-[320px] space-y-4 text-xl font-medium leading-[1.5] text-[#919191]">
->>>>>>> 1ab173d (Initial commit)
                 <p>
                   With 3+ years of experience in the design industry, I’ve had
                   the opportunity to work with both corporate teams and
@@ -203,11 +167,7 @@ export function AboutSection() {
             </div>
             
             {aboutImage && (
-<<<<<<< HEAD
-              <div className="relative w-full lg:w-[480px] h-auto aspect-[3/4] lg:h-[640px] shrink-0 overflow-hidden rounded-lg">
-=======
               <div ref={imageRef} className="relative w-full lg:w-[480px] h-auto aspect-[3/4] lg:h-[640px] shrink-0 overflow-hidden rounded-lg">
->>>>>>> 1ab173d (Initial commit)
                 <Image
                   src={aboutImage.imageUrl}
                   alt={aboutImage.description}
