@@ -1,9 +1,9 @@
 'use client';
 
-import { Copy, ArrowUpRight, ArrowUp } from 'lucide-react';
 import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useFitTextWidth } from '@/hooks/use-fit-text-width';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,11 +14,16 @@ export function Footer() {
   
   const footerRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
+  const headingTextRef = useRef<HTMLSpanElement>(null);
   const emailRef = useRef<HTMLDivElement>(null);
   const infoContainerRef = useRef<HTMLDivElement>(null);
   const dividerRef = useRef<HTMLDivElement>(null);
   const copyrightRef = useRef<HTMLDivElement>(null);
   const patternRef = useRef<HTMLDivElement>(null);
+
+  useFitTextWidth(headingRef, headingTextRef, {
+    variableName: '--footer-title-size',
+  });
 
   useEffect(() => {
     const updateTime = () => {
@@ -121,11 +126,11 @@ export function Footer() {
   };
 
   return (
-    <footer ref={footerRef} className="relative mt-40 flex min-h-screen flex-col justify-between overflow-hidden p-8">
+    <footer ref={footerRef} className="relative mt-[72px] flex min-h-screen flex-col justify-between overflow-hidden px-4 py-8 md:mt-40 md:p-8">
       {/* Single geometric shape from right side */}
       <div 
         ref={patternRef} 
-        className="pointer-events-none absolute right-0 top-1/4 h-[408px] w-[408px] opacity-0"
+        className="pointer-events-none absolute right-[20%] top-[16%] h-[240px] w-[240px] opacity-0 md:right-0 md:top-1/4 md:h-[408px] md:w-[408px]"
         style={{
           backgroundImage: 'url(/Footer-Pattern.png)',
           backgroundSize: 'contain',
@@ -135,11 +140,11 @@ export function Footer() {
       />
 
       {/* Top section: Heading and Email */}
-      <div className="relative z-10 flex flex-col items-start gap-16">
+      <div className="relative z-10 flex flex-col items-start gap-6 sm:gap-16">
         {/* Main heading - full width like hero */}
-        <div ref={headingRef} className="w-full @container">
-          <h2 className="w-full text-center font-headline text-[clamp(3rem,12.2vw,20rem)] leading-[0.8] uppercase text-primary">
-            Lets Work Together
+        <div ref={headingRef} className="w-full">
+          <h2 className="footer-display-title w-full whitespace-nowrap text-center font-headline leading-[0.82] tracking-normal uppercase text-primary">
+            <span ref={headingTextRef} className="inline-block">Let's Work Together</span>
           </h2>
         </div>
 
@@ -149,18 +154,18 @@ export function Footer() {
             onClick={handleCopyEmail}
             onMouseEnter={() => setShowTooltip(true)}
             onMouseLeave={() => setShowTooltip(false)}
-            className="group flex items-center gap-2 rounded p-1"
+            className="group flex max-w-full items-center gap-2 rounded p-1"
             aria-label="Copy email"
           >
-            <div className="relative h-[2.4rem] overflow-hidden">
-              <span className="block text-3xl font-bold leading-[1.2] text-[#030C0C] transition-transform duration-300 group-hover:-translate-y-full">
+            <div className="relative h-[1.8rem] overflow-hidden sm:h-[2.4rem]">
+              <span className="block text-2xl font-bold leading-[1.2] text-[#030C0C] transition-transform duration-300 group-hover:-translate-y-full sm:text-[clamp(1.25rem,5.8vw,1.875rem)]">
                 r.nabijashvili@gmail.com
               </span>
-              <span className="absolute left-0 top-full block text-3xl font-bold leading-[1.2] text-[#030C0C] transition-transform duration-300 group-hover:-translate-y-full">
+              <span className="absolute left-0 top-full block text-2xl font-bold leading-[1.2] text-[#030C0C] transition-transform duration-300 group-hover:-translate-y-full sm:text-[clamp(1.25rem,5.8vw,1.875rem)]">
                 r.nabijashvili@gmail.com
               </span>
             </div>
-            <img src="/copy.svg" alt="Copy" className="h-5 w-5" />
+            <img src="/copy.svg" alt="Copy" className="h-6 w-6 sm:h-5 sm:w-5" />
           </button>
           
           {/* Tooltip - button style */}
@@ -178,10 +183,10 @@ export function Footer() {
       </div>
 
       {/* Bottom container with 64px gap */}
-      <div className="relative z-10">
-        <div ref={infoContainerRef} className="mt-16">
+      <div className="relative z-10 mt-[320px] md:mt-0">
+        <div ref={infoContainerRef} className="mt-0 md:mt-16">
         {/* Left side info */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col items-start gap-8 md:flex-row md:items-center md:justify-between md:gap-10">
           <div className="flex flex-col gap-2">
             <p className="mb-1 text-xl font-bold leading-[1.2] text-[#919191]">Freelance Availability</p>
             <p className="text-xl font-bold leading-[1.2] text-[#030C0C]">Available</p>
@@ -217,11 +222,11 @@ export function Footer() {
         </div>
 
         {/* Divider line */}
-        <div ref={dividerRef} className="my-16 h-px w-full bg-[#DCDCDC]"></div>
+        <div ref={dividerRef} className="my-8 h-px w-full bg-[#DCDCDC] md:my-16"></div>
 
         {/* Copyright and Back to Top */}
-        <div ref={copyrightRef} className="flex w-full items-center justify-between">
-        <p className="text-body font-bold leading-[1.2] text-[#030C0C]">
+        <div ref={copyrightRef} className="flex w-full flex-col items-center justify-between gap-6 md:flex-row md:gap-4">
+        <p className="max-w-[28rem] text-center text-body font-bold leading-[1.2] text-[#030C0C] md:max-w-none md:text-left">
           Copyright © 2026 Rati Nabijashvili. All rights reserved.
         </p>
         <button

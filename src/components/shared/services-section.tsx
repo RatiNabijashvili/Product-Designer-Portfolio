@@ -59,89 +59,91 @@ export function ServicesSection() {
         }
       );
 
-      // Animate text for each service block
-      serviceBlockRefs.current.forEach((block, index) => {
-        if (!block) return;
-        const textWrapper = block.querySelector('.service-text-wrapper');
-        if (!textWrapper) return;
+      const media = gsap.matchMedia();
 
-        const isFirstService = index === 0;
-        const isLastService = index === serviceBlockRefs.current.length - 1;
+      media.add('(min-width: 769px)', () => {
+        // Animate text for each service block
+        serviceBlockRefs.current.forEach((block, index) => {
+          if (!block) return;
+          const textWrapper = block.querySelector('.service-text-wrapper');
+          if (!textWrapper) return;
 
-        // Timeline for movement (y position)
-        const moveTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: block,
-            start: 'top bottom',
-            end: isLastService ? 'center center' : 'bottom 50%', // Last service centers when in middle of viewport
-            scrub: 1.5,
-          },
+          const isFirstService = index === 0;
+          const isLastService = index === serviceBlockRefs.current.length - 1;
+
+          const moveTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: block,
+              start: 'top bottom',
+              end: isLastService ? 'center center' : 'bottom 50%',
+              scrub: 1.5,
+            },
+          });
+
+          if (isFirstService) {
+            moveTl
+              .fromTo(textWrapper, { y: 0 }, { y: 0, ease: 'power1.in' })
+              .to(textWrapper, { y: 240, ease: 'power1.out' });
+          } else if (isLastService) {
+            moveTl.fromTo(textWrapper, { y: -240 }, { y: 0, ease: 'power1.in' });
+          } else {
+            moveTl
+              .fromTo(textWrapper, { y: -240 }, { y: 0, ease: 'power1.in' })
+              .to(textWrapper, { y: 240, ease: 'power1.out' });
+          }
+
+          const fadeTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: block,
+              start: 'top bottom',
+              end: isLastService ? 'center center' : 'bottom 50%',
+              scrub: 1,
+            },
+          });
+
+          if (isFirstService) {
+            fadeTl
+              .fromTo(textWrapper, { opacity: 1 }, { opacity: 1, ease: 'power1.in' })
+              .to(textWrapper, { opacity: 0, ease: 'power1.out' });
+          } else if (isLastService) {
+            fadeTl.fromTo(textWrapper, { opacity: 0 }, { opacity: 1, ease: 'power1.in' });
+          } else {
+            fadeTl
+              .fromTo(textWrapper, { opacity: 0 }, { opacity: 1, ease: 'power1.in' })
+              .to(textWrapper, { opacity: 0, ease: 'power1.out' });
+          }
         });
-
-        if (isFirstService) {
-          // First service: starts centered (y: 0), then moves down
-          moveTl
-            .fromTo(textWrapper, { y: 0 }, { y: 0, ease: 'power1.in' })
-            .to(textWrapper, {
-              y: 240,
-              ease: 'power1.out',
-            });
-        } else if (isLastService) {
-          // Last service: moves from top to center (y: 0) and stops
-          moveTl
-            .fromTo(textWrapper, { y: -240 }, { y: 0, ease: 'power1.in' });
-        } else {
-          // Middle services: normal animation
-          moveTl
-            .fromTo(textWrapper, { y: -240 }, { y: 0, ease: 'power1.in' })
-            .to(textWrapper, {
-              y: 240,
-              ease: 'power1.out',
-            });
-        }
-
-        // Timeline for fading (opacity)
-        const fadeTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: block,
-            start: 'top bottom',
-            end: isLastService ? 'center center' : 'bottom 50%', // Last service fully visible when in middle of viewport
-            scrub: 1,
-          },
-        });
-
-        if (isFirstService) {
-          // First service: starts fully visible, then fades out
-          fadeTl
-            .fromTo(textWrapper, { opacity: 1 }, { opacity: 1, ease: 'power1.in' })
-            .to(textWrapper, {
-              opacity: 0,
-              ease: 'power1.out',
-            });
-        } else if (isLastService) {
-          // Last service: fades in and stays visible
-          fadeTl
-            .fromTo(textWrapper, { opacity: 0 }, { opacity: 1, ease: 'power1.in' });
-        } else {
-          // Middle services: normal fade in and out
-          fadeTl
-            .fromTo(textWrapper, { opacity: 0 }, { opacity: 1, ease: 'power1.in' })
-            .to(textWrapper, {
-              opacity: 0,
-              ease: 'power1.out',
-            });
-        }
       });
+
+      const animateStackedServices = () => {
+        const mobileItems = gsap.utils.toArray<HTMLElement>('.mobile-service-item');
+        gsap.set(mobileItems, { opacity: 0, y: 64 });
+
+        ScrollTrigger.batch(mobileItems, {
+          start: 'top 85%',
+          onEnter: (batch) =>
+            gsap.to(batch, {
+              opacity: 1,
+              y: 0,
+              duration: 1.4,
+              ease: 'power2.out',
+              stagger: 0.2,
+            }),
+          once: true,
+        });
+      };
+
+      media.add('(max-width: 768px)', animateStackedServices);
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} className="mt-40">
-      <div className="px-8">
+    <section ref={sectionRef} className="mt-[72px] md:mt-40">
+      <div className="px-4 md:px-8">
         <header ref={headerRef} className="mb-12">
-          <h2 className="text-xl font-bold uppercase leading-none text-[#919191]">
+          <h2 className="text-base font-bold uppercase leading-none text-[#919191] md:text-xl">
             02 / SERVICES
           </h2>
         </header>
@@ -180,7 +182,19 @@ export function ServicesSection() {
               }}
               className="border-b border-[#DCDCDC] last:border-b-0"
             >
-              <div className="grid w-full grid-cols-4 items-center">
+              <div className="mobile-service-item tablet-service-mobile flex flex-col items-center justify-center gap-8 px-4 py-16 text-center lg:hidden">
+                <Icon className="h-[160px] w-[160px] text-primary" />
+                <div className="space-y-2">
+                  <h3 className="font-body text-2xl font-bold uppercase leading-[1.2] text-primary">
+                    {service.title}
+                  </h3>
+                  <p className="mx-auto max-w-[720px] font-body text-base font-medium capitalize leading-[1.5] text-[#919191]">
+                    {service.description}
+                  </p>
+                </div>
+              </div>
+
+              <div className="tablet-service-desktop hidden w-full grid-cols-4 items-center lg:grid">
                 {isIconOnLeft ? iconDiv : emptyDiv}
                 {textContainer}
                 {isIconOnLeft ? emptyDiv : iconDiv}

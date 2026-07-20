@@ -33,9 +33,9 @@ const FootballIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 const interests = [
-  { icon: () => <img src="/ball.svg" alt="Football" className="h-6 w-6" />, text: 'Visca Barca' },
-  { icon: () => <img src="/trophy.svg" alt="Trophy" className="h-6 w-6" />, text: 'Scuderia Ferrari' },
-  { icon: () => <img src="/popcorn.svg" alt="Movie" className="h-6 w-6" />, text: 'Interstellar' },
+  { icon: () => <img src="/ball.svg" alt="Football" className="h-5 w-5 md:h-6 md:w-6" />, text: 'Visca Barca' },
+  { icon: () => <img src="/trophy.svg" alt="Trophy" className="h-5 w-5 md:h-6 md:w-6" />, text: 'Scuderia Ferrari' },
+  { icon: () => <img src="/popcorn.svg" alt="Movie" className="h-5 w-5 md:h-6 md:w-6" />, text: 'Interstellar' },
 ];
 
 export function AboutSection() {
@@ -70,90 +70,115 @@ export function AboutSection() {
         }
       );
 
-      // Create a timeline for sequential animations
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 60%',
-          once: true,
-        },
+      const media = gsap.matchMedia();
+
+      media.add('(min-width: 769px)', () => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 60%',
+            once: true,
+          },
+        });
+
+        if (titleRef.current) {
+          tl.fromTo(
+            titleRef.current,
+            { opacity: 0, x: -100 },
+            { opacity: 1, x: 0, duration: 0.75, ease: 'power2.out' }
+          );
+        }
+
+        if (imageRef.current) {
+          tl.fromTo(
+            imageRef.current,
+            { opacity: 0, x: 100 },
+            { opacity: 1, x: 0, duration: 0.75, ease: 'power2.out' },
+            '-=0.4'
+          );
+        }
+
+        if (textRef.current) {
+          tl.fromTo(
+            textRef.current,
+            { opacity: 0, x: 100 },
+            { opacity: 1, x: 0, duration: 0.75, ease: 'power2.out' },
+            '-=0.4'
+          );
+        }
+
+        if (interestsRef.current) {
+          tl.fromTo(
+            interestsRef.current,
+            { opacity: 0, x: -100 },
+            { opacity: 1, x: 0, duration: 0.75, ease: 'power2.out' },
+            '-=0.4'
+          );
+        }
       });
 
-      // 1. Title slides from left
-      if (titleRef.current) {
-        tl.fromTo(
+      const animateStackedAbout = () => {
+        const aboutItems = [
           titleRef.current,
-          { opacity: 0, x: -100 },
-          { opacity: 1, x: 0, duration: 0.75, ease: 'power2.out' }
-        );
-      }
-
-      // 2. Image slides from right
-      if (imageRef.current) {
-        tl.fromTo(
           imageRef.current,
-          { opacity: 0, x: 100 },
-          { opacity: 1, x: 0, duration: 0.75, ease: 'power2.out' },
-          '-=0.4' // Start 0.4s before previous animation ends
-        );
-      }
-
-      // 3. Text slides from right (middle of image animation)
-      if (textRef.current) {
-        tl.fromTo(
           textRef.current,
-          { opacity: 0, x: 100 },
-          { opacity: 1, x: 0, duration: 0.75, ease: 'power2.out' },
-          '-=0.4' // Start 0.4s before previous animation ends
-        );
-      }
-
-      // 4. Interests slide from left
-      if (interestsRef.current) {
-        tl.fromTo(
           interestsRef.current,
-          { opacity: 0, x: -100 },
-          { opacity: 1, x: 0, duration: 0.75, ease: 'power2.out' },
-          '-=0.4' // Start 0.4s before previous animation ends
-        );
-      }
+        ].filter(Boolean) as HTMLElement[];
+
+        gsap.set(aboutItems, { opacity: 0, y: 64 });
+
+        ScrollTrigger.batch(aboutItems, {
+          start: 'top 85%',
+          onEnter: (batch) =>
+            gsap.to(batch, {
+              opacity: 1,
+              y: 0,
+              duration: 1.4,
+              ease: 'power2.out',
+              stagger: 0.2,
+            }),
+          once: true,
+        });
+      };
+
+      media.add('(max-width: 768px)', animateStackedAbout);
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} id="about" className="mt-40">
-      <div className="px-8">
+    <section ref={sectionRef} id="about" className="mt-[72px] md:mt-40">
+      <div className="px-4 md:px-8">
         <header ref={headerRef} className="mb-12">
-          <h2 className="text-xl font-bold uppercase leading-none text-[#919191]">
+          <h2 className="text-base font-bold uppercase leading-none text-[#919191] md:text-xl">
             03 / ABOUT
           </h2>
         </header>
       </div>
-      <div className="relative px-8">
-        <h3 ref={titleRef} className="absolute top-0 left-8 font-body text-[32px] font-bold uppercase leading-[1.5] text-primary min-w-[593px]">
+      <div className="relative px-4 md:px-8">
+        <h3 ref={titleRef} className="tablet-about-title font-body text-2xl font-bold uppercase leading-[1.5] text-primary md:absolute md:left-8 md:top-0 md:min-w-[593px] md:text-[32px]">
           I’M RATI.
-          <br />
+          <span className="hidden md:inline"><br /></span>
           PRODUCT DESIGNER FROM GEORGIA.
-          <br />
+          <span className="hidden md:inline"><br /></span>
           CURRENTLY AT @NOXTTON.
         </h3>
 
-        <div className="w-full flex flex-col lg:flex-row items-end justify-between gap-16 mt-36">
-          <div ref={interestsRef} className="flex flex-col gap-4">
+        <div className="tablet-about-layout mt-6 flex w-full flex-col items-end justify-between gap-6 lg:mt-36 lg:flex-row lg:gap-16">
+          <div ref={interestsRef} className="tablet-about-interests order-3 flex w-full flex-col gap-3 lg:order-none lg:w-auto lg:gap-4">
             {interests.map((interest, index) => (
-              <div key={index} className="flex items-center gap-1.5">
+              <div key={index} className="flex w-full items-center justify-start gap-2 lg:w-auto">
                 <interest.icon />
-                <span className="font-body text-base font-bold capitalize leading-[1.2] text-[#919191]">
+                <span className="font-body text-sm font-bold capitalize leading-[1.2] text-[#919191] md:text-base">
                   {interest.text}
                 </span>
               </div>
             ))}
           </div>
 
-          <div className="flex flex-col-reverse lg:flex-row items-end gap-4">
-            <div ref={textRef} className="max-w-[320px] space-y-4 text-xl font-medium leading-[1.5] text-[#919191]">
+          <div className="tablet-about-content order-2 flex w-full flex-col-reverse items-end gap-6 lg:order-none lg:w-auto lg:flex-row lg:gap-4">
+            <div ref={textRef} className="tablet-about-text w-full space-y-2 text-base font-medium leading-[1.5] text-[#919191] lg:max-w-[320px] lg:space-y-4 lg:text-xl">
                 <p>
                   With 3+ years of experience in the design industry, I’ve had
                   the opportunity to work with both corporate teams and
@@ -167,11 +192,12 @@ export function AboutSection() {
             </div>
             
             {aboutImage && (
-              <div ref={imageRef} className="relative w-full lg:w-[480px] h-auto aspect-[3/4] lg:h-[640px] shrink-0 overflow-hidden rounded-lg">
+              <div ref={imageRef} className="tablet-about-image relative aspect-[3/4] h-auto w-full shrink-0 overflow-hidden rounded-lg lg:h-[640px] lg:w-[480px]">
                 <Image
                   src={aboutImage.imageUrl}
                   alt={aboutImage.description}
                   fill
+                  unoptimized
                   className="object-cover"
                   data-ai-hint={aboutImage.imageHint}
                 />

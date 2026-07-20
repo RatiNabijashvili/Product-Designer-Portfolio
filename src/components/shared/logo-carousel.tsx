@@ -1,126 +1,43 @@
 'use client';
 
-import React, { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const logos: React.FC<React.SVGProps<SVGSVGElement>>[] = [
-  (props) => (
-    <svg
-      viewBox="0 0 95 25"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <path
-        d="M2.5 18.5V7.4H7.1V18.5H2.5ZM17.144 18.792C15.36 18.792 14.112 18.264 13.44 17.208L16.032 15.984C16.272 16.488 16.728 16.752 17.424 16.752C18.216 16.752 18.816 16.248 18.816 15.336V15.12C18.432 15.528 17.688 15.84 16.656 15.84C14.688 15.84 13.056 14.544 13.056 12.096C13.056 9.6 14.688 8.256 16.656 8.256C17.688 8.256 18.432 8.568 18.816 8.976V8.808C18.816 7.896 18.216 7.392 17.424 7.392C16.728 7.392 16.272 7.632 16.032 8.136L13.44 6.912C14.112 5.856 15.36 5.328 17.136 5.328C19.824 5.328 21.504 6.624 21.504 9.12V18.504H19.248V16.752C19.248 18.048 18.432 18.792 17.136 18.792H17.144ZM17.184 13.824C18.48 13.824 19.248 13.104 19.248 12.096C19.248 11.088 18.48 10.368 17.184 10.368C15.888 10.368 15.12 11.088 15.12 12.096C15.12 13.104 15.888 13.824 17.184 13.824ZM27.132 18.504H24.396V5.544H27.132V18.504ZM32.604 18.504H29.868V5.544H32.604V18.504ZM38.076 18.504H35.34V5.544H38.076V18.504ZM43.38 18.792C41.592 18.792 40.344 18.264 39.672 17.208L42.264 15.984C42.504 16.488 42.96 16.752 43.656 16.752C44.448 16.752 45.048 16.248 45.048 15.336V15.12C44.664 15.528 43.92 15.84 42.888 15.84C40.92 15.84 39.288 14.544 39.288 12.096C39.288 9.6 40.92 8.256 42.888 8.256C43.92 8.256 44.664 8.568 45.048 8.976V8.808C45.048 7.896 44.448 7.392 43.656 7.392C42.96 7.392 42.504 7.632 42.264 8.136L39.672 6.912C40.344 5.856 41.592 5.328 43.368 5.328C46.056 5.328 47.736 6.624 47.736 9.12V18.504H45.48V16.752C45.48 18.048 44.664 18.792 43.368 18.792H43.38ZM43.416 13.824C44.712 13.824 45.48 13.104 45.48 12.096C45.48 11.088 44.712 10.368 43.416 10.368C42.12 10.368 41.352 11.088 41.352 12.096C41.352 13.104 42.12 13.824 43.416 13.824ZM52.418 18.504H49.682V5.544H52.418V18.504ZM61.0333 13.8C61.0333 16.632 59.2093 18.72 56.5933 18.72C53.9773 18.72 52.1533 16.632 52.1533 13.8C52.1533 10.968 53.9773 8.88 56.5933 8.88C59.2093 8.88 61.0333 10.968 61.0333 13.8ZM58.7053 13.8C58.7053 11.856 57.8893 10.656 56.5933 10.656C55.2973 10.656 54.4813 11.856 54.4813 13.8C54.4813 15.744 55.2973 16.944 56.5933 16.944C57.8893 16.944 58.7053 15.744 58.7053 13.8ZM70.478 18.504H62.006V5.544H70.478V7.296H64.334V11.136H69.47V12.888H64.334V16.752H70.478V18.504ZM81.2387 18.504L76.9907 10.272H76.8467V18.504H74.5187V5.544H77.2547L81.5027 13.776H81.6467V5.544H83.9747V18.504H81.2387ZM94.2544 18.504H85.7824V5.544H94.2544V7.296H88.1104V11.136H93.2464V12.888H88.1104V16.752H94.2544V18.504Z"
-        fill="#030C0C"
-      />
-    </svg>
-  ),
-  (props) => (
-    <svg
-      viewBox="0 0 162 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <text
-        x="0"
-        y="18"
-        fontFamily="Satoshi, sans-serif"
-        fontSize="14"
-        fontWeight="bold"
-        fill="#030C0C"
-      >
-        ავერსი
-      </text>
-      <path
-        d="M80 4 C 82 6, 83 10, 80 12 C 78 14, 75 18, 77 20 C 80 22, 85 20, 88 18 C 90 16, 92 12, 90 9 C 88 6, 84 3, 80 4 Z"
-        fill="#030C0C"
-      />
-      <text
-        x="100"
-        y="18"
-        fontFamily="Satoshi, sans-serif"
-        fontSize="14"
-        fontWeight="bold"
-        fill="#030C0C"
-      >
-        AVERSI
-      </text>
-    </svg>
-  ),
-  (props) => (
-    <svg
-      viewBox="0 0 110 25"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <path d="M0 0H11V5.5H5.5V11H11V16.5H5.5V22H0V0Z" fill="#030C0C" />
-      <path d="M16.5 0H27.5V5.5H22V11H27.5V22H16.5V11H22V5.5H16.5V0Z" fill="#030C0C" />
-      <path d="M37.93 21.6L32.21 12.28L37.76 3.2H42.8L37.25 12.28L42.97 21.6H37.93Z" fill="#030C0C" />
-      <path d="M47.37 21.6V3.2H58.17V7.64H51.81V12.11H57.57V16.49H51.81V21.6H47.37Z" fill="#030C0C" />
-      <path d="M62.53 21.6V3.2H66.97V21.6H62.53Z" fill="#030C0C" />
-      <path d="M71.33 21.6V3.2H75.77V21.6H71.33Z" fill="#030C0C" />
-      <path d="M88.75 13.22C88.75 18.26 85.03 22 80.11 22C75.19 22 71.47 18.26 71.47 13.22C71.47 8.18 75.19 4.4 80.11 4.4C85.03 4.4 88.75 8.18 88.75 13.22ZM84.31 13.22C84.31 10.4 83.05 7.82 80.11 7.82C77.17 7.82 75.91 10.4 75.91 13.22C75.91 16.04 77.17 18.56 80.11 18.56C83.05 18.56 84.31 16.04 84.31 13.22Z" fill="#030C0C" />
-      <path d="M109.23 21.6H101.43L97.53 14.84V21.6H93.09V3.2H97.53V13.82L101.52 7.1H105.72L100.8 14.75L105.99 21.6H109.23Z" fill="#030C0C" />
-    </svg>
-  ),
-  (props) => (
-    <svg
-      viewBox="0 0 160 30"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <text x="0" y="20" fontFamily="Satoshi, sans-serif" fontSize="14" fontWeight="bold">making science</text>
-      <text x="105" y="20" fontFamily="Satoshi, sans-serif" fontSize="14">sweeft</text>
-    </svg>
-  ),
-  (props) => (
-    <svg
-      viewBox="0 0 150 25"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <path d="M0 22V3H7.5V12.5H15V3H22.5V22H15V12.5H7.5V22H0Z" fill="#030C0C" />
-      <path d="M26.25 22V3H48.75V8H33.75V12.5H45V17H33.75V22H26.25Z" fill="#030C0C" />
-      <path d="M55.5413 22.216L53.7933 20.896C54.6933 19.744 55.7733 19.024 57.0333 18.736V3H60.0333V22H55.5413V22.216ZM79.6231 22H76.7431L73.9831 17.68H68.8231V22H65.7031V3H73.3831C76.8631 3 78.9631 4.6 78.9631 7.6C78.9631 9.64 78.1831 11.2 76.8631 12.28L80.1631 22H79.6231ZM73.3831 6.28H68.8231V14.4H73.3831C75.1831 14.4 75.9031 13.44 75.9031 10.3C75.9031 7.16 75.1831 6.28 73.3831 6.28ZM90.2307 22V3H93.1107V22H90.2307ZM102.531 22V8.2L97.5507 22H94.9107L89.9307 8.2V22H87.0507V3H91.1307L96.2307 14.68L101.331 3H105.411V22H102.531ZM115.939 22H113.059L110.299 17.68H105.139V22H102.019V3H109.699C113.179 3 115.279 4.6 115.279 7.6C115.279 9.64 114.499 11.2 113.179 12.28L116.479 22H115.939ZM109.699 6.28H105.139V14.4H109.699C111.499 14.4 112.219 13.44 112.219 10.3C112.219 7.16 111.499 6.28 109.699 6.28ZM125.864 22V3H128.744V22H125.864ZM138.832 22V8H132.832V3H144.832V8H138.832V22ZM150.375 10.216C150.375 9.736 150.135 9.376 149.655 9.136C149.175 8.896 148.455 8.776 147.495 8.776C147.015 8.776 146.625 8.806 146.325 8.866L146.565 7.186C146.955 7.126 147.375 7.096 147.825 7.096C149.265 7.096 150.315 7.426 150.975 8.086C151.635 8.746 151.965 9.676 151.965 10.876V13.516H153.225V15.016H151.965V22.006H150.375V15.016H147.825V13.516H150.375V10.216Z" fill="#030C0C" />
-    </svg>
-  ),
-  (props) => (
-    <svg viewBox="0 0 100 25" fill="currentColor" {...props}>
-      <path d="M11.66 18.25L10.5 17.37C11.16 16.59 11.96 16.07 12.9 15.85V3H15.1V18H11.66V18.25ZM18.72 18H20.94L24.84 9.51V18H27.06V3H24.54L20.64 11.49V3H18.42V18H18.72ZM37.36 18H30.04V15.7H35.2V12.85H30.04V9.1H35.2V6.3H30.04V3H37.36V18ZM46.92 18H39.6V3H46.92V6.3H41.82V9.1H46.92V12.85H41.82V15.7H46.92V18ZM50.04 18V3H52.26V18H50.04ZM61.32 18H54V3H61.32V6.3H56.22V9.1H61.32V12.85H56.22V15.7H61.32V18ZM69.66 18H62.34V3H69.66V18ZM67.44 5.25H64.56V15.75H67.44V5.25ZM79.62 18H72.3V3H79.62V6.3H74.52V9.1H79.62V12.85H74.52V15.7H79.62V18Z" fill="#030C0C"/>
-      <path d="M92.5 10.5C89.46 10.5 87 12.96 87 16C87 19.04 89.46 21.5 92.5 21.5C95.54 21.5 98 19.04 98 16C98 12.96 95.54 10.5 92.5 10.5ZM92.5 19.25C90.73 19.25 89.25 17.77 89.25 16C89.25 14.23 90.73 12.75 92.5 12.75C94.27 12.75 95.75 14.23 95.75 16C95.75 17.77 94.27 19.25 92.5 19.25Z" fill="#030C0C"/>
-    </svg>
-  ),
+const logos = [
+  { src: '/Carousel-Logo-1.svg', alt: 'Hapttic logo', width: 95 },
+  { src: '/Carousel-Logo-2.svg', alt: 'Aversi logo', width: 162 },
+  { src: '/Carousel-Logo-3.svg', alt: 'Partner logo', width: 110 },
+  { src: '/Carousel-Logo-4.svg', alt: 'Making Science Sweeft logo', width: 160 },
+  { src: '/Carousel-Logo-5.svg', alt: 'Partner logo', width: 150 },
 ];
 
+function LogoSet({ hidden = false }: { hidden?: boolean }) {
+  return (
+    <div className="flex shrink-0 items-center gap-12 pr-12 sm:gap-24 sm:pr-24" aria-hidden={hidden}>
+      {logos.map((logo) => (
+        <div
+          key={logo.src}
+          className="flex h-5 shrink-0 items-center justify-center sm:h-6"
+          style={{ width: `${logo.width}px` }}
+        >
+          <img src={logo.src} alt={hidden ? '' : logo.alt} className="h-full w-auto object-contain" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function LogoCarousel() {
-  const allLogos = [...logos, ...logos];
-  const marqueeRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    const marquee = marqueeRef.current;
     const section = sectionRef.current;
-    if (!marquee || !section) return;
+    if (!section) return;
 
     const ctx = gsap.context(() => {
-      // Infinite scroll animation
-      gsap.to(marquee, {
-        xPercent: -50,
-        repeat: -1,
-        duration: 40,
-        ease: 'none',
-      });
-
-      // Fade-in on scroll
       gsap.fromTo(
         section,
         { opacity: 0, y: 30 },
@@ -136,32 +53,21 @@ export function LogoCarousel() {
           },
         }
       );
-    }, sectionRef);
+    }, section);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <div ref={sectionRef} className="bg-[#E4E4E4] py-10">
-      <div
-        className="relative w-full overflow-hidden"
-        style={{
-          maskImage:
-            'linear-gradient(to right, transparent, white 20%, white 80%, transparent)',
-        }}
-      >
-        <div ref={marqueeRef} className="flex w-max">
-          {allLogos.map((Logo, index) => (
-            <div
-              key={`logo-${index}`}
-              className="mx-12 flex flex-shrink-0 items-center justify-center"
-              style={{ minWidth: '120px', height: '24px' }}
-            >
-              <Logo className="h-full w-auto" style={{ color: '#030C0C' }} />
-            </div>
-          ))}
+    <section ref={sectionRef} className="bg-[#E4E4E4] py-10" aria-label="Selected client logos">
+      <div className="logo-marquee-mask relative w-full overflow-hidden">
+        <div className="logo-marquee-track flex w-max items-center">
+          <LogoSet />
+          <LogoSet hidden />
+          <LogoSet hidden />
+          <LogoSet hidden />
         </div>
       </div>
-    </div>
+    </section>
   );
 }

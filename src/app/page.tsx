@@ -10,13 +10,19 @@ import { ServicesSection } from '@/components/shared/services-section';
 import { LogoCarousel } from '@/components/shared/logo-carousel';
 import { AboutSection } from '@/components/shared/about-section';
 import { Footer } from '@/components/shared/footer';
+import { useFitTextWidth } from '@/hooks/use-fit-text-width';
 
 export default function Home() {
   const headerRef = useRef<HTMLElement>(null);
   const quietlyRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLDivElement>(null);
+  const headlineTextRef = useRef<HTMLSpanElement>(null);
   const videoRef = useRef<HTMLDivElement>(null);
   const scrollMeRef = useRef<HTMLDivElement>(null);
+
+  useFitTextWidth(headlineRef, headlineTextRef, {
+    variableName: '--hero-title-size',
+  });
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -84,12 +90,12 @@ export default function Home() {
       }}
     >
       <main>
-        <div className="relative flex h-screen flex-col">
-          <header ref={headerRef} className="flex w-full items-center justify-between p-8">
-            <div className="font-bold tracking-wider text-2xl">LOGO</div>
+        <div className="relative flex min-h-screen flex-col">
+          <header ref={headerRef} className="flex w-full items-center justify-between px-4 pb-0 pt-8 sm:p-8">
+            <div className="font-bold tracking-wider text-2xl">RATI</div>
             <Button
               variant="default"
-              className="h-14 w-40 rounded-full bg-accent font-bold text-xl leading-tight text-accent-foreground hover:bg-accent/90"
+              className="h-12 w-32 rounded-full bg-accent text-base font-bold leading-tight text-accent-foreground hover:bg-accent/90 sm:h-14 sm:w-40 sm:text-xl"
               asChild
             >
               <a href="mailto:r.nabijashvili@gmail.com">Contact Me</a>
@@ -97,30 +103,31 @@ export default function Home() {
           </header>
 
           {/* This container holds the main hero content and centers it vertically. */}
-          <div className="flex flex-grow flex-col justify-center px-8 pt-16">
-            <div className="flex w-full items-start justify-between">
-              <div ref={scrollMeRef} className="flex flex-col items-end gap-2 text-[#030C0C]">
-                <span className="font-body text-base font-bold leading-tight">
-                  Scroll Me
-                </span>
-                <img src="/arrow-down-right.svg" alt="Scroll down" className="h-6 w-6" />
-              </div>
+          <div className="tablet-hero-shell flex flex-1 flex-col justify-between px-4 pb-8 pt-10 sm:px-8 sm:pb-0 sm:pt-16 md:justify-center">
+            <div className="tablet-hero-media-region flex min-h-0 flex-1 items-center justify-center md:block md:flex-none">
+              <div className="tablet-hero-media-row flex w-full flex-col-reverse items-start gap-4 md:flex-row md:justify-between md:gap-8">
+                <div ref={scrollMeRef} className="flex flex-col items-end gap-2 text-[#030C0C]">
+                  <span className="font-body text-base font-bold leading-tight">
+                    Scroll Me
+                  </span>
+                  <img src="/arrow-down-right.svg" alt="Scroll down" className="h-6 w-6" />
+                </div>
 
-              <div ref={videoRef} className="h-[320px] w-[568px]">
-                <HeroVideo />
+                <div ref={videoRef} className="aspect-video w-full max-w-[568px] overflow-hidden rounded-md md:h-[320px] md:w-[568px]">
+                  <HeroVideo />
+                </div>
               </div>
             </div>
 
-            <div className="relative mt-12 flex w-full flex-col gap-4">
-              <div ref={quietlyRef} className="relative w-full font-bold text-xl uppercase leading-none">
-                <span className="absolute left-0">A</span>
-                <span className="block text-center">Quietly</span>
-                <span className="absolute right-0 top-0">Confident</span>
+            <div className="tablet-hero-title-group relative flex w-full flex-col gap-4 sm:mt-12 sm:gap-6">
+              <div ref={quietlyRef} className="relative w-full px-2 text-center text-xl font-bold uppercase leading-none md:text-left">
+                <span className="md:absolute md:left-2">A</span>
+                <span className="mx-1 md:mx-0 md:block md:text-center">Quietly</span>
+                <span className="md:absolute md:right-2 md:top-0">Confident</span>
               </div>
-              <div ref={headlineRef} className="mt-4 w-full @container">
-                <h1 className="flex w-full justify-center gap-x-[5.5cqw] text-center font-headline text-[max(4rem,min(13.6cqw,20rem))] leading-[0.8] uppercase text-primary">
-                  <span>Product</span>
-                  <span>Designer</span>
+              <div ref={headlineRef} className="w-full">
+                <h1 className="hero-display-title w-full whitespace-nowrap text-center font-headline leading-[0.82] tracking-normal uppercase text-primary">
+                  <span ref={headlineTextRef} className="inline-block">Product Designer</span>
                 </h1>
               </div>
             </div>
@@ -128,7 +135,7 @@ export default function Home() {
         </div>
         <PhilosophySection />
         <WorkSection />
-        <section className="mt-40">
+        <section className="mt-[72px] md:mt-40">
           <LogoCarousel />
         </section>
         <ServicesSection />

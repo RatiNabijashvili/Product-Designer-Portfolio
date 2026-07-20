@@ -14,7 +14,6 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 gsap.registerPlugin(ScrollTrigger);
 
 export function WorkSection() {
-  const fixedWidthTags = ['SaaS', 'B2B', 'B2C'];
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLHeadingElement>(null);
 
@@ -65,9 +64,9 @@ export function WorkSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="mt-40 px-8">
+    <section ref={sectionRef} className="mt-[72px] px-4 md:mt-40 md:px-8">
       <header ref={headerRef} className="mb-12">
-        <h2 className="text-xl font-bold uppercase leading-none text-[#919191]">
+        <h2 className="text-base font-bold uppercase leading-none text-[#919191] md:text-xl">
           01 / WORK
         </h2>
       </header>
@@ -80,17 +79,16 @@ export function WorkSection() {
           return (
             <div
               key={project.id}
-              className="project-item grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-8 border-t border-[#DCDCDC]"
+              className="project-item tablet-project-item grid grid-cols-1 items-center gap-6 border-t border-[#DCDCDC] py-8 lg:grid-cols-2 lg:gap-12"
             >
               {/* Left Column */}
-              <div className="flex flex-col justify-center space-y-10">
+              <div className="tablet-project-content flex flex-col justify-center space-y-8 lg:space-y-10">
                 <div className="flex flex-wrap gap-3">
                   {project.tags.map((tag) => (
                     <div
                       key={tag}
                       className={cn(
-                        'flex items-center justify-center h-10 border border-[#706F6F] rounded-full',
-                        fixedWidthTags.includes(tag) ? 'w-20' : 'px-4'
+                        'flex h-10 w-fit shrink-0 items-center justify-center rounded-full border border-[#706F6F] px-3'
                       )}
                     >
                       <span className="text-sm font-bold text-[#706F6F] capitalize leading-[120%]">
@@ -101,10 +99,10 @@ export function WorkSection() {
                 </div>
 
                 <div className="space-y-2 lg:max-w-[720px]">
-                  <h3 className="text-3xl font-bold uppercase text-[#030C0C]">
+                  <h3 className="text-2xl font-bold uppercase text-[#030C0C] lg:text-3xl">
                     {project.name}
                   </h3>
-                  <p className="text-xl font-medium text-[#919191] capitalize leading-[150%]">
+                  <p className="text-base font-medium capitalize leading-[150%] text-[#919191] lg:text-xl">
                     {project.description}
                   </p>
                 </div>
@@ -132,7 +130,7 @@ export function WorkSection() {
               </div>
 
               {/* Right Column */}
-              <div className="flex items-center justify-center">
+              <div className="tablet-project-media order-first flex items-center justify-center lg:order-none">
                 {projectImage && (
                   <ProjectMedia
                     imageUrl={projectImage.imageUrl}
@@ -209,6 +207,7 @@ function ProjectMedia({
         src={imageUrl}
         alt={projectName}
         fill
+        unoptimized
         className={cn(
           "object-cover transition-opacity duration-300",
           isHovered ? "opacity-0" : "opacity-100"

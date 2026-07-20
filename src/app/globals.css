@@ -72,3 +72,145 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .hero-display-title {
+    font-size: var(--hero-title-size, clamp(2.6rem, 13.7vw, 22rem));
+  }
+
+  .footer-display-title {
+    font-size: var(--footer-title-size, clamp(2.9rem, 11.9vw, 19rem));
+  }
+
+  .logo-marquee-mask {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .logo-marquee-track {
+    animation: logo-marquee 34s linear infinite;
+    will-change: transform;
+  }
+
+  @keyframes logo-marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-25%, 0, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-marquee-track {
+      animation: none;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1200px) {
+    .tablet-hero-shell {
+      justify-content: center !important;
+      padding: 3rem 2rem 0 !important;
+    }
+
+    .tablet-hero-media-region {
+      display: block !important;
+      flex: none !important;
+      min-height: auto !important;
+    }
+
+    .tablet-hero-media-row {
+      flex-direction: row !important;
+      align-items: flex-start !important;
+      justify-content: space-between !important;
+      gap: 2rem !important;
+    }
+
+    .tablet-hero-title-group {
+      margin-top: 3rem !important;
+      gap: 1.25rem !important;
+    }
+
+    .tablet-project-item {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+      gap: 2rem !important;
+    }
+
+    .tablet-project-content {
+      gap: 0 !important;
+    }
+
+    .tablet-project-media {
+      order: 0 !important;
+    }
+
+    .tablet-service-mobile {
+      display: none !important;
+    }
+
+    .tablet-service-desktop {
+      display: grid !important;
+    }
+
+    .tablet-service-desktop > div {
+      height: 360px !important;
+    }
+
+    .tablet-service-desktop .service-text-wrapper h3 {
+      font-size: 1.5rem !important;
+    }
+
+    .tablet-service-desktop .service-text-wrapper p {
+      max-width: 560px !important;
+      font-size: 1rem !important;
+    }
+
+    .tablet-service-desktop img {
+      height: 160px !important;
+      width: 160px !important;
+    }
+
+    .tablet-about-title {
+      position: absolute !important;
+      top: 0 !important;
+      left: 2rem !important;
+      min-width: 0 !important;
+      max-width: 48vw !important;
+      font-size: 1.5rem !important;
+    }
+
+    .tablet-about-layout {
+      margin-top: 9rem !important;
+      flex-direction: row !important;
+      align-items: flex-end !important;
+      gap: 2rem !important;
+    }
+
+    .tablet-about-interests {
+      order: 0 !important;
+      width: auto !important;
+      min-width: 11rem !important;
+      gap: 0.75rem !important;
+    }
+
+    .tablet-about-content {
+      order: 0 !important;
+      width: auto !important;
+      flex-direction: row !important;
+      align-items: flex-end !important;
+      gap: 1rem !important;
+    }
+
+    .tablet-about-text {
+      width: min(30vw, 280px) !important;
+      max-width: 280px !important;
+      font-size: 1rem !important;
+    }
+
+    .tablet-about-image {
+      width: min(34vw, 360px) !important;
+      height: auto !important;
+    }
+  }
+}
