@@ -167,7 +167,7 @@ export function ServicesSection() {
                 <h3 className="font-body text-[32px] font-bold uppercase leading-[1.2] text-primary">
                   {service.title}
                 </h3>
-                <p className="mx-auto max-w-[720px] font-body text-xl font-medium capitalize leading-[1.5] text-[#919191]">
+                <p className="mx-auto max-w-[720px] font-body text-xl font-medium leading-[1.5] text-[#919191]">
                   {service.description}
                 </p>
               </div>
@@ -188,7 +188,7 @@ export function ServicesSection() {
                   <h3 className="font-body text-2xl font-bold uppercase leading-[1.2] text-primary">
                     {service.title}
                   </h3>
-                  <p className="mx-auto max-w-[720px] font-body text-base font-medium capitalize leading-[1.5] text-[#919191]">
+                  <p className="mx-auto max-w-[720px] font-body text-base font-medium leading-[1.5] text-[#919191]">
                     {service.description}
                   </p>
                 </div>

@@ -88,7 +88,7 @@
   }
 
   .logo-marquee-track {
-    animation: logo-marquee 34s linear infinite;
+    animation: logo-marquee 22s linear infinite;
     will-change: transform;
   }
 
@@ -98,13 +98,6 @@
     }
     to {
       transform: translate3d(-25%, 0, 0);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .logo-marquee-track {
-      animation: none;
-      transform: translate3d(0, 0, 0);
     }
   }
 

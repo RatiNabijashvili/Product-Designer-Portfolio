@@ -2,6 +2,7 @@
 
 import { useLayoutEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Lock } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -16,6 +17,13 @@ gsap.registerPlugin(ScrollTrigger);
 export function WorkSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLHeadingElement>(null);
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const [showProjectCursor, setShowProjectCursor] = useState(false);
+
+  const moveProjectCursor = (clientX: number, clientY: number) => {
+    if (!cursorRef.current) return;
+    cursorRef.current.style.transform = `translate3d(${clientX}px, ${clientY}px, 0) translate(-50%, -50%)`;
+  };
 
   useLayoutEffect(() => {
     // A guard to ensure all refs are mounted
@@ -77,10 +85,90 @@ export function WorkSection() {
           );
 
           return (
-            <div
+            <ProjectItem
               key={project.id}
-              className="project-item tablet-project-item grid grid-cols-1 items-center gap-6 border-t border-[#DCDCDC] py-8 lg:grid-cols-2 lg:gap-12"
-            >
+              project={project}
+              projectImage={projectImage}
+              onCursorEnter={(event) => {
+                moveProjectCursor(event.clientX, event.clientY);
+                setShowProjectCursor(true);
+              }}
+              onCursorMove={(event) => moveProjectCursor(event.clientX, event.clientY)}
+              onCursorLeave={() => setShowProjectCursor(false)}
+            />
+          );
+        })}
+      </div>
+      <div
+        ref={cursorRef}
+        className={cn(
+          'pointer-events-none fixed left-0 top-0 z-[9999] rounded-full bg-[#181818] px-6 py-3 text-base font-bold capitalize leading-[120%] text-[#FCFAFA] shadow-lg will-change-transform transition-[transform,opacity] duration-75 ease-out',
+          showProjectCursor ? 'opacity-100' : 'opacity-0'
+        )}
+      >
+        View Project
+      </div>
+    </section>
+  );
+}
+
+function ProjectItem({
+  project,
+  projectImage,
+  onCursorEnter,
+  onCursorMove,
+  onCursorLeave,
+}: {
+  project: (typeof projects)[number];
+  projectImage: (typeof PlaceHolderImages)[number] | undefined;
+  onCursorEnter: (event: React.MouseEvent<HTMLDivElement>) => void;
+  onCursorMove: (event: React.MouseEvent<HTMLDivElement>) => void;
+  onCursorLeave: () => void;
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleMouseEnter = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (project.inDevelopment) return;
+
+    onCursorEnter(event);
+    setIsHovered(true);
+    void videoRef.current?.play();
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    if (!project.inDevelopment) onCursorLeave();
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  };
+
+  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (project.inDevelopment) return;
+    onCursorMove(event);
+  };
+
+  return (
+    <div
+      className={cn(
+        'project-item tablet-project-item relative grid grid-cols-1 items-center gap-6 border-t border-[#DCDCDC] py-8 lg:grid-cols-2 lg:gap-12',
+        !project.inDevelopment && 'cursor-none'
+      )}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onMouseMove={handleMouseMove}
+    >
+      {project.id === 'hapttic' && (
+        <Link
+          href="/projects/hapttic"
+          className="absolute inset-0 z-10 cursor-none rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#030C0C] focus-visible:ring-offset-4"
+          aria-label="View Hapttic project"
+        >
+          <span className="sr-only">View Hapttic project</span>
+        </Link>
+      )}
               {/* Left Column */}
               <div className="tablet-project-content flex flex-col justify-center space-y-8 lg:space-y-10">
                 <div className="flex flex-wrap gap-3">
@@ -102,7 +190,7 @@ export function WorkSection() {
                   <h3 className="text-2xl font-bold uppercase text-[#030C0C] lg:text-3xl">
                     {project.name}
                   </h3>
-                  <p className="text-base font-medium capitalize leading-[150%] text-[#919191] lg:text-xl">
+                  <p className="text-base font-medium leading-[150%] text-[#919191] lg:text-xl">
                     {project.description}
                   </p>
                 </div>
@@ -121,11 +209,7 @@ export function WorkSection() {
                         <img src="/block.svg" alt="Locked" className="w-6 h-6" />
                       </div>
                     </div>
-                  ) : (
-                    <Button className="w-[136px] h-12 rounded-full bg-[#181818] text-[#FCFAFA] font-bold text-base leading-[120%] capitalize hover:bg-[#181818]/90">
-                      View Project
-                    </Button>
-                  )}
+                  ) : null}
                 </div>
               </div>
 
@@ -133,75 +217,34 @@ export function WorkSection() {
               <div className="tablet-project-media order-first flex items-center justify-center lg:order-none">
                 {projectImage && (
                   <ProjectMedia
+                    videoRef={videoRef}
                     imageUrl={projectImage.imageUrl}
                     projectName={project.name}
                     imageHint={projectImage.imageHint}
-                    inDevelopment={project.inDevelopment}
+                    isHovered={isHovered}
                   />
                 )}
               </div>
-            </div>
-          );
-        })}
-      </div>
-    </section>
+
+    </div>
   );
 }
 
 function ProjectMedia({ 
+  videoRef,
   imageUrl, 
   projectName, 
   imageHint,
-  inDevelopment 
+  isHovered,
 }: { 
+  videoRef: React.RefObject<HTMLVideoElement | null>;
   imageUrl: string; 
   projectName: string; 
   imageHint: string;
-  inDevelopment?: boolean;
+  isHovered: boolean;
 }) {
-  const [isHovered, setIsHovered] = useState(false);
-  const [showTooltip, setShowTooltip] = useState(false);
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const handleMouseEnter = () => {
-    if (!inDevelopment) {
-      setIsHovered(true);
-      setShowTooltip(true);
-      if (videoRef.current) {
-        videoRef.current.play();
-      }
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setShowTooltip(false);
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
-  };
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (containerRef.current && !inDevelopment) {
-      const rect = containerRef.current.getBoundingClientRect();
-      setCursorPosition({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      });
-    }
-  };
-
   return (
-    <div 
-      ref={containerRef}
-      className="relative w-full aspect-[680/382] rounded-lg overflow-hidden cursor-none group"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onMouseMove={handleMouseMove}
-    >
+    <div className="group relative aspect-[680/382] w-full overflow-hidden rounded-lg">
       {/* Image */}
       <Image
         src={imageUrl}
@@ -229,19 +272,6 @@ function ProjectMedia({
         <source src="/Slideshow-Loop-[remix] - 720p 30fps.webm" type="video/webm" />
       </video>
 
-      {/* Tooltip - follows cursor, bottom-centered */}
-      {showTooltip && !inDevelopment && (
-        <div 
-          className="pointer-events-none absolute rounded-full bg-[#181818] px-6 py-3 text-base font-bold leading-[120%] capitalize text-[#FCFAFA] shadow-lg"
-          style={{
-            left: `${cursorPosition.x}px`,
-            top: `${cursorPosition.y + 20}px`, // 20px below cursor
-            transform: 'translateX(-50%)', // Center horizontally to cursor
-          }}
-        >
-          View Project
-        </div>
-      )}
     </div>
   );
 }
