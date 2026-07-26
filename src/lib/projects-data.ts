@@ -17,12 +17,12 @@ export const projects: Project[] = [
     imageId: 'project-hapttic',
   },
   {
-    id: 'splice',
-    tags: ['Social Network', 'Mobile App'],
-    name: 'SPLICE',
+    id: 'noxtton-wallet',
+    tags: ['Fintech', 'B2C', 'Mobile App'],
+    name: 'NOXTTON WALLET',
     description:
-      'Splice is a mobile app that lets users discover, join, and host parties while staying updated on where friends are. It connects party-goers and hosts in real time for a social experience.',
-    imageId: 'project-splice',
+      'Noxtton Wallet is a self-custodial mobile wallet for EVM networks, designed to make managing and transferring digital assets feel safer and more understandable for newcomers.',
+    imageId: 'project-noxtton-wallet',
   },
   {
     id: 'white-square',

@@ -15,14 +15,14 @@
     {
       "id": "project-hapttic",
       "description": "Hapttic project image",
-      "imageUrl": "https://images.unsplash.com/photo-1686061593213-98dad7c599b9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8ZGFzaGJvYXJkJTIwYW5hbHl0aWNzfGVufDB8fHx8MTc2ODgxMTI4MXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "dashboard analytics"
+      "imageUrl": "/Projects/Happtic/First Image.png",
+      "imageHint": "Hapttic product overview"
     },
     {
-      "id": "project-splice",
-      "description": "Splice project image",
-      "imageUrl": "https://images.unsplash.com/photo-1663153205426-2b93a5a8dca9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxtb2JpbGUlMjBhcHAlMjBzb2NpYWx8ZW58MHx8fHwxNzY4OTE4ODU2fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "mobile app social"
+      "id": "project-noxtton-wallet",
+      "description": "Noxtton Wallet mobile product",
+      "imageUrl": "/Projects/Noxtton-Wallet/First Image.png",
+      "imageHint": "crypto wallet mobile app"
     },
     {
       "id": "project-aversi",

@@ -160,17 +160,22 @@ function ProjectItem({
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
     >
-      {project.id === 'hapttic' && (
+      {(project.id === 'hapttic' || project.id === 'noxtton-wallet') && (
         <Link
-          href="/projects/hapttic"
+          href={`/projects/${project.id}`}
           className="absolute inset-0 z-10 cursor-none rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#030C0C] focus-visible:ring-offset-4"
-          aria-label="View Hapttic project"
+          aria-label={`View ${project.name} project`}
         >
-          <span className="sr-only">View Hapttic project</span>
+          <span className="sr-only">View {project.name} project</span>
         </Link>
       )}
               {/* Left Column */}
-              <div className="tablet-project-content flex flex-col justify-center space-y-8 lg:space-y-10">
+              <div
+                className={cn(
+                  'tablet-project-content flex flex-col justify-center space-y-8 transition-[padding] duration-500 ease-out lg:space-y-10',
+                  isHovered ? 'pl-4' : 'pl-0'
+                )}
+              >
                 <div className="flex flex-wrap gap-3">
                   {project.tags.map((tag) => (
                     <div
@@ -214,7 +219,12 @@ function ProjectItem({
               </div>
 
               {/* Right Column */}
-              <div className="tablet-project-media order-first flex items-center justify-center lg:order-none">
+              <div
+                className={cn(
+                  'tablet-project-media order-first flex items-center justify-center transition-[padding] duration-500 ease-out lg:order-none',
+                  isHovered ? 'pr-4' : 'pr-0'
+                )}
+              >
                 {projectImage && (
                   <ProjectMedia
                     videoRef={videoRef}

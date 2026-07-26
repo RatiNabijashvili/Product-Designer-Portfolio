@@ -1,5 +1,3 @@
-import data from './placeholder-images.json';
-
 export type ImagePlaceholder = {
   id: string;
   description: string;
@@ -7,4 +5,41 @@ export type ImagePlaceholder = {
   imageHint: string;
 };
 
-export const PlaceHolderImages: ImagePlaceholder[] = data.placeholderImages;
+export const PlaceHolderImages: ImagePlaceholder[] = [
+  {
+    id: 'logo',
+    description: 'Placeholder for the portfolio logo',
+    imageUrl: 'https://images.unsplash.com/photo-1764601842167-ba701eed47f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtaW5pbWFsaXN0JTIwbG9nb3xlbnwwfHx8fDE3NjgzMjIzODh8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageHint: 'minimalist logo',
+  },
+  {
+    id: 'hero-video',
+    description: 'Placeholder for the hero section video',
+    imageUrl: 'https://images.unsplash.com/photo-1750727688838-063053458397?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxhYnN0cmFjdCUyMGFuaW1hdGlvbnxlbnwwfHx8fDE3NjgzMTM4ODB8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageHint: 'abstract animation',
+  },
+  {
+    id: 'project-hapttic',
+    description: 'Hapttic project image',
+    imageUrl: '/Projects/Happtic/First Image.png',
+    imageHint: 'Hapttic product overview',
+  },
+  {
+    id: 'project-noxtton-wallet',
+    description: 'Noxtton Wallet mobile product',
+    imageUrl: '/Projects/Noxtton-Wallet/First Image.png',
+    imageHint: 'crypto wallet mobile app',
+  },
+  {
+    id: 'project-aversi',
+    description: 'Aversi project image',
+    imageUrl: 'https://images.unsplash.com/photo-1722235623488-ae7639a2ffd8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxoZWFsdGhjYXJlJTIwcGxhdGZvcm18ZW58MHx8fHwxNzY4OTE4ODU3fDA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageHint: 'healthcare platform',
+  },
+  {
+    id: 'about-portrait',
+    description: 'Portrait image for the about section',
+    imageUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwb3J0cmFpdCUyMG1hbnxlbnwwfHx8fDE3Njk0Mjc4MjR8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageHint: 'portrait man',
+  },
+];
