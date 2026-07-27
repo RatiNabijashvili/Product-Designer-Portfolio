@@ -300,6 +300,7 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
 
   useLayoutEffect(() => {
     if (!secondGalleryRef.current) return;
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
     const ctx = gsap.context(() => {
       const topRow = gsap.timeline({ scrollTrigger: { trigger: solutionGalleryTopLeftRef.current, start: 'top 78%', once: true } });
       topRow.fromTo(solutionGalleryTopLeftRef.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' });
@@ -307,7 +308,7 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
 
       const bottomRow = gsap.timeline({ scrollTrigger: { trigger: solutionGalleryBottomFirstRef.current, start: 'top 78%', once: true } });
       [solutionGalleryBottomFirstRef.current, solutionGalleryBottomSecondRef.current, solutionGalleryBottomThirdRef.current].forEach((image, index) => {
-        bottomRow.fromTo(image, { opacity: 0, x: -80 }, { opacity: 1, x: 0, duration: 0.8, ease: 'power2.out' }, index === 0 ? 0 : '-=0.4');
+        bottomRow.fromTo(image, { opacity: 0, x: isMobile ? 0 : -80, y: isMobile ? 64 : 0 }, { opacity: 1, x: 0, y: 0, duration: 0.8, ease: 'power2.out' }, index === 0 ? 0 : '-=0.4');
       });
     }, secondGalleryRef);
     return () => ctx.revert();
@@ -315,11 +316,12 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
 
   useLayoutEffect(() => {
     if (!firstGalleryRef.current) return;
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
     const ctx = gsap.context(() => {
       gsap.fromTo(galleryFirstImageRef.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out', scrollTrigger: { trigger: galleryFirstImageRef.current, start: 'top 78%', once: true } });
       const secondRow = gsap.timeline({ scrollTrigger: { trigger: gallerySecondLeftRef.current, start: 'top 78%', once: true } });
-      secondRow.fromTo(gallerySecondLeftRef.current, { opacity: 0, x: -80 }, { opacity: 1, x: 0, duration: 0.9, ease: 'power2.out' });
-      secondRow.fromTo(gallerySecondRightRef.current, { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.9, ease: 'power2.out' }, '<');
+      secondRow.fromTo(gallerySecondLeftRef.current, { opacity: 0, x: isMobile ? 0 : -80, y: isMobile ? 64 : 0 }, { opacity: 1, x: 0, y: 0, duration: 0.9, ease: 'power2.out' });
+      secondRow.fromTo(gallerySecondRightRef.current, { opacity: 0, x: isMobile ? 0 : 80, y: isMobile ? 64 : 0 }, { opacity: 1, x: 0, y: 0, duration: 0.9, ease: 'power2.out' }, '<');
       const thirdRow = gsap.timeline({ scrollTrigger: { trigger: galleryThirdLeftRef.current, start: 'top 78%', once: true } });
       thirdRow.fromTo(galleryThirdLeftRef.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' });
       thirdRow.fromTo(galleryThirdRightRef.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' }, '<');
@@ -369,8 +371,8 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
             <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,560px)]">
               <div ref={gallerySecondLeftRef} className="flex flex-col gap-4">
                 <div className="grid gap-4 sm:grid-cols-[304fr_480fr]">
-                  <div className="flex h-[120px] items-center justify-center overflow-hidden rounded-lg bg-[#E4E4E4] p-6"><img src={`${assetBase}/First Logo.svg`} alt={`${projectName} symbol`} className="h-10 w-auto max-w-[80%] object-contain" /></div>
-                  <div className="flex h-[120px] items-center justify-center overflow-hidden rounded-lg bg-[#222] p-6"><img src={`${assetBase}/Second Logo.svg`} alt={`${projectName} logo`} className="h-10 w-auto max-w-[80%] object-contain" /></div>
+                  <div className="flex h-24 items-center justify-center overflow-hidden rounded-lg bg-[#E4E4E4] p-6"><img src={`${assetBase}/First Logo.svg`} alt={`${projectName} symbol`} className="h-8 w-auto max-w-[80%] object-contain" /></div>
+                  <div className="flex h-24 items-center justify-center overflow-hidden rounded-lg bg-[#222] p-6"><img src={`${assetBase}/Second Logo.svg`} alt={`${projectName} logo`} className="h-8 w-auto max-w-[80%] object-contain" /></div>
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="grid gap-4">
@@ -378,7 +380,7 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
                     <ReferenceVisual src={`${assetBase}/Third Image.png`} label={`${projectName} mobile interface`} className="aspect-[392/294]" />
                   </div>
                   <div className="grid grid-rows-5 gap-2">
-                    {projectSwatches.map(([code, color]) => <div key={code} className={cn('flex min-h-14 items-center justify-center overflow-hidden rounded-lg p-2 font-body text-2xl font-bold uppercase leading-[1.2]', isNoxtton && code !== '#F7F7FF' ? 'text-white' : 'text-[#030C0C]')} style={{ backgroundColor: color }}>{code}</div>)}
+                    {projectSwatches.map(([code, color]) => <div key={code} className={cn('flex h-20 items-center justify-center overflow-hidden rounded-lg p-2 font-body text-xl font-bold uppercase leading-[1.2] sm:h-auto sm:min-h-14 sm:text-2xl', isNoxtton && code !== '#F7F7FF' ? 'text-white' : 'text-[#030C0C]')} style={{ backgroundColor: color }}>{code}</div>)}
                   </div>
                 </div>
               </div>

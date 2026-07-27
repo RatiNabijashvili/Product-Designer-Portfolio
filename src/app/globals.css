@@ -88,7 +88,7 @@
   }
 
   .logo-marquee-track {
-    animation: logo-marquee 22s linear infinite;
+    animation: logo-marquee 25s linear infinite;
     will-change: transform;
   }
 
