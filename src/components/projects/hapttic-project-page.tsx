@@ -103,6 +103,41 @@ const noxtton = {
   ],
 };
 
+const whiteSquare = {
+  tags: ['Real Estate', 'B2C', 'Marketing Page'],
+  overview: [
+    ['Industry', 'Real Estate'], ['Role', 'Product Designer'], ['Product Duration', '1 Month'],
+    ['Key Markets', 'Georgia'], ['Growth Stage', 'Enterprise'], ['Company Size', '50+'],
+  ],
+  challengePoints: [
+    'Project cards provided limited information',
+    'Important property details lacked a clear hierarchy',
+    'Projects needed stronger storytelling beyond technical specifications',
+    'The visual experience required greater consistency',
+    'Repeated interface elements were not supported by a unified design system',
+  ],
+  analysisPoints: [
+    ['Make project discovery more informative:', 'Provide useful details directly within project cards so visitors can understand and differentiate developments more quickly.'],
+    ['Build stronger project narratives:', 'Present each development through a clearer sequence of concept, location, benefits, features, and available options.'],
+    ['Create a scalable visual foundation:', 'Standardize typography, spacing, colors, cards, buttons, and content patterns through a reusable design system.'],
+  ],
+  solutionPoints: [
+    ['Visual Refresh:', 'I introduced a cleaner and more contemporary visual direction that better reflected the quality and scale of White Square\'s residential projects. Typography, spacing, imagery, and interface elements were refined to create a more premium and cohesive experience.'],
+    ['More Informative Project Cards:', 'Project cards were redesigned to communicate more than a project name and image. Important details were brought forward so visitors could understand each development\'s location, status, positioning, and key characteristics before opening the full project page.'],
+    ['Improved Project Storytelling:', 'Individual project pages were restructured to guide visitors through a clearer narrative. The experience introduces the project, communicates its concept and benefits, highlights important features, and gradually leads users toward available apartments and sales actions.'],
+    ['Clearer Information Hierarchy:', 'Content was reorganized to make important information easier to scan. Headings, descriptive cards, imagery, specifications, and calls to action were given clearer roles, helping users move between high-level information and detailed project content without feeling overwhelmed.'],
+    ['Design System:', 'I created a reusable design system to ensure consistency across the website and support future growth. The system defined typography, colors, spacing, buttons, form elements, cards, navigation patterns, and reusable content components.'],
+    ['Accessible Sales Actions:', 'Contact and sales actions remained visible throughout the experience without competing with project content. The redesigned hierarchy allows visitors to first understand a development and then move naturally toward exploring apartments or contacting the sales team.'],
+  ],
+  outcomes: [
+    'The redesign created a more polished, informative, and story-driven digital experience for White Square.',
+    'The refreshed visual direction strengthened the company\'s online presentation, while richer project cards made developments easier to discover and compare. Improved storytelling and content hierarchy transformed technical property information into a clearer and more engaging browsing experience.',
+    'The new design system also established consistency across the website and created a reusable foundation for future projects, pages, and features.',
+    'Overall, the project produced a more cohesive and scalable website that presents White Square\'s developments with greater clarity and connects project exploration more naturally with sales actions.',
+  ],
+  swatches: [['#283B40', '#283B40'], ['#ABD9B9', '#ABD9B9'], ['#BAC6CE', '#BAC6CE'], ['#9B8B82', '#9B8B82'], ['#161414', '#161414']],
+};
+
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return <h2 className="text-2xl font-bold uppercase leading-[1.2] text-[#030C0C] md:text-[32px]">{children}</h2>;
 }
@@ -228,17 +263,19 @@ function ProjectVideo() {
   );
 }
 
-export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic' | 'noxtton' }) {
+export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic' | 'noxtton' | 'white-square' }) {
   const isNoxtton = project === 'noxtton';
-  const projectTags = isNoxtton ? noxtton.tags : tags;
-  const projectOverview = isNoxtton ? noxtton.overview : overview;
-  const projectChallengePoints = isNoxtton ? noxtton.challengePoints : challengePoints;
-  const projectAnalysisPoints = isNoxtton ? noxtton.analysisPoints : analysisPoints;
-  const projectSolutionPoints = isNoxtton ? noxtton.solutionPoints : solutionPoints;
-  const projectOutcomes = isNoxtton ? noxtton.outcomes : outcomes;
-  const projectSwatches = isNoxtton ? noxtton.swatches : swatches;
-  const assetBase = isNoxtton ? '/Projects/Noxtton-Wallet' : '/Projects/Happtic';
-  const projectName = isNoxtton ? 'Noxtton Wallet' : 'Hapttic';
+  const isWhiteSquare = project === 'white-square';
+  const projectData = isWhiteSquare ? whiteSquare : isNoxtton ? noxtton : { tags, overview, challengePoints, analysisPoints, solutionPoints, outcomes, swatches };
+  const projectTags = projectData.tags;
+  const projectOverview = projectData.overview;
+  const projectChallengePoints = projectData.challengePoints;
+  const projectAnalysisPoints = projectData.analysisPoints;
+  const projectSolutionPoints = projectData.solutionPoints;
+  const projectOutcomes = projectData.outcomes;
+  const projectSwatches = projectData.swatches;
+  const assetBase = isWhiteSquare ? '/Projects/White-Square' : isNoxtton ? '/Projects/Noxtton-Wallet' : '/Projects/Happtic';
+  const projectName = isWhiteSquare ? 'White Square' : isNoxtton ? 'Noxtton Wallet' : 'Hapttic';
   const headerRef = useRef<HTMLElement>(null);
   const projectHeadingRef = useRef<HTMLDivElement>(null);
   const projectDescriptionRef = useRef<HTMLParagraphElement>(null);
@@ -348,7 +385,9 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
               </div>
             </div>
             <p ref={projectDescriptionRef} className="w-full text-base font-medium leading-[1.5] text-[#919191] md:w-[560px] md:text-xl">
-              {isNoxtton
+              {isWhiteSquare
+                ? 'White Square is a Georgian real estate development company presenting residential projects, available apartments, company information and direct sales opportunities through its website.'
+                : isNoxtton
                 ? 'Noxtton Wallet is a self-custodial mobile wallet for EVM networks, designed to make managing and transferring digital assets feel safer and more understandable for newcomers.'
                 : 'Hapttic is a real-time brand intelligence platform that helps teams track online mentions, analyze sentiment, monitor campaigns, and respond to important conversations.'}
             </p>
@@ -361,8 +400,8 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
 
         <div className="px-4 sm:px-8">
           <ProjectOverview items={projectOverview} />
-          <TextSection reveal title="The Challenge" intro={isNoxtton ? 'Most self-custodial wallets assume that users already understand networks, recovery phrases, transaction fees, and wallet addresses. For newcomers, this creates several challenges:' : 'The existing experience made it difficult for teams to quickly understand brand performance. The main issues were:'} points={projectChallengePoints} />
-          <TextSection reveal title="Product Analysis" intro={isNoxtton ? 'I reviewed the product requirements, core wallet journeys, security risks, and the needs of the “Cautious Newcomer” persona. The analysis highlighted three main design opportunities:' : 'I reviewed the existing dashboard, product requirements, information architecture, and core brand-monitoring workflows. The analysis highlighted three main opportunities:'} points={projectAnalysisPoints} />
+          <TextSection reveal title="The Challenge" intro={isWhiteSquare ? 'The website needed to present multiple residential projects while helping potential buyers quickly understand what made each development different. The main challenges were:' : isNoxtton ? 'Most self-custodial wallets assume that users already understand networks, recovery phrases, transaction fees, and wallet addresses. For newcomers, this creates several challenges:' : 'The existing experience made it difficult for teams to quickly understand brand performance. The main issues were:'} points={projectChallengePoints} />
+          <TextSection reveal title="Product Analysis" intro={isWhiteSquare ? 'I reviewed the existing website structure, project presentation, content hierarchy, repeated interface patterns, and the journey from discovering a development to contacting the sales team. The analysis highlighted three main opportunities:' : isNoxtton ? 'I reviewed the product requirements, core wallet journeys, security risks, and the needs of the “Cautious Newcomer” persona. The analysis highlighted three main design opportunities:' : 'I reviewed the existing dashboard, product requirements, information architecture, and core brand-monitoring workflows. The analysis highlighted three main opportunities:'} points={projectAnalysisPoints} />
 
           <section ref={firstGalleryRef} className="mt-12 flex flex-col gap-4" aria-label={`${projectName} brand gallery`}>
             <div ref={galleryFirstImageRef}>
@@ -371,8 +410,8 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
             <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,560px)]">
               <div ref={gallerySecondLeftRef} className="flex flex-col gap-4">
                 <div className="grid gap-4 sm:grid-cols-[304fr_480fr]">
-                  <div className="flex h-24 items-center justify-center overflow-hidden rounded-lg bg-[#E4E4E4] p-6"><img src={`${assetBase}/First Logo.svg`} alt={`${projectName} symbol`} className="h-8 w-auto max-w-[80%] object-contain" /></div>
-                  <div className="flex h-24 items-center justify-center overflow-hidden rounded-lg bg-[#222] p-6"><img src={`${assetBase}/Second Logo.svg`} alt={`${projectName} logo`} className="h-8 w-auto max-w-[80%] object-contain" /></div>
+                  <div className="flex h-24 items-center justify-center overflow-hidden rounded-lg bg-[#E4E4E4] p-6 md:h-[120px]"><img src={`${assetBase}/First Logo.svg`} alt={`${projectName} symbol`} className="h-8 w-auto max-w-[80%] object-contain md:h-10" /></div>
+                  <div className="flex h-24 items-center justify-center overflow-hidden rounded-lg bg-[#222] p-6 md:h-[120px]"><img src={`${assetBase}/Second Logo.svg`} alt={`${projectName} logo`} className="h-8 w-auto max-w-[80%] object-contain md:h-10" /></div>
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="grid gap-4">
@@ -380,7 +419,7 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
                     <ReferenceVisual src={`${assetBase}/Third Image.png`} label={`${projectName} mobile interface`} className="aspect-[392/294]" />
                   </div>
                   <div className="grid grid-rows-5 gap-2">
-                    {projectSwatches.map(([code, color]) => <div key={code} className={cn('flex h-20 items-center justify-center overflow-hidden rounded-lg p-2 font-body text-xl font-bold uppercase leading-[1.2] sm:h-auto sm:min-h-14 sm:text-2xl', isNoxtton && code !== '#F7F7FF' ? 'text-white' : 'text-[#030C0C]')} style={{ backgroundColor: color }}>{code}</div>)}
+                    {projectSwatches.map(([code, color]) => <div key={code} className={cn('flex h-20 items-center justify-center overflow-hidden rounded-lg p-2 font-body text-xl font-bold uppercase leading-[1.2] sm:h-auto sm:min-h-14 sm:text-2xl', (isNoxtton && code !== '#F7F7FF') || (isWhiteSquare && (code === '#283B40' || code === '#161414')) ? 'text-white' : 'text-[#030C0C]')} style={{ backgroundColor: color }}>{code}</div>)}
                   </div>
                 </div>
               </div>

@@ -160,7 +160,7 @@ function ProjectItem({
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
     >
-      {(project.id === 'hapttic' || project.id === 'noxtton-wallet') && (
+      {(project.id === 'hapttic' || project.id === 'noxtton-wallet' || project.id === 'white-square') && (
         <Link
           href={`/projects/${project.id}`}
           className="absolute inset-0 z-10 cursor-none rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#030C0C] focus-visible:ring-offset-4"

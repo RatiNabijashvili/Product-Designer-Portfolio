@@ -31,15 +31,15 @@ export const PlaceHolderImages: ImagePlaceholder[] = [
     imageHint: 'crypto wallet mobile app',
   },
   {
+    id: 'project-white-square',
+    description: 'White Square real estate project',
+    imageUrl: '/Projects/White-Square/First Image.png',
+    imageHint: 'real estate website case study',
+  },
+  {
     id: 'project-aversi',
     description: 'Aversi project image',
     imageUrl: 'https://images.unsplash.com/photo-1722235623488-ae7639a2ffd8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxoZWFsdGhjYXJlJTIwcGxhdGZvcm18ZW58MHx8fHwxNzY4OTE4ODU3fDA&ixlib=rb-4.1.0&q=80&w=1080',
     imageHint: 'healthcare platform',
-  },
-  {
-    id: 'about-portrait',
-    description: 'Portrait image for the about section',
-    imageUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwb3J0cmFpdCUyMG1hbnxlbnwwfHx8fDE3Njk0Mjc4MjR8MA&ixlib=rb-4.1.0&q=80&w=1080',
-    imageHint: 'portrait man',
   },
 ];

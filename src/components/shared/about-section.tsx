@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { Trophy, Clapperboard } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -39,7 +38,6 @@ const interests = [
 ];
 
 export function AboutSection() {
-  const aboutImage = PlaceHolderImages.find((p) => p.id === 'about-portrait');
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -191,18 +189,14 @@ export function AboutSection() {
                 </p>
             </div>
             
-            {aboutImage && (
-              <div ref={imageRef} className="tablet-about-image relative aspect-[3/4] h-auto w-full shrink-0 overflow-hidden rounded-lg lg:h-[640px] lg:w-[480px]">
-                <Image
-                  src={aboutImage.imageUrl}
-                  alt={aboutImage.description}
-                  fill
-                  unoptimized
-                  className="object-cover"
-                  data-ai-hint={aboutImage.imageHint}
-                />
-              </div>
-            )}
+            <div ref={imageRef} className="tablet-about-image relative aspect-[3/4] h-auto w-full shrink-0 overflow-hidden rounded-lg lg:h-[640px] lg:w-[480px]">
+              <Image
+                src="/Personal_Image.png"
+                alt="Rati Nabijashvili"
+                fill
+                className="object-cover"
+              />
+            </div>
           </div>
         </div>
       </div>
