@@ -7,7 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const logos = [
-  { src: '/Carousel-Logos/Carousel-Logo-1.svg', alt: 'Client logo 1', width: 175, height: 24 },
+  { src: '/Carousel-Logos/Carousel-Logo-1.svg', alt: 'Client logo 1', width: 113, height: 32 },
   { src: '/Carousel-Logos/Carousel-Logo-2.svg', alt: 'Client logo 2', width: 94, height: 24 },
   { src: '/Carousel-Logos/Carousel-Logo-3.svg', alt: 'Client logo 3', width: 111, height: 24 },
   { src: '/Carousel-Logos/Carousel-Logo-4.svg', alt: 'Client logo 4', width: 106, height: 24 },
@@ -24,7 +24,7 @@ function LogoSet({ hidden = false }: { hidden?: boolean }) {
       {logos.map((logo) => (
         <div
           key={logo.src}
-          className="flex h-6 shrink-0 items-center justify-center"
+          className="flex h-8 shrink-0 items-center justify-center"
           style={{ width: `${logo.width}px` }}
         >
           <img

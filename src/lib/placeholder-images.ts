@@ -36,10 +36,4 @@ export const PlaceHolderImages: ImagePlaceholder[] = [
     imageUrl: '/Projects/White-Square/First Image.png',
     imageHint: 'real estate website case study',
   },
-  {
-    id: 'project-aversi',
-    description: 'Aversi project image',
-    imageUrl: 'https://images.unsplash.com/photo-1722235623488-ae7639a2ffd8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxoZWFsdGhjYXJlJTIwcGxhdGZvcm18ZW58MHx8fHwxNzY4OTE4ODU3fDA&ixlib=rb-4.1.0&q=80&w=1080',
-    imageHint: 'healthcare platform',
-  },
 ];

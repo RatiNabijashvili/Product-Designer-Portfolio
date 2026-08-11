@@ -32,13 +32,4 @@ export const projects: Project[] = [
       'White Square is a Georgian real estate development company presenting residential projects, available apartments, company information and direct sales opportunities through its website.',
     imageId: 'project-white-square',
   },
-  {
-    id: 'aversi',
-    tags: ['Ecommerce', 'Website', 'Mobile App'],
-    name: 'AVERSI',
-    description:
-      'Aversi Pharma is a nationwide healthcare and pharmacy platform that helps users access medications, manage accounts, and engage with pharmacy services through a unified digital experience.',
-    imageId: 'project-aversi',
-    inDevelopment: true,
-  },
 ];
