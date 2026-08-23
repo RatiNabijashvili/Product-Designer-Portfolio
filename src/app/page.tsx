@@ -1,6 +1,8 @@
 'use client';
 
 import { useLayoutEffect, useRef } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { gsap } from 'gsap';
 import { Button } from '@/components/ui/button';
 import { HeroVideo } from '@/components/shared/hero-video';
@@ -92,7 +94,20 @@ export default function Home() {
       <main>
         <div className="relative flex min-h-screen flex-col">
           <header ref={headerRef} className="flex w-full items-center justify-between px-4 pb-0 pt-8 sm:p-8">
-            <div className="font-bold tracking-wider text-2xl">RATI</div>
+            <Link
+              href="/"
+              aria-label="Rati Nabijashvili — Home"
+              className="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#030C0C]"
+            >
+              <Image
+                src="/Logos/Logo.svg"
+                alt="Rati Nabijashvili"
+                width={153}
+                height={35}
+                className="h-8 w-auto"
+                priority
+              />
+            </Link>
             <Button
               variant="default"
               className="h-12 w-32 rounded-full bg-accent text-base font-bold leading-tight text-accent-foreground hover:bg-accent/90 sm:h-14 sm:w-40 sm:text-xl"

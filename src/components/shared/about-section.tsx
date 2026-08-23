@@ -32,9 +32,9 @@ const FootballIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 const interests = [
-  { icon: () => <img src="/ball.svg" alt="Football" className="h-5 w-5 md:h-6 md:w-6" />, text: 'Visca Barca' },
-  { icon: () => <img src="/trophy.svg" alt="Trophy" className="h-5 w-5 md:h-6 md:w-6" />, text: 'Scuderia Ferrari' },
-  { icon: () => <img src="/popcorn.svg" alt="Movie" className="h-5 w-5 md:h-6 md:w-6" />, text: 'Interstellar' },
+  { icon: () => <img src="/ball.svg" alt="Football" className="h-5 w-5 min-[821px]:h-6 min-[821px]:w-6" />, text: 'Visca Barca' },
+  { icon: () => <img src="/trophy.svg" alt="Trophy" className="h-5 w-5 min-[821px]:h-6 min-[821px]:w-6" />, text: 'Scuderia Ferrari' },
+  { icon: () => <img src="/popcorn.svg" alt="Movie" className="h-5 w-5 min-[821px]:h-6 min-[821px]:w-6" />, text: 'Interstellar' },
 ];
 
 export function AboutSection() {
@@ -70,7 +70,7 @@ export function AboutSection() {
 
       const media = gsap.matchMedia();
 
-      media.add('(min-width: 769px)', () => {
+      media.add('(min-width: 821px)', () => {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -139,27 +139,27 @@ export function AboutSection() {
         });
       };
 
-      media.add('(max-width: 768px)', animateStackedAbout);
+      media.add('(max-width: 820px)', animateStackedAbout);
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} id="about" className="mt-[72px] md:mt-40">
-      <div className="px-4 md:px-8">
+    <section ref={sectionRef} id="about" className="mt-[72px] min-[821px]:mt-40">
+      <div className="px-4 min-[821px]:px-8">
         <header ref={headerRef} className="mb-12">
-          <h2 className="text-base font-bold uppercase leading-none text-[#919191] md:text-xl">
+          <h2 className="text-base font-bold uppercase leading-none text-[#919191] min-[821px]:text-xl">
             03 / ABOUT
           </h2>
         </header>
       </div>
-      <div className="relative px-4 md:px-8">
-        <h3 ref={titleRef} className="tablet-about-title font-body text-2xl font-bold uppercase leading-[1.5] text-primary md:absolute md:left-8 md:top-0 md:min-w-[593px] md:text-[32px]">
+      <div className="relative px-4 min-[821px]:px-8">
+        <h3 ref={titleRef} className="tablet-about-title font-body text-2xl font-bold uppercase leading-[1.5] text-primary min-[821px]:absolute min-[821px]:left-8 min-[821px]:top-0 min-[821px]:min-w-[593px] min-[821px]:text-[32px]">
           I’M RATI.
-          <span className="hidden md:inline"><br /></span>
+          <span className="hidden min-[821px]:inline"><br /></span>
           PRODUCT DESIGNER FROM GEORGIA.
-          <span className="hidden md:inline"><br /></span>
+          <span className="hidden min-[821px]:inline"><br /></span>
           CURRENTLY AT @NOXTTON.
         </h3>
 
@@ -168,7 +168,7 @@ export function AboutSection() {
             {interests.map((interest, index) => (
               <div key={index} className="flex w-full items-center justify-start gap-2 lg:w-auto">
                 <interest.icon />
-                <span className="font-body text-sm font-bold capitalize leading-[1.2] text-[#919191] md:text-base">
+                <span className="font-body text-sm font-bold capitalize leading-[1.2] text-[#919191] min-[821px]:text-base">
                   {interest.text}
                 </span>
               </div>
@@ -178,7 +178,7 @@ export function AboutSection() {
           <div className="tablet-about-content order-2 flex w-full flex-col-reverse items-end gap-6 lg:order-none lg:w-auto lg:flex-row lg:gap-4">
             <div ref={textRef} className="tablet-about-text w-full space-y-2 text-base font-medium leading-[1.5] text-[#919191] lg:max-w-[320px] lg:space-y-4 lg:text-xl">
                 <p>
-                  With 3+ years of experience in the design industry, I’ve had
+                  With 4+ years of experience in the design industry, I’ve had
                   the opportunity to work with both corporate teams and
                   freelance clients, helping craft thoughtful, intentional
                   digital experiences.

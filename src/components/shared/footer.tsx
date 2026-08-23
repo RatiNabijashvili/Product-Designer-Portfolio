@@ -42,6 +42,18 @@ export function Footer() {
     return () => clearInterval(interval);
   }, []);
 
+  const handleBackToTop = () => {
+    const scrollPosition = { y: window.scrollY };
+
+    gsap.to(scrollPosition, {
+      y: 0,
+      duration: 1.2,
+      ease: 'power2.inOut',
+      overwrite: true,
+      onUpdate: () => window.scrollTo(0, scrollPosition.y),
+    });
+  };
+
   useLayoutEffect(() => {
     if (!footerRef.current) return;
 
@@ -230,7 +242,7 @@ export function Footer() {
           Copyright © 2026 Rati Nabijashvili. All rights reserved.
         </p>
         <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          onClick={handleBackToTop}
           className="group flex items-center gap-1 text-body font-bold leading-[1.2] text-[#030C0C]"
         >
           <div className="relative h-[1.2rem] overflow-hidden">

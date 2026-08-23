@@ -14,6 +14,9 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const supportsProjectHover = () =>
+  window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)').matches;
+
 export function WorkSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLHeadingElement>(null);
@@ -129,7 +132,7 @@ function ProjectItem({
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleMouseEnter = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (project.inDevelopment) return;
+    if (project.inDevelopment || !supportsProjectHover()) return;
 
     onCursorEnter(event);
     setIsHovered(true);
@@ -146,7 +149,7 @@ function ProjectItem({
   };
 
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (project.inDevelopment) return;
+    if (project.inDevelopment || !supportsProjectHover()) return;
     onCursorMove(event);
   };
 
@@ -176,7 +179,7 @@ function ProjectItem({
                   isHovered ? 'pl-4' : 'pl-0'
                 )}
               >
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-2 sm:gap-3">
                   {project.tags.map((tag) => (
                     <div
                       key={tag}

@@ -64,46 +64,46 @@ export function PhilosophySection() {
   const line4 = 'intentional and always thinking several steps ahead.';
 
   return (
-    <section ref={sectionRef} className="flex min-h-screen items-center justify-center px-4 py-8 md:px-8">
-      <div ref={textContainerRef} className="w-full max-w-7xl space-y-1 text-center text-2xl font-bold uppercase leading-normal md:text-[32px]">
+    <section ref={sectionRef} className="flex min-h-screen items-center justify-center px-4 py-8 min-[821px]:px-8">
+      <div ref={textContainerRef} className="tablet-philosophy-text w-full max-w-7xl space-y-1 text-center text-2xl font-bold uppercase leading-normal min-[821px]:text-[32px]">
         
         {/* Line 1 */}
         <div className="relative">
           {/* Base layer (gray) */}
-          <p className="text-center text-[#919191] md:text-right">{line1}</p>
+          <p className="text-center text-[#919191] min-[821px]:text-right">{line1}</p>
           {/* Animated layer (primary) */}
           <div ref={line1Ref} className="absolute top-0 left-0 w-full h-full">
-            <p className="text-center text-primary md:text-right">{line1}</p>
+            <p className="text-center text-primary min-[821px]:text-right">{line1}</p>
           </div>
         </div>
 
         {/* Line 2 */}
         <div className="relative">
           {/* Base layer (gray) */}
-          <p className="text-center text-[#919191] md:text-left">{line2}</p>
+          <p className="text-center text-[#919191] min-[821px]:text-left">{line2}</p>
           {/* Animated layer (primary) */}
           <div ref={line2Ref} className="absolute top-0 left-0 w-full h-full">
-            <p className="text-center text-primary md:text-left">{line2}</p>
+            <p className="text-center text-primary min-[821px]:text-left">{line2}</p>
           </div>
         </div>
 
         {/* Line 3 */}
         <div className="relative">
           {/* Base layer (gray) */}
-          <p className="text-center text-[#919191] md:text-left">{line3}</p>
+          <p className="text-center text-[#919191] min-[821px]:text-left">{line3}</p>
           {/* Animated layer (primary) */}
           <div ref={line3Ref} className="absolute top-0 left-0 w-full h-full">
-            <p className="text-center text-primary md:text-left">{line3}</p>
+            <p className="text-center text-primary min-[821px]:text-left">{line3}</p>
           </div>
         </div>
 
         {/* Line 4 */}
         <div className="relative">
           {/* Base layer (gray) */}
-          <p className="text-center text-[#919191] md:text-left">{line4}</p>
+          <p className="text-center text-[#919191] min-[821px]:text-left">{line4}</p>
           {/* Animated layer (primary) */}
           <div ref={line4Ref} className="absolute top-0 left-0 w-full h-full">
-            <p className="text-center text-primary md:text-left">{line4}</p>
+            <p className="text-center text-primary min-[821px]:text-left">{line4}</p>
           </div>
         </div>
 

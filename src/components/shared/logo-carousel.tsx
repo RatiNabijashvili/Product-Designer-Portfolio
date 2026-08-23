@@ -30,7 +30,7 @@ function LogoSet({ hidden = false }: { hidden?: boolean }) {
           <img
             src={logo.src}
             alt={hidden ? '' : logo.alt}
-            className="w-auto object-contain"
+            className="max-h-6 w-auto object-contain sm:max-h-none"
             style={{ height: `${logo.height}px` }}
           />
         </div>
@@ -68,7 +68,7 @@ export function LogoCarousel() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-[#E4E4E4] py-10" aria-label="Selected client logos">
+    <section ref={sectionRef} className="flex h-24 items-center bg-[#E4E4E4] sm:h-auto sm:block sm:py-10" aria-label="Selected client logos">
       <div className="logo-marquee-mask relative w-full overflow-hidden">
         <div className="logo-marquee-track flex w-max items-center">
           <LogoSet />

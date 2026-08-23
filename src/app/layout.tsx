@@ -3,8 +3,8 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'Minimalist Portfolio',
-  description: 'A minimalist portfolio for a product designer.',
+  title: 'Rati Nabijashvili — Product Designer',
+  description: 'The product design portfolio of Rati Nabijashvili.',
 };
 
 export default function RootLayout({
@@ -15,6 +15,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="icon" href="/Logos/Favicon_Black.svg" media="(prefers-color-scheme: light)" type="image/svg+xml" />
+        <link rel="icon" href="/Logos/Favicon_White.svg" media="(prefers-color-scheme: dark)" type="image/svg+xml" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />

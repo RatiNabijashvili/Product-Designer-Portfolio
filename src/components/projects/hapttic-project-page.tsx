@@ -106,7 +106,7 @@ const noxtton = {
 const whiteSquare = {
   tags: ['Real Estate', 'B2C', 'Marketing Page'],
   overview: [
-    ['Industry', 'Real Estate'], ['Role', 'Product Designer'], ['Product Duration', '1 Month'],
+    ['Industry', 'Real Estate'], ['Role', 'Product Designer'], ['Product Duration', '2 Months'],
     ['Key Markets', 'Georgia'], ['Growth Stage', 'Enterprise'], ['Company Size', '50+'],
   ],
   challengePoints: [
@@ -336,40 +336,72 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
   }, []);
 
   useLayoutEffect(() => {
-    if (!secondGalleryRef.current) return;
-    const isMobile = window.matchMedia('(max-width: 767px)').matches;
-    const ctx = gsap.context(() => {
-      const topRow = gsap.timeline({ scrollTrigger: { trigger: solutionGalleryTopLeftRef.current, start: 'top 78%', once: true } });
-      topRow.fromTo(solutionGalleryTopLeftRef.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' });
-      topRow.fromTo(solutionGalleryTopRightRef.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' }, '<');
+    const gallery = secondGalleryRef.current;
+    const topLeft = solutionGalleryTopLeftRef.current;
+    const topRight = solutionGalleryTopRightRef.current;
+    const bottomFirst = solutionGalleryBottomFirstRef.current;
+    const bottomSecond = solutionGalleryBottomSecondRef.current;
+    const bottomThird = solutionGalleryBottomThirdRef.current;
 
-      const bottomRow = gsap.timeline({ scrollTrigger: { trigger: solutionGalleryBottomFirstRef.current, start: 'top 78%', once: true } });
-      [solutionGalleryBottomFirstRef.current, solutionGalleryBottomSecondRef.current, solutionGalleryBottomThirdRef.current].forEach((image, index) => {
-        bottomRow.fromTo(image, { opacity: 0, x: isMobile ? 0 : -80, y: isMobile ? 64 : 0 }, { opacity: 1, x: 0, y: 0, duration: 0.8, ease: 'power2.out' }, index === 0 ? 0 : '-=0.4');
-      });
-    }, secondGalleryRef);
-    return () => ctx.revert();
+    if (!gallery || !topLeft || !topRight || !bottomFirst || !bottomSecond || !bottomThird) return;
+
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
+    let ctx: gsap.Context | undefined;
+    const frame = window.requestAnimationFrame(() => {
+      ctx = gsap.context(() => {
+        const topRow = gsap.timeline({ scrollTrigger: { trigger: topLeft, start: 'top 78%', once: true } });
+        topRow.fromTo(topLeft, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' });
+        topRow.fromTo(topRight, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' }, '<');
+
+        const bottomRow = gsap.timeline({ scrollTrigger: { trigger: bottomFirst, start: 'top 78%', once: true } });
+        [bottomFirst, bottomSecond, bottomThird].forEach((image, index) => {
+          bottomRow.fromTo(image, { opacity: 0, x: isMobile ? 0 : -80, y: isMobile ? 64 : 0 }, { opacity: 1, x: 0, y: 0, duration: 0.8, ease: 'power2.out' }, index === 0 ? 0 : '-=0.4');
+        });
+      }, gallery);
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      ctx?.revert();
+    };
   }, []);
 
   useLayoutEffect(() => {
-    if (!firstGalleryRef.current) return;
+    const gallery = firstGalleryRef.current;
+    const firstImage = galleryFirstImageRef.current;
+    const secondLeft = gallerySecondLeftRef.current;
+    const secondRight = gallerySecondRightRef.current;
+    const thirdLeft = galleryThirdLeftRef.current;
+    const thirdRight = galleryThirdRightRef.current;
+
+    if (!gallery || !firstImage || !secondLeft || !secondRight || !thirdLeft || !thirdRight) return;
+
     const isMobile = window.matchMedia('(max-width: 767px)').matches;
-    const ctx = gsap.context(() => {
-      gsap.fromTo(galleryFirstImageRef.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out', scrollTrigger: { trigger: galleryFirstImageRef.current, start: 'top 78%', once: true } });
-      const secondRow = gsap.timeline({ scrollTrigger: { trigger: gallerySecondLeftRef.current, start: 'top 78%', once: true } });
-      secondRow.fromTo(gallerySecondLeftRef.current, { opacity: 0, x: isMobile ? 0 : -80, y: isMobile ? 64 : 0 }, { opacity: 1, x: 0, y: 0, duration: 0.9, ease: 'power2.out' });
-      secondRow.fromTo(gallerySecondRightRef.current, { opacity: 0, x: isMobile ? 0 : 80, y: isMobile ? 64 : 0 }, { opacity: 1, x: 0, y: 0, duration: 0.9, ease: 'power2.out' }, '<');
-      const thirdRow = gsap.timeline({ scrollTrigger: { trigger: galleryThirdLeftRef.current, start: 'top 78%', once: true } });
-      thirdRow.fromTo(galleryThirdLeftRef.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' });
-      thirdRow.fromTo(galleryThirdRightRef.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' }, '<');
-    }, firstGalleryRef);
-    return () => ctx.revert();
+    let ctx: gsap.Context | undefined;
+    const frame = window.requestAnimationFrame(() => {
+      ctx = gsap.context(() => {
+        gsap.fromTo(firstImage, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out', scrollTrigger: { trigger: firstImage, start: 'top 78%', once: true } });
+        const secondRow = gsap.timeline({ scrollTrigger: { trigger: secondLeft, start: 'top 78%', once: true } });
+        secondRow.fromTo(secondLeft, { opacity: 0, x: isMobile ? 0 : -80, y: isMobile ? 64 : 0 }, { opacity: 1, x: 0, y: 0, duration: 0.9, ease: 'power2.out' });
+        secondRow.fromTo(secondRight, { opacity: 0, x: isMobile ? 0 : 80, y: isMobile ? 64 : 0 }, { opacity: 1, x: 0, y: 0, duration: 0.9, ease: 'power2.out' }, '<');
+        const thirdRow = gsap.timeline({ scrollTrigger: { trigger: thirdLeft, start: 'top 78%', once: true } });
+        thirdRow.fromTo(thirdLeft, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' });
+        thirdRow.fromTo(thirdRight, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' }, '<');
+      }, gallery);
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      ctx?.revert();
+    };
   }, []);
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-background text-primary" style={{ backgroundImage: 'url(/Background-pattern.png)', backgroundRepeat: 'repeat' }}>
       <header ref={headerRef} className="flex w-full items-center justify-between px-4 pt-8 sm:px-8">
-        <Link href="/" className="rounded-sm text-2xl font-bold tracking-wider focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#030C0C]">RATI</Link>
+        <Link href="/" aria-label="Rati Nabijashvili — Home" className="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#030C0C]">
+          <Image src="/Logos/Logo.svg" alt="Rati Nabijashvili" width={153} height={35} className="h-8 w-auto" priority />
+        </Link>
         <Button className="h-12 w-32 rounded-full bg-accent text-base font-bold text-accent-foreground sm:h-14 sm:w-40 sm:text-xl" asChild>
           <a href="mailto:r.nabijashvili@gmail.com">Contact Me</a>
         </Button>
