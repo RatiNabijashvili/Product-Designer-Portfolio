@@ -10,8 +10,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Satoshi', 'sans-serif'],
-        headline: ['Anton', 'sans-serif'],
+        body: ['var(--font-satoshi)', 'sans-serif'],
+        headline: ['var(--font-anton)', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {

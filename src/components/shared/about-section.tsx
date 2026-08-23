@@ -191,7 +191,7 @@ export function AboutSection() {
             
             <div ref={imageRef} className="tablet-about-image relative aspect-[3/4] h-auto w-full shrink-0 overflow-hidden rounded-lg lg:h-[640px] lg:w-[480px]">
               <Image
-                src="/Personal_Image.png"
+                src="/Personal_Image.webp"
                 alt="Rati Nabijashvili"
                 fill
                 className="object-cover"

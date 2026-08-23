@@ -86,7 +86,7 @@ export default function Home() {
     <div 
       className="bg-background min-h-screen overflow-x-hidden text-primary antialiased"
       style={{
-        backgroundImage: 'url(/Background-pattern.png)',
+        backgroundImage: 'url(/Background-pattern.webp)',
         backgroundRepeat: 'repeat',
         backgroundSize: 'auto',
       }}
@@ -106,6 +106,7 @@ export default function Home() {
                 height={35}
                 className="h-8 w-auto"
                 priority
+                fetchPriority="high"
               />
             </Link>
             <Button

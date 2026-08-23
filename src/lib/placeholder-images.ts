@@ -21,19 +21,19 @@ export const PlaceHolderImages: ImagePlaceholder[] = [
   {
     id: 'project-hapttic',
     description: 'Hapttic project image',
-    imageUrl: '/Projects/Happtic/First Image.png',
+    imageUrl: '/Projects/Happtic/First Image.webp',
     imageHint: 'Hapttic product overview',
   },
   {
     id: 'project-noxtton-wallet',
     description: 'Noxtton Wallet mobile product',
-    imageUrl: '/Projects/Noxtton-Wallet/First Image.png',
+    imageUrl: '/Projects/Noxtton-Wallet/First Image.webp',
     imageHint: 'crypto wallet mobile app',
   },
   {
     id: 'project-white-square',
     description: 'White Square real estate project',
-    imageUrl: '/Projects/White-Square/First Image.png',
+    imageUrl: '/Projects/White-Square/First Image.webp',
     imageHint: 'real estate website case study',
   },
 ];

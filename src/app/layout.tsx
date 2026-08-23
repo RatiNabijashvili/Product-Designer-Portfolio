@@ -1,6 +1,27 @@
 import type {Metadata} from 'next';
+import localFont from 'next/font/local';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
+
+const satoshi = localFont({
+  src: [
+    { path: './fonts/satoshi-400.woff2', weight: '400', style: 'normal' },
+    { path: './fonts/satoshi-500.woff2', weight: '500', style: 'normal' },
+    { path: './fonts/satoshi-700.woff2', weight: '700', style: 'normal' },
+  ],
+  variable: '--font-satoshi',
+  display: 'swap',
+  preload: true,
+});
+
+const anton = localFont({
+  src: './fonts/anton-400.woff2',
+  weight: '400',
+  style: 'normal',
+  variable: '--font-anton',
+  display: 'swap',
+  preload: true,
+});
 
 export const metadata: Metadata = {
   title: 'Rati Nabijashvili — Product Designer',
@@ -17,12 +38,8 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/Logos/Favicon_Black.svg" media="(prefers-color-scheme: light)" type="image/svg+xml" />
         <link rel="icon" href="/Logos/Favicon_White.svg" media="(prefers-color-scheme: dark)" type="image/svg+xml" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
       </head>
-      <body className="font-body antialiased">
+      <body className={`${satoshi.variable} ${anton.variable} font-body antialiased`}>
         {children}
         <Toaster />
       </body>

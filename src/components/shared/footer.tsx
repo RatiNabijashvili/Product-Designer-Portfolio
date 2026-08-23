@@ -144,7 +144,7 @@ export function Footer() {
         ref={patternRef} 
         className="pointer-events-none absolute right-[20%] top-[16%] h-[240px] w-[240px] opacity-0 md:right-0 md:top-1/4 md:h-[408px] md:w-[408px]"
         style={{
-          backgroundImage: 'url(/Footer-Pattern.png)',
+          backgroundImage: 'url(/Footer-Pattern.webp)',
           backgroundSize: 'contain',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center',

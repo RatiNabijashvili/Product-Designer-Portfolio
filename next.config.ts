@@ -1,7 +1,10 @@
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  experimental: {
+    // The critical stylesheet is small enough to inline, removing a render-blocking request.
+    inlineCss: true,
+  },
   typescript: {
     ignoreBuildErrors: true,
   },

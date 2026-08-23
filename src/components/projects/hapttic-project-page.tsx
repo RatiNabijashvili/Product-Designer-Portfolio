@@ -397,10 +397,10 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
   }, []);
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-background text-primary" style={{ backgroundImage: 'url(/Background-pattern.png)', backgroundRepeat: 'repeat' }}>
+    <div className="min-h-screen overflow-x-hidden bg-background text-primary" style={{ backgroundImage: 'url(/Background-pattern.webp)', backgroundRepeat: 'repeat' }}>
       <header ref={headerRef} className="flex w-full items-center justify-between px-4 pt-8 sm:px-8">
         <Link href="/" aria-label="Rati Nabijashvili — Home" className="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#030C0C]">
-          <Image src="/Logos/Logo.svg" alt="Rati Nabijashvili" width={153} height={35} className="h-8 w-auto" priority />
+          <Image src="/Logos/Logo.svg" alt="Rati Nabijashvili" width={153} height={35} className="h-8 w-auto" priority fetchPriority="high" />
         </Link>
         <Button className="h-12 w-32 rounded-full bg-accent text-base font-bold text-accent-foreground sm:h-14 sm:w-40 sm:text-xl" asChild>
           <a href="mailto:r.nabijashvili@gmail.com">Contact Me</a>
@@ -437,7 +437,7 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
 
           <section ref={firstGalleryRef} className="mt-12 flex flex-col gap-4" aria-label={`${projectName} brand gallery`}>
             <div ref={galleryFirstImageRef}>
-              <ReferenceVisual src={`${assetBase}/First Image.png`} label={`${projectName} product overview`} className="aspect-[1376/640] w-full" />
+              <ReferenceVisual src={`${assetBase}/First Image.webp`} label={`${projectName} product overview`} className="aspect-[1376/640] w-full" />
             </div>
             <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,560px)]">
               <div ref={gallerySecondLeftRef} className="flex flex-col gap-4">
@@ -447,8 +447,8 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="grid gap-4">
-                    <ReferenceVisual src={`${assetBase}/Second image.png`} label={`${projectName} icon system`} className="aspect-[392/294]" />
-                    <ReferenceVisual src={`${assetBase}/Third Image.png`} label={`${projectName} mobile interface`} className="aspect-[392/294]" />
+                    <ReferenceVisual src={`${assetBase}/Second image.webp`} label={`${projectName} icon system`} className="aspect-[392/294]" />
+                    <ReferenceVisual src={`${assetBase}/Third Image.webp`} label={`${projectName} mobile interface`} className="aspect-[392/294]" />
                   </div>
                   <div className="grid grid-rows-5 gap-2">
                     {projectSwatches.map(([code, color]) => <div key={code} className={cn('flex h-20 items-center justify-center overflow-hidden rounded-lg p-2 font-body text-xl font-bold uppercase leading-[1.2] sm:h-auto sm:min-h-14 sm:text-2xl', (isNoxtton && code !== '#F7F7FF') || (isWhiteSquare && (code === '#283B40' || code === '#161414')) ? 'text-white' : 'text-[#030C0C]')} style={{ backgroundColor: color }}>{code}</div>)}
@@ -456,15 +456,15 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
                 </div>
               </div>
               <div ref={gallerySecondRightRef} className="h-full">
-                <ReferenceVisual src={`${assetBase}/Fourth Image.png`} label={`${projectName} mobile use cases`} className="aspect-[560/740] h-full lg:aspect-auto" />
+                <ReferenceVisual src={`${assetBase}/Fourth Image.webp`} label={`${projectName} mobile use cases`} className="aspect-[560/740] h-full lg:aspect-auto" />
               </div>
             </div>
             <div className="grid gap-4 md:grid-cols-2">
               <div ref={galleryThirdLeftRef}>
-                <ReferenceVisual src={`${assetBase}/Fifth Image.png`} label={`${projectName} mobile interface`} className="aspect-[680/510]" />
+                <ReferenceVisual src={`${assetBase}/Fifth Image.webp`} label={`${projectName} mobile interface`} className="aspect-[680/510]" />
               </div>
               <div ref={galleryThirdRightRef}>
-                <ReferenceVisual src={`${assetBase}/Sixth Image.png`} label={`${projectName} transaction flow`} className="aspect-[680/510]" />
+                <ReferenceVisual src={`${assetBase}/Sixth Image.webp`} label={`${projectName} transaction flow`} className="aspect-[680/510]" />
               </div>
             </div>
           </section>
@@ -474,21 +474,21 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
           <section ref={secondGalleryRef} className="mt-12 flex flex-col gap-4" aria-label={`${projectName} solution gallery`}>
             <div className="grid gap-4 md:grid-cols-2">
               <div ref={solutionGalleryTopLeftRef}>
-                <ReferenceVisual src={`${assetBase}/Seventh Image.png`} label={`${projectName} receive screen`} className="aspect-[680/510]" />
+                <ReferenceVisual src={`${assetBase}/Seventh Image.webp`} label={`${projectName} receive screen`} className="aspect-[680/510]" />
               </div>
               <div ref={solutionGalleryTopRightRef}>
-                <ReferenceVisual src={`${assetBase}/Eigth Image.png`} label={`${projectName} activity screen`} className="aspect-[680/510]" />
+                <ReferenceVisual src={`${assetBase}/Eigth Image.webp`} label={`${projectName} activity screen`} className="aspect-[680/510]" />
               </div>
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               <div ref={solutionGalleryBottomFirstRef}>
-                <ReferenceVisual src={`${assetBase}/Ninth Image.png`} label={`${projectName} wallet actions`} className="aspect-[448/336]" />
+                <ReferenceVisual src={`${assetBase}/Ninth Image.webp`} label={`${projectName} wallet actions`} className="aspect-[448/336]" />
               </div>
               <div ref={solutionGalleryBottomSecondRef}>
-                <ReferenceVisual src={`${assetBase}/Tenth Image.png`} label={`${projectName} security settings`} className="aspect-[448/336]" />
+                <ReferenceVisual src={`${assetBase}/Tenth Image.webp`} label={`${projectName} security settings`} className="aspect-[448/336]" />
               </div>
               <div ref={solutionGalleryBottomThirdRef} className="sm:col-span-2 lg:col-span-1">
-                <ReferenceVisual src={`${assetBase}/Eleventh Image.png`} label={`${projectName} token balance`} className="aspect-[448/336]" />
+                <ReferenceVisual src={`${assetBase}/Eleventh Image.webp`} label={`${projectName} token balance`} className="aspect-[448/336]" />
               </div>
             </div>
           </section>
