@@ -221,7 +221,7 @@ function ProjectItem({
                     <Button
                       aria-hidden="true"
                       tabIndex={-1}
-                      className="pointer-events-none h-12 rounded-full bg-[#181818] px-6 text-base font-bold capitalize leading-[120%] text-[#FCFAFA] min-[1201px]:hidden"
+                      className="pointer-events-none h-12 w-full rounded-full bg-[#181818] px-6 text-base font-bold capitalize leading-[120%] text-[#FCFAFA] min-[1201px]:hidden"
                     >
                       View Project
                     </Button>
