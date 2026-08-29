@@ -344,7 +344,7 @@ function ExploreProjectCard({
           <h3 className="mt-6 text-2xl font-bold uppercase leading-[1.2] text-[#030C0C] min-[1201px]:text-3xl">{item.name}</h3>
           <p className="mt-2 flex-1 text-base font-medium leading-[1.5] text-[#919191] min-[1201px]:text-xl">{item.description}</p>
 
-          <span className="mt-6 inline-flex h-12 w-fit items-center rounded-full bg-[#181818] px-6 text-base font-bold capitalize leading-[1.2] text-[#FCFAFA] min-[1201px]:hidden">
+          <span className="mt-6 inline-flex h-12 w-full items-center justify-center rounded-full bg-[#181818] px-6 text-base font-bold capitalize leading-[1.2] text-[#FCFAFA] min-[1201px]:hidden">
             View Project
           </span>
         </div>
