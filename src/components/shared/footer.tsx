@@ -1,13 +1,48 @@
 'use client';
 
 import { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useFitTextWidth } from '@/hooks/use-fit-text-width';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export function Footer() {
+export function FooterInfo({ currentTime }: { currentTime: string }) {
+  return (
+    <div className="flex flex-col items-start gap-8 md:flex-row md:items-center md:justify-between md:gap-10">
+      <div className="flex flex-col gap-2">
+        <p className="mb-1 text-xl font-bold leading-[1.2] text-[#919191]">Freelance Availability</p>
+        <p className="text-xl font-bold leading-[1.2] text-[#030C0C]">Available</p>
+      </div>
+      <div className="flex flex-col gap-2">
+        <p className="mb-1 text-xl font-bold leading-[1.2] text-[#919191]">Georgia Based</p>
+        <p className="text-xl font-bold leading-[1.2] text-[#030C0C]">Working Globally</p>
+      </div>
+      <div className="flex flex-col gap-2">
+        <p className="mb-1 text-xl font-bold leading-[1.2] text-[#919191]">Current Time</p>
+        <p className="text-xl font-bold leading-[1.2] text-[#030C0C]">GMT+4 | {currentTime}</p>
+      </div>
+      <div className="flex flex-col gap-2">
+        <p className="mb-1 text-xl font-bold leading-[1.2] text-[#919191]">Connect With Me</p>
+        <a
+          href="https://www.linkedin.com/in/ratinabijashvili/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex items-center gap-1 text-xl font-bold leading-[1.2] text-[#030C0C]"
+        >
+          <div className="relative h-[1.44rem] overflow-hidden">
+            <span className="block transition-transform duration-300 group-hover:-translate-y-full">Linkedin</span>
+            <span className="absolute left-0 top-full block transition-transform duration-300 group-hover:-translate-y-full">Linkedin</span>
+          </div>
+          <img src="/arrow-up-right.svg" alt="External link" className="h-5 w-5" />
+        </a>
+      </div>
+    </div>
+  );
+}
+
+export function Footer({ showHomeLink = false }: { showHomeLink?: boolean }) {
   const [copied, setCopied] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [currentTime, setCurrentTime] = useState('');
@@ -184,40 +219,7 @@ export function Footer() {
       {/* Bottom container with 64px gap */}
       <div className="relative z-10 mt-[320px] md:mt-0">
         <div ref={infoContainerRef} className="mt-0 md:mt-16">
-        {/* Left side info */}
-        <div className="flex flex-col items-start gap-8 md:flex-row md:items-center md:justify-between md:gap-10">
-          <div className="flex flex-col gap-2">
-            <p className="mb-1 text-xl font-bold leading-[1.2] text-[#919191]">Freelance Availability</p>
-            <p className="text-xl font-bold leading-[1.2] text-[#030C0C]">Available</p>
-          </div>
-          <div className="flex flex-col gap-2">
-            <p className="mb-1 text-xl font-bold leading-[1.2] text-[#919191]">Georgia Based</p>
-            <p className="text-xl font-bold leading-[1.2] text-[#030C0C]">Working Globally</p>
-          </div>
-          <div className="flex flex-col gap-2">
-            <p className="mb-1 text-xl font-bold leading-[1.2] text-[#919191]">Current Time</p>
-            <p className="text-xl font-bold leading-[1.2] text-[#030C0C]">GMT+4 | {currentTime}</p>
-          </div>
-           <div className="flex flex-col gap-2">
-          <p className="mb-1 text-xl font-bold leading-[1.2] text-[#919191]">Connect With Me</p>
-          <a 
-            href="https://www.linkedin.com/in/ratinabijashvili/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="group flex items-center gap-1 text-xl font-bold leading-[1.2] text-[#030C0C]"
-          >
-            <div className="relative h-[1.44rem] overflow-hidden">
-              <span className="block transition-transform duration-300 group-hover:-translate-y-full">
-                Linkedin
-              </span>
-              <span className="absolute left-0 top-full block transition-transform duration-300 group-hover:-translate-y-full">
-                Linkedin
-              </span>
-            </div>
-            <img src="/arrow-up-right.svg" alt="External link" className="h-5 w-5" />
-          </a>
-        </div>
-        </div>  
+          <FooterInfo currentTime={currentTime} />
         </div>
 
         {/* Divider line */}
@@ -228,20 +230,31 @@ export function Footer() {
         <p className="max-w-[28rem] text-center text-body font-bold leading-[1.2] text-[#030C0C] md:max-w-none md:text-left">
           Copyright © 2026 Rati Nabijashvili. All rights reserved.
         </p>
-        <button
-          onClick={handleBackToTop}
-          className="group flex items-center gap-1 text-body font-bold leading-[1.2] text-[#030C0C]"
-        >
-          <div className="relative h-[1.2rem] overflow-hidden">
-            <span className="block transition-transform duration-300 group-hover:-translate-y-full">
-              Back To Top
-            </span>
-            <span className="absolute left-0 top-full block transition-transform duration-300 group-hover:-translate-y-full">
-              Back To Top
-            </span>
-          </div>
-          <img src="/arrow-up.svg" alt="Arrow up" className="h-5 w-5" />
-        </button>
+        <div className="flex items-center gap-4">
+          {showHomeLink && (
+            <Link href="/" className="group flex items-center gap-1 text-body font-bold leading-[1.2] text-[#030C0C]">
+              <div className="relative h-[1.2rem] overflow-hidden">
+                <span className="block transition-transform duration-300 group-hover:-translate-y-full">Home</span>
+                <span className="absolute left-0 top-full block transition-transform duration-300 group-hover:-translate-y-full">Home</span>
+              </div>
+              <img src="/home-round-door.svg" alt="" aria-hidden="true" className="h-5 w-5" />
+            </Link>
+          )}
+          <button
+            onClick={handleBackToTop}
+            className="group flex items-center gap-1 text-body font-bold leading-[1.2] text-[#030C0C]"
+          >
+            <div className="relative h-[1.2rem] overflow-hidden">
+              <span className="block transition-transform duration-300 group-hover:-translate-y-full">
+                Back To Top
+              </span>
+              <span className="absolute left-0 top-full block transition-transform duration-300 group-hover:-translate-y-full">
+                Back To Top
+              </span>
+            </div>
+            <img src="/arrow-up.svg" alt="Arrow up" className="h-5 w-5" />
+          </button>
+        </div>
       </div>
       </div>
     </footer>

@@ -111,7 +111,7 @@ export default function Home() {
             </Link>
             <Button
               variant="default"
-              className="h-12 w-32 rounded-full bg-accent text-base font-bold leading-tight text-accent-foreground hover:bg-accent/90 sm:h-14 sm:w-40 sm:text-xl"
+              className="h-12 w-32 rounded-full bg-accent text-base font-bold leading-tight text-accent-foreground sm:h-14 sm:w-40 sm:text-xl"
               asChild
             >
               <a href="mailto:r.nabijashvili@gmail.com">Contact Me</a>

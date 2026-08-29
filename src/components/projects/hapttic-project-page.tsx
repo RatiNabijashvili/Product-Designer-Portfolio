@@ -638,7 +638,7 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
         </div>
       </main>
 
-      <div className="[&>footer]:!mt-16"><Footer /></div>
+      <div className="[&>footer]:!mt-16"><Footer showHomeLink /></div>
     </div>
   );
 }
