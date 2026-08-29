@@ -1,6 +1,6 @@
 'use client';
 
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { gsap } from 'gsap';
@@ -8,6 +8,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Button } from '@/components/ui/button';
 import { Footer } from '@/components/shared/footer';
 import { cn } from '@/lib/utils';
+import { projects } from '@/lib/projects-data';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -263,6 +265,142 @@ function ProjectVideo() {
   );
 }
 
+const supportsExploreHover = () =>
+  window.matchMedia('(min-width: 1201px) and (hover: hover) and (pointer: fine)').matches;
+
+function ExploreProjectCard({
+  item,
+  image,
+  onCursorEnter,
+  onCursorMove,
+  onCursorLeave,
+}: {
+  item: (typeof projects)[number];
+  image: (typeof PlaceHolderImages)[number] | undefined;
+  onCursorEnter: (event: React.MouseEvent<HTMLAnchorElement>) => void;
+  onCursorMove: (event: React.MouseEvent<HTMLAnchorElement>) => void;
+  onCursorLeave: () => void;
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleMouseEnter = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!supportsExploreHover()) return;
+    setIsHovered(true);
+    onCursorEnter(event);
+    void videoRef.current?.play();
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    onCursorLeave();
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  };
+
+  return (
+    <Link
+      href={`/projects/${item.id}`}
+      className="group rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#030C0C] focus-visible:ring-offset-4 min-[1201px]:cursor-none"
+      aria-label={`View ${item.name} project`}
+      onMouseEnter={handleMouseEnter}
+      onMouseMove={(event) => supportsExploreHover() && onCursorMove(event)}
+      onMouseLeave={handleMouseLeave}
+    >
+      <article className="flex h-full flex-col transition-[padding] duration-500 ease-out min-[1201px]:group-hover:px-4">
+        {image && (
+          <div className="relative aspect-[680/382] w-full overflow-hidden rounded-lg bg-[#E4E4E4]">
+            <Image
+              src={image.imageUrl}
+              alt={item.name}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className={cn('object-cover transition-opacity duration-300', isHovered ? 'opacity-0' : 'opacity-100')}
+            />
+            <video
+              ref={videoRef}
+              muted
+              playsInline
+              loop
+              preload="metadata"
+              className={cn('absolute inset-0 h-full w-full object-cover transition-opacity duration-300', isHovered ? 'opacity-100' : 'opacity-0')}
+            >
+              <source src="/Slideshow-Loop-[remix] - 720p 30fps.webm" type="video/webm" />
+            </video>
+          </div>
+        )}
+
+        <div className="flex flex-1 flex-col pt-6">
+          <div className="flex flex-wrap gap-2">
+            {item.tags.map((tag) => (
+              <span key={tag} className="flex h-10 items-center rounded-full border border-[#706F6F] px-3 text-sm font-bold capitalize text-[#706F6F]">
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <h3 className="mt-6 text-2xl font-bold uppercase leading-[1.2] text-[#030C0C] min-[1201px]:text-3xl">{item.name}</h3>
+          <p className="mt-2 flex-1 text-base font-medium leading-[1.5] text-[#919191] min-[1201px]:text-xl">{item.description}</p>
+
+          <span className="mt-6 inline-flex h-12 w-fit items-center rounded-full bg-[#181818] px-6 text-base font-bold capitalize leading-[1.2] text-[#FCFAFA] min-[1201px]:hidden">
+            View Project
+          </span>
+        </div>
+      </article>
+    </Link>
+  );
+}
+
+function ExploreMoreWork({ currentProjectId }: { currentProjectId: string }) {
+  const { sectionRef, headingRef, contentRef } = useSectionReveal();
+  const otherProjects = projects.filter((item) => item.id !== currentProjectId);
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const [showProjectCursor, setShowProjectCursor] = useState(false);
+
+  const moveProjectCursor = (clientX: number, clientY: number) => {
+    if (!cursorRef.current) return;
+    cursorRef.current.style.transform = `translate3d(${clientX}px, ${clientY}px, 0) translate(-50%, -50%)`;
+  };
+
+  return (
+    <section ref={sectionRef} className="mt-12" aria-labelledby="explore-more-work-title">
+      <div ref={headingRef}>
+        <h2 id="explore-more-work-title" className="text-2xl font-bold uppercase leading-[1.2] text-[#030C0C] md:text-[32px]">
+          Explore More Work
+        </h2>
+      </div>
+
+      <div ref={contentRef} className="mt-6 grid gap-8 md:grid-cols-2 md:gap-4">
+        {otherProjects.map((item) => (
+          <ExploreProjectCard
+            key={item.id}
+            item={item}
+            image={PlaceHolderImages.find((placeholder) => placeholder.id === item.imageId)}
+            onCursorEnter={(event) => {
+              moveProjectCursor(event.clientX, event.clientY);
+              setShowProjectCursor(true);
+            }}
+            onCursorMove={(event) => moveProjectCursor(event.clientX, event.clientY)}
+            onCursorLeave={() => setShowProjectCursor(false)}
+          />
+        ))}
+      </div>
+
+      <div
+        ref={cursorRef}
+        className={cn(
+          'pointer-events-none fixed left-0 top-0 z-[9999] rounded-full bg-[#181818] px-6 py-3 text-base font-bold capitalize leading-[1.2] text-[#FCFAFA] shadow-lg will-change-transform transition-[transform,opacity] duration-75 ease-out',
+          showProjectCursor ? 'opacity-100' : 'opacity-0'
+        )}
+      >
+        View Project
+      </div>
+    </section>
+  );
+}
+
 export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic' | 'noxtton' | 'white-square' }) {
   const isNoxtton = project === 'noxtton';
   const isWhiteSquare = project === 'white-square';
@@ -276,6 +414,7 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
   const projectSwatches = projectData.swatches;
   const assetBase = isWhiteSquare ? '/Projects/White-Square' : isNoxtton ? '/Projects/Noxtton-Wallet' : '/Projects/Happtic';
   const projectName = isWhiteSquare ? 'White Square' : isNoxtton ? 'Noxtton Wallet' : 'Hapttic';
+  const currentProjectId = isNoxtton ? 'noxtton-wallet' : project;
   const headerRef = useRef<HTMLElement>(null);
   const projectHeadingRef = useRef<HTMLDivElement>(null);
   const projectDescriptionRef = useRef<HTMLParagraphElement>(null);
@@ -494,6 +633,8 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
           </section>
 
           <OutcomeSection items={projectOutcomes} />
+
+          <ExploreMoreWork currentProjectId={currentProjectId} />
         </div>
       </main>
 
