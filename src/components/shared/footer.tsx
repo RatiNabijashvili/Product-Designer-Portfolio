@@ -57,78 +57,65 @@ export function Footer() {
   useLayoutEffect(() => {
     if (!footerRef.current) return;
 
+    const media = gsap.matchMedia();
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: footerRef.current,
-          start: 'top top',
-          end: 'bottom bottom',
-          once: true,
-        },
+      media.add('(max-width: 768px)', () => {
+        const footerItems = [
+          headingRef.current,
+          emailRef.current,
+          infoContainerRef.current,
+          dividerRef.current,
+          copyrightRef.current,
+          patternRef.current,
+        ].filter((item): item is HTMLDivElement => item !== null);
+
+        if (patternRef.current) gsap.set(patternRef.current, { x: 204 });
+
+        gsap.fromTo(footerItems, { opacity: 0, y: 64 }, {
+          opacity: 1,
+          y: 0,
+          duration: 1.4,
+          ease: 'power2.out',
+          stagger: 0.2,
+          scrollTrigger: { trigger: footerRef.current, start: 'top 85%', once: true },
+        });
       });
 
-      // 1. Heading slides from top
-      if (headingRef.current) {
-        tl.fromTo(
-          headingRef.current,
-          { opacity: 0, y: -100 },
-          { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' }
-        );
-      }
+      media.add('(min-width: 769px)', () => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: footerRef.current,
+            start: 'top top',
+            end: 'bottom bottom',
+            once: true,
+          },
+        });
 
-      // 2. Email slides from top (middle of heading animation)
-      if (emailRef.current) {
-        tl.fromTo(
-          emailRef.current,
-          { opacity: 0, y: -80 },
-          { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' },
-          '-=0.4'
-        );
-      }
-
-      // 3. Info container slides from bottom
-      if (infoContainerRef.current) {
-        tl.fromTo(
-          infoContainerRef.current,
-          { opacity: 0, y: 80 },
-          { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' },
-          '-=0.3'
-        );
-      }
-
-      // 4. Divider fades in
-      if (dividerRef.current) {
-        tl.fromTo(
-          dividerRef.current,
-          { opacity: 0 },
-          { opacity: 1, duration: 0.5, ease: 'power2.out' },
-          '-=0.3'
-        );
-      }
-
-      // 5. Copyright section fades in
-      if (copyrightRef.current) {
-        tl.fromTo(
-          copyrightRef.current,
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
-          '-=0.2'
-        );
-      }
-
-      // 6. Pattern slides from right (last) - starts fully off-screen, ends at translate-x-1/2
-      if (patternRef.current) {
-        // Calculate: start from full width off-screen, end at half width (50% of 408px = 204px)
-        tl.fromTo(
-          patternRef.current,
-          { opacity: 0, x: 408 }, // Start fully off-screen
-          { opacity: 1, x: 204, duration: 1, ease: 'power2.out' }, // End at half visible with 30% opacity
-          '-=0.4'
-        );
-      }
+        if (headingRef.current) {
+          tl.fromTo(headingRef.current, { opacity: 0, y: -100 }, { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' });
+        }
+        if (emailRef.current) {
+          tl.fromTo(emailRef.current, { opacity: 0, y: -80 }, { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' }, '-=0.4');
+        }
+        if (infoContainerRef.current) {
+          tl.fromTo(infoContainerRef.current, { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' }, '-=0.3');
+        }
+        if (dividerRef.current) {
+          tl.fromTo(dividerRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.3');
+        }
+        if (copyrightRef.current) {
+          tl.fromTo(copyrightRef.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.2');
+        }
+        if (patternRef.current) {
+          tl.fromTo(patternRef.current, { opacity: 0, x: 408 }, { opacity: 1, x: 204, duration: 1, ease: 'power2.out' }, '-=0.4');
+        }
+      });
     }, footerRef);
 
-    return () => ctx.revert();
+    return () => {
+      media.revert();
+      ctx.revert();
+    };
   }, []);
 
   const handleCopyEmail = () => {

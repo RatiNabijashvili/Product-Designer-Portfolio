@@ -15,7 +15,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 gsap.registerPlugin(ScrollTrigger);
 
 const supportsProjectHover = () =>
-  window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)').matches;
+  window.matchMedia('(min-width: 769px) and (hover: hover) and (pointer: fine)').matches;
 
 export function WorkSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -157,7 +157,7 @@ function ProjectItem({
     <div
       className={cn(
         'project-item tablet-project-item relative grid grid-cols-1 items-center gap-6 border-t border-[#DCDCDC] py-8 lg:grid-cols-2 lg:gap-12',
-        !project.inDevelopment && 'cursor-none'
+        !project.inDevelopment && 'min-[769px]:cursor-none'
       )}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -166,7 +166,7 @@ function ProjectItem({
       {(project.id === 'hapttic' || project.id === 'noxtton-wallet' || project.id === 'white-square') && (
         <Link
           href={`/projects/${project.id}`}
-          className="absolute inset-0 z-10 cursor-none rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#030C0C] focus-visible:ring-offset-4"
+          className="absolute inset-0 z-10 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#030C0C] focus-visible:ring-offset-4 min-[769px]:cursor-none"
           aria-label={`View ${project.name} project`}
         >
           <span className="sr-only">View {project.name} project</span>
@@ -217,7 +217,15 @@ function ProjectItem({
                         <img src="/block.svg" alt="Locked" className="w-6 h-6" />
                       </div>
                     </div>
-                  ) : null}
+                  ) : (
+                    <Button
+                      aria-hidden="true"
+                      tabIndex={-1}
+                      className="pointer-events-none h-12 rounded-full bg-[#181818] px-6 text-base font-bold capitalize leading-[120%] text-[#FCFAFA] min-[769px]:hidden"
+                    >
+                      View Project
+                    </Button>
+                  )}
                 </div>
               </div>
 
