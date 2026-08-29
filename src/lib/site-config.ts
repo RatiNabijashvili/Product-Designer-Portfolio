@@ -19,8 +19,8 @@ export const siteConfig = {
 export const seoPages = {
   home: {
     path: '/',
-    title: 'Rati Nabijashvili | Product Designer for SaaS & B2B',
-    description: 'Product designer in Tbilisi, Georgia with 4+ years of experience in SaaS, B2B, fintech and mobile products. Explore selected UX and UI case studies.',
+    title: 'Rati Nabijashvili | End-to-End Product Designer',
+    description: 'End-to-end product designer in Tbilisi, Georgia creating clear web and mobile products through UX/UI, design systems and AI-assisted prototyping.',
     image: '/Seo/og-home.webp',
     imageAlt: 'Rati Nabijashvili product design portfolio',
   },
