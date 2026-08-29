@@ -25,7 +25,7 @@ export function PhilosophySection() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top top',
-          end: '+=180%', // Keep the highlight readable without holding up laptop scrolling
+          end: '+=160%', // Keep the highlight readable without holding up laptop scrolling
           pin: true,
           scrub: 1,
         },
