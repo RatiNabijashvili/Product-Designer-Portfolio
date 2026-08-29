@@ -7,15 +7,15 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const logos = [
-  { src: '/Carousel-Logos/Carousel-Logo-1.svg', alt: 'Client logo 1', width: 113, height: 32 },
-  { src: '/Carousel-Logos/Carousel-Logo-2.svg', alt: 'Client logo 2', width: 94, height: 24 },
-  { src: '/Carousel-Logos/Carousel-Logo-3.svg', alt: 'Client logo 3', width: 111, height: 24 },
-  { src: '/Carousel-Logos/Carousel-Logo-4.svg', alt: 'Client logo 4', width: 106, height: 24 },
-  { src: '/Carousel-Logos/Carousel-Logo-5.svg', alt: 'Client logo 5', width: 103, height: 24 },
-  { src: '/Carousel-Logos/Carousel-Logo-6.svg', alt: 'Client logo 6', width: 152, height: 24 },
-  { src: '/Carousel-Logos/Carousel-Logo-7.svg', alt: 'Client logo 7', width: 135, height: 16 },
-  { src: '/Carousel-Logos/Carousel-Logo-8.svg', alt: 'Client logo 8', width: 84, height: 24 },
-  { src: '/Carousel-Logos/Carousel-Logo-9.svg', alt: 'Client logo 9', width: 24, height: 24 },
+  { src: '/Carousel-Logos/Carousel-Logo-1.svg', alt: 'Tetri Kvadrati', width: 113, height: 32 },
+  { src: '/Carousel-Logos/Carousel-Logo-2.svg', alt: 'DwellUP', width: 94, height: 24 },
+  { src: '/Carousel-Logos/Carousel-Logo-3.svg', alt: 'Making Science Sweeft', width: 111, height: 24 },
+  { src: '/Carousel-Logos/Carousel-Logo-4.svg', alt: 'Hunnewell Cement', width: 106, height: 24 },
+  { src: '/Carousel-Logos/Carousel-Logo-5.svg', alt: 'Hapttic', width: 103, height: 24 },
+  { src: '/Carousel-Logos/Carousel-Logo-6.svg', alt: 'Credo Bank', width: 152, height: 24 },
+  { src: '/Carousel-Logos/Carousel-Logo-7.svg', alt: 'CityZen', width: 135, height: 16 },
+  { src: '/Carousel-Logos/Carousel-Logo-8.svg', alt: 'Noxtton', width: 84, height: 24 },
+  { src: '/Carousel-Logos/Carousel-Logo-9.svg', alt: 'XP UP', width: 24, height: 24 },
 ];
 
 function LogoSet({ hidden = false }: { hidden?: boolean }) {

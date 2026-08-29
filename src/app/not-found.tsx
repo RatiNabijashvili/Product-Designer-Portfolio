@@ -32,7 +32,8 @@ export default function NotFound() {
       className="flex min-h-screen flex-col bg-background text-primary"
       style={{ backgroundImage: 'url(/Background-pattern.webp)', backgroundRepeat: 'repeat' }}
     >
-      <header className="flex w-full items-center justify-between px-4 pt-8 sm:px-8">
+      <header className="px-4 pt-8 sm:px-8">
+        <nav aria-label="Primary navigation" className="flex w-full items-center justify-between">
         <Link
           href="/"
           aria-label="Rati Nabijashvili — Home"
@@ -44,13 +45,14 @@ export default function NotFound() {
             width={153}
             height={35}
             className="h-8 w-auto"
-            priority
+            loading="eager"
           />
         </Link>
 
         <Button className="h-12 w-32 rounded-full bg-accent text-base font-bold text-accent-foreground sm:h-14 sm:w-40 sm:text-xl" asChild>
           <a href="mailto:r.nabijashvili@gmail.com">Contact Me</a>
         </Button>
+        </nav>
       </header>
 
       <main className="flex flex-1 items-center justify-center px-4 py-16 text-center sm:px-8">

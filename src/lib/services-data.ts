@@ -18,28 +18,28 @@ export const services: Service[] = [
     id: 'product-design',
     title: 'Product Design',
     description:
-      'From initial concept to final polish. I craft intuitive user flows and high-fidelity interfaces that solve real problems and drive engagement.',
+      'From concepts to polished interfaces, I create clear user flows and digital experiences that solve user and business problems.',
     icon: IconProductDesign,
   },
   {
     id: 'design-systems',
     title: 'Design Systems',
     description:
-      'Scalability meets consistency. I build modular component libraries and documentation that help teams ship faster and maintain quality.',
+      'I build reusable components, patterns and documentation that keep products consistent and help teams work more efficiently.',
     icon: IconDesignSystems,
   },
   {
     id: 'research',
     title: 'Research',
     description:
-      'Decisions based on data, not guesses. I conduct user interviews, usability testing, and competitive analysis to validate product direction.',
+      'I use interviews, usability testing and competitive analysis to uncover needs, test assumptions and guide design decisions.',
     icon: IconResearch,
   },
   {
     id: 'creative-development',
     title: 'Creative Development',
     description:
-      'Bridging the gap between design and dev. I use AI tools and rapid prototyping to turn static visuals into functional, shippable code.',
+      'I use AI-assisted development and prototyping to create functional experiences that can be tested, refined and brought closer to launch.',
     icon: IconCreativeDevelopment,
   },
 ];

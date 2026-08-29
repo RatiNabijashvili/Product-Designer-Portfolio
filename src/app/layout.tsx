@@ -2,6 +2,8 @@ import type {Metadata} from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
+import { createPageMetadata } from '@/lib/seo-metadata';
+import { seoPages, siteConfig } from '@/lib/site-config';
 
 const satoshi = localFont({
   src: [
@@ -24,8 +26,15 @@ const anton = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'Rati Nabijashvili — Product Designer',
-  description: 'The product design portfolio of Rati Nabijashvili.',
+  metadataBase: new URL(siteConfig.url),
+  ...createPageMetadata(seoPages.home),
+  icons: {
+    icon: [
+      { url: '/Logos/Favicon_Black.svg', type: 'image/svg+xml', media: '(prefers-color-scheme: light)' },
+      { url: '/Logos/Favicon_White.svg', type: 'image/svg+xml', media: '(prefers-color-scheme: dark)' },
+    ],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+  },
 };
 
 export default function RootLayout({

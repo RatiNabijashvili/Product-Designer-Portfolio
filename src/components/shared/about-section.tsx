@@ -160,7 +160,24 @@ export function AboutSection() {
           <span className="hidden min-[821px]:inline"><br /></span>
           PRODUCT DESIGNER FROM GEORGIA.
           <span className="hidden min-[821px]:inline"><br /></span>
-          CURRENTLY AT @NOXTTON.
+          CURRENTLY AT @
+          <a
+            href="https://noxtton.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative inline-block h-[1.5em] overflow-hidden align-bottom"
+          >
+            <span className="block transition-transform duration-300 group-hover:-translate-y-full">
+              NOXTTON
+            </span>
+            <span
+              aria-hidden="true"
+              className="absolute left-0 top-full block transition-transform duration-300 group-hover:-translate-y-full"
+            >
+              NOXTTON
+            </span>
+          </a>
+          .
         </h3>
 
         <div className="tablet-about-layout mt-6 flex w-full flex-col items-end justify-between gap-6 lg:mt-36 lg:flex-row lg:gap-16">
@@ -178,14 +195,15 @@ export function AboutSection() {
           <div className="tablet-about-content order-2 flex w-full flex-col-reverse items-end gap-6 lg:order-none lg:w-auto lg:flex-row lg:gap-4">
             <div ref={textRef} className="tablet-about-text w-full space-y-2 text-base font-medium leading-[1.5] text-[#919191] lg:max-w-[320px] lg:space-y-4 lg:text-xl">
                 <p>
-                  With 4+ years of experience in the design industry, I’ve had
-                  the opportunity to work with both corporate teams and
-                  freelance clients, helping craft thoughtful, intentional
-                  digital experiences.
+                  With 4+ years of experience in product design, I’ve worked
+                  with corporate teams, startups and freelance clients to
+                  create clear, purposeful digital products across web and
+                  mobile.
                 </p>
                 <p>
-                  I’m pushing boundaries and exploring the creative development
-                  world, using AI to craft innovative, next-level experiences.
+                  I’m expanding my practice into creative development, using
+                  AI-assisted tools and code to turn design ideas into
+                  functional experiences.
                 </p>
             </div>
             

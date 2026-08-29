@@ -414,6 +414,47 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
   const projectSwatches = projectData.swatches;
   const assetBase = isWhiteSquare ? '/Projects/White-Square' : isNoxtton ? '/Projects/Noxtton-Wallet' : '/Projects/Happtic';
   const projectName = isWhiteSquare ? 'White Square' : isNoxtton ? 'Noxtton Wallet' : 'Hapttic';
+  const projectImageAlts = isWhiteSquare
+    ? [
+        'White Square website homepage displayed on a laptop',
+        'White Square website interface icon set',
+        'White Square apartment enquiry form displayed on a tablet',
+        'White Square mobile block-selection interface for the Filigreen 2 development',
+        'Previous White Square projects page displayed on a laptop',
+        'Redesigned White Square project discovery cards displayed on a laptop',
+        'White Square mobile apartment detail page with floor plan and pricing',
+        'Interactive Filigreen 2 building map displayed on a laptop',
+        'White Square apartment enquiry form with development contact details',
+        'White Square building security-system feature card',
+        'White Square request-a-call form',
+      ]
+    : isNoxtton
+      ? [
+          'Noxtton Wallet activity, home, and transaction review screens',
+          'Noxtton Wallet interface icon set',
+          'Noxtton Wallet transaction filter with guided quick ranges',
+          'Noxtton Wallet activity screen with balance chart and transaction history',
+          'Noxtton Wallet send amount and successful transaction screens',
+          'Noxtton Wallet rewards screen showing points and available perks',
+          'Noxtton Wallet receive screen with QR code and address controls',
+          'Noxtton Wallet security and preferences settings',
+          'Noxtton Wallet balance card with send and receive actions',
+          'Noxtton Wallet App Lock and Face ID settings',
+          'Noxtton Wallet verified Ethereum balance card',
+        ]
+      : [
+          'Hapttic marketing website and analytics dashboard displayed on a laptop',
+          'Hapttic website interface icon set',
+          'Hapttic pricing plans displayed on a tablet',
+          'Hapttic use-cases page displayed on a phone',
+          'Hapttic demo booking form and website footer displayed on a phone',
+          'Hapttic brand health page with a negative mention alert',
+          'Hapttic inbox analysis dashboard showing message volume trends',
+          'Hapttic conversation categorization dashboard with smart insights',
+          'Hapttic monthly message volume comparison chart',
+          'Hapttic campaign mentions comparison chart',
+          'Hapttic date range comparison picker',
+        ];
   const currentProjectId = isNoxtton ? 'noxtton-wallet' : project;
   const headerRef = useRef<HTMLElement>(null);
   const projectHeadingRef = useRef<HTMLDivElement>(null);
@@ -537,13 +578,15 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-background text-primary" style={{ backgroundImage: 'url(/Background-pattern.webp)', backgroundRepeat: 'repeat' }}>
-      <header ref={headerRef} className="flex w-full items-center justify-between px-4 pt-8 sm:px-8">
+      <header ref={headerRef} className="px-4 pt-8 sm:px-8">
+        <nav aria-label="Primary navigation" className="flex w-full items-center justify-between">
         <Link href="/" aria-label="Rati Nabijashvili — Home" className="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#030C0C]">
-          <Image src="/Logos/Logo.svg" alt="Rati Nabijashvili" width={153} height={35} className="h-8 w-auto" priority fetchPriority="high" />
+          <Image src="/Logos/Logo.svg" alt="Rati Nabijashvili" width={153} height={35} className="h-8 w-auto" loading="eager" />
         </Link>
         <Button className="h-12 w-32 rounded-full bg-accent text-base font-bold text-accent-foreground sm:h-14 sm:w-40 sm:text-xl" asChild>
           <a href="mailto:r.nabijashvili@gmail.com">Contact Me</a>
         </Button>
+        </nav>
       </header>
 
       <main>
@@ -576,18 +619,18 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
 
           <section ref={firstGalleryRef} className="mt-12 flex flex-col gap-4" aria-label={`${projectName} brand gallery`}>
             <div ref={galleryFirstImageRef}>
-              <ReferenceVisual src={`${assetBase}/First Image.webp`} label={`${projectName} product overview`} className="aspect-[1376/640] w-full" />
+              <ReferenceVisual src={`${assetBase}/First Image.webp`} label={projectImageAlts[0]} className="aspect-[1376/640] w-full" />
             </div>
             <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,560px)]">
               <div ref={gallerySecondLeftRef} className="flex flex-col gap-4">
                 <div className="grid gap-4 sm:grid-cols-[304fr_480fr]">
-                  <div className="flex h-24 items-center justify-center overflow-hidden rounded-lg bg-[#E4E4E4] p-6 md:h-[120px]"><img src={`${assetBase}/First Logo.svg`} alt={`${projectName} symbol`} className="h-8 w-auto max-w-[80%] object-contain md:h-10" /></div>
-                  <div className="flex h-24 items-center justify-center overflow-hidden rounded-lg bg-[#222] p-6 md:h-[120px]"><img src={`${assetBase}/Second Logo.svg`} alt={`${projectName} logo`} className="h-8 w-auto max-w-[80%] object-contain md:h-10" /></div>
+                  <div className="flex h-24 items-center justify-center overflow-hidden rounded-lg bg-[#E4E4E4] p-6 md:h-[120px]"><img src={`${assetBase}/First Logo.svg`} alt="" className="h-8 w-auto max-w-[80%] object-contain md:h-10" /></div>
+                  <div className="flex h-24 items-center justify-center overflow-hidden rounded-lg bg-[#222] p-6 md:h-[120px]"><img src={`${assetBase}/Second Logo.svg`} alt="" className="h-8 w-auto max-w-[80%] object-contain md:h-10" /></div>
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="grid gap-4">
-                    <ReferenceVisual src={`${assetBase}/Second image.webp`} label={`${projectName} icon system`} className="aspect-[392/294]" />
-                    <ReferenceVisual src={`${assetBase}/Third Image.webp`} label={`${projectName} mobile interface`} className="aspect-[392/294]" />
+                    <ReferenceVisual src={`${assetBase}/Second image.webp`} label={projectImageAlts[1]} className="aspect-[392/294]" />
+                    <ReferenceVisual src={`${assetBase}/Third Image.webp`} label={projectImageAlts[2]} className="aspect-[392/294]" />
                   </div>
                   <div className="grid grid-rows-5 gap-2">
                     {projectSwatches.map(([code, color]) => <div key={code} className={cn('flex h-20 items-center justify-center overflow-hidden rounded-lg p-2 font-body text-xl font-bold uppercase leading-[1.2] sm:h-auto sm:min-h-14 sm:text-2xl', (isNoxtton && code !== '#F7F7FF') || (isWhiteSquare && (code === '#283B40' || code === '#161414')) ? 'text-white' : 'text-[#030C0C]')} style={{ backgroundColor: color }}>{code}</div>)}
@@ -595,15 +638,15 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
                 </div>
               </div>
               <div ref={gallerySecondRightRef} className="h-full">
-                <ReferenceVisual src={`${assetBase}/Fourth Image.webp`} label={`${projectName} mobile use cases`} className="aspect-[560/740] h-full lg:aspect-auto" />
+                <ReferenceVisual src={`${assetBase}/Fourth Image.webp`} label={projectImageAlts[3]} className="aspect-[560/740] h-full lg:aspect-auto" />
               </div>
             </div>
             <div className="grid gap-4 md:grid-cols-2">
               <div ref={galleryThirdLeftRef}>
-                <ReferenceVisual src={`${assetBase}/Fifth Image.webp`} label={`${projectName} mobile interface`} className="aspect-[680/510]" />
+                <ReferenceVisual src={`${assetBase}/Fifth Image.webp`} label={projectImageAlts[4]} className="aspect-[680/510]" />
               </div>
               <div ref={galleryThirdRightRef}>
-                <ReferenceVisual src={`${assetBase}/Sixth Image.webp`} label={`${projectName} transaction flow`} className="aspect-[680/510]" />
+                <ReferenceVisual src={`${assetBase}/Sixth Image.webp`} label={projectImageAlts[5]} className="aspect-[680/510]" />
               </div>
             </div>
           </section>
@@ -613,21 +656,21 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
           <section ref={secondGalleryRef} className="mt-12 flex flex-col gap-4" aria-label={`${projectName} solution gallery`}>
             <div className="grid gap-4 md:grid-cols-2">
               <div ref={solutionGalleryTopLeftRef}>
-                <ReferenceVisual src={`${assetBase}/Seventh Image.webp`} label={`${projectName} receive screen`} className="aspect-[680/510]" />
+                <ReferenceVisual src={`${assetBase}/Seventh Image.webp`} label={projectImageAlts[6]} className="aspect-[680/510]" />
               </div>
               <div ref={solutionGalleryTopRightRef}>
-                <ReferenceVisual src={`${assetBase}/Eigth Image.webp`} label={`${projectName} activity screen`} className="aspect-[680/510]" />
+                <ReferenceVisual src={`${assetBase}/Eigth Image.webp`} label={projectImageAlts[7]} className="aspect-[680/510]" />
               </div>
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               <div ref={solutionGalleryBottomFirstRef}>
-                <ReferenceVisual src={`${assetBase}/Ninth Image.webp`} label={`${projectName} wallet actions`} className="aspect-[448/336]" />
+                <ReferenceVisual src={`${assetBase}/Ninth Image.webp`} label={projectImageAlts[8]} className="aspect-[448/336]" />
               </div>
               <div ref={solutionGalleryBottomSecondRef}>
-                <ReferenceVisual src={`${assetBase}/Tenth Image.webp`} label={`${projectName} security settings`} className="aspect-[448/336]" />
+                <ReferenceVisual src={`${assetBase}/Tenth Image.webp`} label={projectImageAlts[9]} className="aspect-[448/336]" />
               </div>
               <div ref={solutionGalleryBottomThirdRef} className="sm:col-span-2 lg:col-span-1">
-                <ReferenceVisual src={`${assetBase}/Eleventh Image.webp`} label={`${projectName} token balance`} className="aspect-[448/336]" />
+                <ReferenceVisual src={`${assetBase}/Eleventh Image.webp`} label={projectImageAlts[10]} className="aspect-[448/336]" />
               </div>
             </div>
           </section>

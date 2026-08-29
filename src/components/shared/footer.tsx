@@ -33,7 +33,7 @@ export function FooterInfo({ currentTime }: { currentTime: string }) {
         >
           <div className="relative h-[1.44rem] overflow-hidden">
             <span className="block transition-transform duration-300 group-hover:-translate-y-full">Linkedin</span>
-            <span className="absolute left-0 top-full block transition-transform duration-300 group-hover:-translate-y-full">Linkedin</span>
+            <span aria-hidden="true" className="absolute left-0 top-full block transition-transform duration-300 group-hover:-translate-y-full">Linkedin</span>
           </div>
           <img src="/arrow-up-right.svg" alt="External link" className="h-5 w-5" />
         </a>
@@ -195,7 +195,7 @@ export function Footer({ showHomeLink = false }: { showHomeLink?: boolean }) {
               <span className="block text-2xl font-bold leading-[1.2] text-[#030C0C] transition-transform duration-300 group-hover:-translate-y-full sm:text-[clamp(1.25rem,5.8vw,1.875rem)]">
                 r.nabijashvili@gmail.com
               </span>
-              <span className="absolute left-0 top-full block text-2xl font-bold leading-[1.2] text-[#030C0C] transition-transform duration-300 group-hover:-translate-y-full sm:text-[clamp(1.25rem,5.8vw,1.875rem)]">
+              <span aria-hidden="true" className="absolute left-0 top-full block text-2xl font-bold leading-[1.2] text-[#030C0C] transition-transform duration-300 group-hover:-translate-y-full sm:text-[clamp(1.25rem,5.8vw,1.875rem)]">
                 r.nabijashvili@gmail.com
               </span>
             </div>
@@ -235,7 +235,7 @@ export function Footer({ showHomeLink = false }: { showHomeLink?: boolean }) {
             <Link href="/" className="group flex items-center gap-1 text-body font-bold leading-[1.2] text-[#030C0C]">
               <div className="relative h-[1.2rem] overflow-hidden">
                 <span className="block transition-transform duration-300 group-hover:-translate-y-full">Home</span>
-                <span className="absolute left-0 top-full block transition-transform duration-300 group-hover:-translate-y-full">Home</span>
+                <span aria-hidden="true" className="absolute left-0 top-full block transition-transform duration-300 group-hover:-translate-y-full">Home</span>
               </div>
               <img src="/home-round-door.svg" alt="" aria-hidden="true" className="h-5 w-5" />
             </Link>
@@ -248,7 +248,7 @@ export function Footer({ showHomeLink = false }: { showHomeLink?: boolean }) {
               <span className="block transition-transform duration-300 group-hover:-translate-y-full">
                 Back To Top
               </span>
-              <span className="absolute left-0 top-full block transition-transform duration-300 group-hover:-translate-y-full">
+              <span aria-hidden="true" className="absolute left-0 top-full block transition-transform duration-300 group-hover:-translate-y-full">
                 Back To Top
               </span>
             </div>

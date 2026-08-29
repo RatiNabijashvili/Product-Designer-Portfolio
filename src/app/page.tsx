@@ -13,6 +13,8 @@ import { LogoCarousel } from '@/components/shared/logo-carousel';
 import { AboutSection } from '@/components/shared/about-section';
 import { Footer } from '@/components/shared/footer';
 import { useFitTextWidth } from '@/hooks/use-fit-text-width';
+import { JsonLd } from '@/components/seo/json-ld';
+import { personStructuredData, websiteStructuredData } from '@/lib/structured-data';
 
 export default function Home() {
   const headerRef = useRef<HTMLElement>(null);
@@ -91,9 +93,11 @@ export default function Home() {
         backgroundSize: 'auto',
       }}
     >
+      <JsonLd data={[personStructuredData, websiteStructuredData]} />
       <main>
         <div className="relative flex min-h-screen flex-col">
-          <header ref={headerRef} className="flex w-full items-center justify-between px-4 pb-0 pt-8 sm:p-8">
+          <header ref={headerRef} className="px-4 pb-0 pt-8 sm:p-8">
+            <nav aria-label="Primary navigation" className="flex w-full items-center justify-between">
             <Link
               href="/"
               aria-label="Rati Nabijashvili — Home"
@@ -105,8 +109,7 @@ export default function Home() {
                 width={153}
                 height={35}
                 className="h-8 w-auto"
-                priority
-                fetchPriority="high"
+                loading="eager"
               />
             </Link>
             <Button
@@ -116,6 +119,7 @@ export default function Home() {
             >
               <a href="mailto:r.nabijashvili@gmail.com">Contact Me</a>
             </Button>
+            </nav>
           </header>
 
           {/* This container holds the main hero content and centers it vertically. */}

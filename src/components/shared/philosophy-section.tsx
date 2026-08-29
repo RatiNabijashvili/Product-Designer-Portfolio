@@ -72,7 +72,7 @@ export function PhilosophySection() {
           {/* Base layer (gray) */}
           <p className="text-center text-[#919191] min-[821px]:text-right">{line1}</p>
           {/* Animated layer (primary) */}
-          <div ref={line1Ref} className="absolute top-0 left-0 w-full h-full">
+          <div ref={line1Ref} aria-hidden="true" className="absolute top-0 left-0 w-full h-full">
             <p className="text-center text-primary min-[821px]:text-right">{line1}</p>
           </div>
         </div>
@@ -82,7 +82,7 @@ export function PhilosophySection() {
           {/* Base layer (gray) */}
           <p className="text-center text-[#919191] min-[821px]:text-left">{line2}</p>
           {/* Animated layer (primary) */}
-          <div ref={line2Ref} className="absolute top-0 left-0 w-full h-full">
+          <div ref={line2Ref} aria-hidden="true" className="absolute top-0 left-0 w-full h-full">
             <p className="text-center text-primary min-[821px]:text-left">{line2}</p>
           </div>
         </div>
@@ -92,7 +92,7 @@ export function PhilosophySection() {
           {/* Base layer (gray) */}
           <p className="text-center text-[#919191] min-[821px]:text-left">{line3}</p>
           {/* Animated layer (primary) */}
-          <div ref={line3Ref} className="absolute top-0 left-0 w-full h-full">
+          <div ref={line3Ref} aria-hidden="true" className="absolute top-0 left-0 w-full h-full">
             <p className="text-center text-primary min-[821px]:text-left">{line3}</p>
           </div>
         </div>
@@ -102,7 +102,7 @@ export function PhilosophySection() {
           {/* Base layer (gray) */}
           <p className="text-center text-[#919191] min-[821px]:text-left">{line4}</p>
           {/* Animated layer (primary) */}
-          <div ref={line4Ref} className="absolute top-0 left-0 w-full h-full">
+          <div ref={line4Ref} aria-hidden="true" className="absolute top-0 left-0 w-full h-full">
             <p className="text-center text-primary min-[821px]:text-left">{line4}</p>
           </div>
         </div>
