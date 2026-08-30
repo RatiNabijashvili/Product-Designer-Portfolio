@@ -1,4 +1,4 @@
-const fallbackSiteUrl = 'https://product-designer-portfolio.r-nabijashvili.workers.dev';
+const fallbackSiteUrl = 'https://ratinabijashvili.com';
 
 function normalizeSiteUrl(value: string) {
   return value.replace(/\/+$/, '');

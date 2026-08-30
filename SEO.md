@@ -4,7 +4,7 @@
 
 All canonical, sitemap, Open Graph, Twitter and structured-data URLs use `NEXT_PUBLIC_SITE_URL`. When it is unset, the application temporarily falls back to:
 
-`https://product-designer-portfolio.r-nabijashvili.workers.dev`
+`https://ratinabijashvili.com`
 
 ## Custom-domain migration
 
