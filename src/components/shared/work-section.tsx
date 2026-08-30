@@ -241,6 +241,7 @@ function ProjectItem({
                     videoRef={videoRef}
                     imageUrl={projectImage.imageUrl}
                     projectName={project.name}
+                    projectId={project.id}
                     imageHint={projectImage.imageHint}
                     isHovered={isHovered}
                   />
@@ -255,15 +256,23 @@ function ProjectMedia({
   videoRef,
   imageUrl, 
   projectName, 
+  projectId,
   imageHint,
   isHovered,
 }: { 
   videoRef: React.RefObject<HTMLVideoElement | null>;
   imageUrl: string; 
   projectName: string; 
+  projectId: string;
   imageHint: string;
   isHovered: boolean;
 }) {
+  const videoSource = projectId === 'noxtton-wallet'
+    ? '/Projects/Noxtton-Wallet/Noxxton-Video.webm'
+    : projectId === 'hapttic'
+      ? '/Projects/Happtic/Happtic-video.webm'
+      : '/Projects/White-Square/WhiteSquare-Video.webm';
+
   return (
     <div className="group relative aspect-[680/382] w-full overflow-hidden rounded-lg">
       {/* Image */}
@@ -290,7 +299,7 @@ function ProjectMedia({
         muted
         playsInline
       >
-        <source src="/Slideshow-Loop-[remix] - 720p 30fps.webm" type="video/webm" />
+        <source src={videoSource} type="video/webm" />
       </video>
 
     </div>

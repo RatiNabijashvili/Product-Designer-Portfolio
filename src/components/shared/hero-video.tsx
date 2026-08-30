@@ -16,7 +16,7 @@ export function HeroVideo() {
         muted
         playsInline
       >
-        <source src="/Slideshow-Loop-[remix] - 720p 30fps.webm" type="video/webm" />
+        <source src="/Home-Video.webm" type="video/webm" />
         Your browser does not support the video tag.
       </video>
     </div>

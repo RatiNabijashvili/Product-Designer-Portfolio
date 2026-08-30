@@ -254,11 +254,11 @@ function ReferenceVisual({
   );
 }
 
-function ProjectVideo() {
+function ProjectVideo({ src }: { src: string }) {
   return (
     <div className="mt-12 aspect-[1440/811] w-full overflow-hidden bg-[#E4E4E4]">
       <video autoPlay muted playsInline loop preload="auto" className="block h-full w-full object-cover">
-        <source src="/Slideshow-Loop-[remix] - 720p 30fps.webm" type="video/webm" />
+        <source src={src} type="video/webm" />
         Your browser does not support the video tag.
       </video>
     </div>
@@ -283,6 +283,11 @@ function ExploreProjectCard({
 }) {
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const videoSource = item.id === 'noxtton-wallet'
+    ? '/Projects/Noxtton-Wallet/Noxxton-Video.webm'
+    : item.id === 'hapttic'
+      ? '/Projects/Happtic/Happtic-video.webm'
+      : '/Projects/White-Square/WhiteSquare-Video.webm';
 
   const handleMouseEnter = (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (!supportsExploreHover()) return;
@@ -327,7 +332,7 @@ function ExploreProjectCard({
               preload="metadata"
               className={cn('absolute inset-0 h-full w-full object-cover transition-opacity duration-300', isHovered ? 'opacity-100' : 'opacity-0')}
             >
-              <source src="/Slideshow-Loop-[remix] - 720p 30fps.webm" type="video/webm" />
+              <source src={videoSource} type="video/webm" />
             </video>
           </div>
         )}
@@ -609,7 +614,13 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
         </div>
 
         <div ref={projectVideoRef}>
-          <ProjectVideo />
+          <ProjectVideo
+            src={isNoxtton
+              ? '/Projects/Noxtton-Wallet/Noxxton-Video.webm'
+              : project === 'hapttic'
+                ? '/Projects/Happtic/Happtic-video.webm'
+                : '/Projects/White-Square/WhiteSquare-Video.webm'}
+          />
         </div>
 
         <div className="px-4 sm:px-8">
