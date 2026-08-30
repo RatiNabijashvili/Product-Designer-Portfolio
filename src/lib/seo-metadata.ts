@@ -27,7 +27,7 @@ export function createPageMetadata(page: SeoPage): Metadata {
       siteName: siteConfig.name,
       type: 'website',
       locale: siteConfig.openGraphLocale,
-      images: [{ url: image, width: 1200, height: 630, alt: page.imageAlt }],
+      images: [{ url: image, width: 1200, height: 630, type: 'image/png', alt: page.imageAlt }],
     },
     twitter: {
       card: 'summary_large_image',
