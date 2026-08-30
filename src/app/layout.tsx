@@ -30,8 +30,8 @@ export const metadata: Metadata = {
   ...createPageMetadata(seoPages.home),
   icons: {
     icon: [
-      { url: '/Logos/Favicon_Black.svg', type: 'image/svg+xml', media: '(prefers-color-scheme: light)' },
-      { url: '/Logos/Favicon_White.svg', type: 'image/svg+xml', media: '(prefers-color-scheme: dark)' },
+      { url: '/favicon.png', sizes: '96x96', type: 'image/png' },
+      { url: '/Logos/Favicon_Black.svg', type: 'image/svg+xml' },
     ],
     apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
   },
@@ -44,10 +44,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href="/Logos/Favicon_Black.svg" media="(prefers-color-scheme: light)" type="image/svg+xml" />
-        <link rel="icon" href="/Logos/Favicon_White.svg" media="(prefers-color-scheme: dark)" type="image/svg+xml" />
-      </head>
       <body className={`${satoshi.variable} ${anton.variable} font-body antialiased`}>
         {children}
         <Toaster />
