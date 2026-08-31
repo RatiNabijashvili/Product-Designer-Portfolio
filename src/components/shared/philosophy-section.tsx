@@ -30,12 +30,12 @@ export function PhilosophySection() {
           {
             scale: 1,
             opacity: 1,
-            duration: 0.65,
-            ease: 'power2.out',
+            ease: 'none',
             scrollTrigger: {
               trigger: sectionRef.current,
-              start: 'top 85%',
-              once: true,
+              start: 'top 60%',
+              end: 'top top',
+              scrub: 1,
             },
           }
         );
