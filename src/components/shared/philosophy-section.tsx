@@ -20,7 +20,31 @@ export function PhilosophySection() {
       return;
     }
 
+    const media = gsap.matchMedia();
     const ctx = gsap.context(() => {
+
+      media.add('(max-width: 1024px)', () => {
+        gsap.fromTo(
+          textContainerRef.current,
+          { scale: 0.78, opacity: 0 },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.65,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 85%',
+              once: true,
+            },
+          }
+        );
+      });
+
+      media.add('(min-width: 1025px)', () => {
+        gsap.set(textContainerRef.current, { scale: 0.5, opacity: 0 });
+      });
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -31,12 +55,15 @@ export function PhilosophySection() {
         },
       });
 
+      if (window.matchMedia('(min-width: 1025px)').matches) {
+        tl.to(textContainerRef.current, {
+          scale: 1,
+          opacity: 1,
+          ease: 'power1.inOut',
+        });
+      }
+
       tl.fromTo(
-        textContainerRef.current,
-        { scale: 0.5, opacity: 0 },
-        { scale: 1, opacity: 1, ease: 'power1.inOut' }
-      )
-      .fromTo(
         line1Ref.current,
         { clipPath: 'inset(0 100% 0 0)' },
         { clipPath: 'inset(0 0% 0 0)', ease: 'none' }
@@ -55,7 +82,10 @@ export function PhilosophySection() {
       );
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      media.revert();
+      ctx.revert();
+    };
   }, []);
 
   const line1 = 'I design with purpose, creating clarity, simplicity and';
