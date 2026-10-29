@@ -120,8 +120,8 @@ export function Footer({ showHomeLink = false }: { showHomeLink?: boolean }) {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: footerRef.current,
-            start: 'top top',
-            end: 'bottom bottom',
+            start: () => Math.max(0, ScrollTrigger.maxScroll(window) - 1), // Allow 1px for scroll rounding.
+            end: 'max',
             once: true,
           },
         });
