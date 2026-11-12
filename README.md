@@ -1,28 +1,32 @@
-# Rati Nabijashvili — Portfolio
+# Rati Nabijashvili — Product Designer
 
-Next.js App Router portfolio with React, TypeScript, Tailwind CSS and GSAP.
+I'm Rati, a product designer based in Tbilisi, Georgia, working with teams globally. I design clear, purposeful experiences for web and mobile, from early product decisions to detailed interfaces and design systems.
 
-## Local development
+With 4+ years of experience, I've worked with corporate teams, startups and freelance clients. My work spans SaaS, fintech and real estate, with a focus on making complex information and interactions easier to understand.
 
-Run `npm ci`, then `npm run dev`. The preview is available at http://localhost:9002.
-On Windows with PowerShell script execution disabled, use `npm.cmd` instead of `npm`.
+**[Explore my portfolio →](https://ratinabijashvili.com)**
 
-## Checks
+## How I work
 
-- `npm run typecheck` checks TypeScript.
-- `npm run lint` runs ESLint without an interactive setup prompt.
-- `npm run build` creates a production build and checks lint/types.
-- `npm run start -- -p 9003` serves that build for validation.
-- `node scripts/check-site.mjs` checks pages, assets, metadata and case-image paths against port 9003. Set `SITE_CHECK_URL` to check a different local server.
+I connect product goals with the decisions people need to make. My practice includes interaction design, information architecture, UX/UI design, prototyping and documented design systems. I work closely with product managers and developers to carry ideas through to implementation.
 
-Stop the development server before building: both commands use `.next`.
+I'm also expanding into creative development, using AI-assisted tools and code to turn design ideas into functional experiences. This portfolio brings that work together with the reasoning behind my design decisions.
 
-## Editing content
+## Selected work
 
-- Project card names, descriptions and tags: `src/lib/projects-data.ts`.
-- Case-study pages: `src/components/projects/` and `src/app/projects/`.
-- Search and social metadata: `src/lib/site-config.ts`.
-- Images and icons: `public/`.
-- Site URL: `NEXT_PUBLIC_SITE_URL` (see `.env.example`).
+- **[Hapttic](https://ratinabijashvili.com/projects/hapttic)** — Campaign comparison and inbox analytics for a brand-monitoring platform, alongside a redesigned marketing website.
+- **[Noxtton Wallet](https://ratinabijashvili.com/projects/noxtton-wallet)** — A self-custodial wallet concept exploring clearer onboarding, security guidance and transaction flows for newcomers.
+- **[White Square Design System](https://ratinabijashvili.com/projects/white-square)** — A documented Figma system connecting visual foundations, configurable components and responsive behavior across residential projects.
+- **[Selected UX Challenges](https://ratinabijashvili.com/projects/ux-challenges)** — Examples of identifying usability problems, working within constraints and making practical interface improvements.
 
-Firebase App Hosting configuration remains in `apphosting.yaml`; the portfolio itself does not require the Firebase client SDK or Genkit.
+## Let's work together
+
+For product design, UX/UI and design system collaborations:
+
+- **Portfolio:** [ratinabijashvili.com](https://ratinabijashvili.com)
+- **Email:** [r.nabijashvili@gmail.com](mailto:r.nabijashvili@gmail.com)
+- **LinkedIn:** [Rati Nabijashvili](https://www.linkedin.com/in/ratinabijashvili/)
+
+## About this repository
+
+The source for my personal portfolio, built with Next.js, React, TypeScript, Tailwind CSS and GSAP. See the [development guide](docs/development.md) for local setup, checks and content locations.

@@ -45,6 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${satoshi.variable} ${anton.variable} font-body antialiased`}>
+        <noscript><style>{'[data-gallery-item] { opacity: 1 !important; }'}</style></noscript>
         {children}
         <Toaster />
       </body>

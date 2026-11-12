@@ -74,6 +74,12 @@
 }
 
 @layer utilities {
+  /* Reserve layout while preventing a flash of finished gallery images before
+     hydration. GSAP writes inline opacity when each reveal runs. */
+  [data-gallery-item] {
+    opacity: 0;
+  }
+
   .hero-display-title {
     font-size: var(--hero-title-size, clamp(2.6rem, 13.7vw, 22rem));
   }
