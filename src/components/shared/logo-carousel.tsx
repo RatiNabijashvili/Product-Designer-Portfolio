@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { whenProjectLayoutReady } from '@/lib/project-layout-ready';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -46,29 +47,31 @@ export function LogoCarousel() {
     const section = sectionRef.current;
     if (!section) return;
 
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        section,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 85%',
-            once: true,
-          },
-        }
-      );
-    }, section);
+    return whenProjectLayoutReady(() => {
+      const ctx = gsap.context(() => {
+        gsap.fromTo(
+          section,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: section,
+              start: 'top 85%',
+              once: true,
+            },
+          }
+        );
+      }, section);
 
-    return () => ctx.revert();
+      return () => ctx.revert();
+    });
   }, []);
 
   return (
-    <section ref={sectionRef} className="flex h-24 items-center bg-[#E4E4E4] sm:h-auto sm:block sm:py-10" aria-label="Selected client logos">
+    <section ref={sectionRef} data-section-reveal className="flex h-24 items-center bg-[#E4E4E4] sm:h-auto sm:block sm:py-10" aria-label="Selected client logos">
       <div className="logo-marquee-mask relative w-full overflow-hidden">
         <div className="logo-marquee-track flex w-max items-center">
           <LogoSet />

@@ -14,7 +14,7 @@ export const projects: Project[] = [
     tags: ['SaaS', 'B2B', 'B2C', 'Marketing Page'],
     name: 'HAPTTIC',
     description:
-      'Hapttic is a real-time brand intelligence platform that helps teams track mentions across every online channel, analyze sentiment instantly and take action with confidence.',
+      'Hapttic is a brand-monitoring platform for marketing teams. I designed campaign comparison and inbox analytics, and redesigned its website to communicate the platform’s growing capabilities.',
     imageId: 'project-hapttic',
   },
   {

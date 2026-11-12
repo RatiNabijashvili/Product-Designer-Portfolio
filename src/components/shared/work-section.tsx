@@ -1,10 +1,11 @@
 'use client';
 
 import { useLayoutEffect, useRef, useState } from 'react';
-import Image from 'next/image';
+import { ProjectImage as Image } from '@/components/shared/project-image';
 import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { whenProjectLayoutReady } from '@/lib/project-layout-ready';
 
 import { projects } from '@/lib/projects-data';
 import { Button } from '@/components/ui/button';
@@ -34,49 +35,52 @@ export function WorkSection() {
       return;
     }
 
-    const ctx = gsap.context(() => {
-      // Animate the header
-      gsap.fromTo(
-        headerRef.current,
-        { opacity: 0, y: 64 },
-        {
-          opacity: 1,
-          y: 0,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 70%',
-            end: 'top 40%',
-            scrub: 1, // Makes the animation smooth and linked to scroll
-            once: true, // Run the animation only once
-          },
-        }
-      );
-
-      // Set initial state for project items
-      const projectItems = gsap.utils.toArray<HTMLElement>('.project-item');
-      gsap.set(projectItems, { opacity: 0, y: 64 });
-
-      // Batch animate project items. Each item will be its own trigger.
-      ScrollTrigger.batch(projectItems, {
-        start: 'top 85%', // Start when the top of an item is 85% from the top of the viewport
-        onEnter: (batch) =>
-          gsap.to(batch, {
+    return whenProjectLayoutReady(() => {
+      const ctx = gsap.context((context) => {
+        // Animate the header
+        gsap.fromTo(
+          headerRef.current,
+          { opacity: 0, y: 64 },
+          {
             opacity: 1,
             y: 0,
-            duration: 1.4,
-            ease: 'power2.out',
-            stagger: 0.2,
-          }),
-        once: true, // Run the animation only once for each batch
-      });
-    }, sectionRef);
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 70%',
+              end: 'top 40%',
+              scrub: 1, // Makes the animation smooth and linked to scroll
+              once: true, // Run the animation only once
+            },
+          }
+        );
 
-    return () => ctx.revert();
+        // Set initial state for project items
+        const projectItems = Array.from(sectionRef.current!.querySelectorAll<HTMLElement>('.project-item'));
+        gsap.set(projectItems, { opacity: 0, y: 64 });
+
+        // Batch animate project items. Each item will be its own trigger.
+        ScrollTrigger.batch(projectItems, {
+          start: 'top 85%', // Start when the top of an item is 85% from the top of the viewport
+          onEnter: (batch) => context.add(() => {
+            gsap.to(batch, {
+              opacity: 1,
+              y: 0,
+              duration: 1.4,
+              ease: 'power2.out',
+              stagger: 0.2,
+            });
+          }),
+          once: true, // Run the animation only once for each batch
+        });
+      }, sectionRef);
+
+      return () => ctx.revert();
+    });
   }, []);
 
   return (
     <section ref={sectionRef} className="mt-[72px] px-4 md:mt-40 md:px-8">
-      <header ref={headerRef} className="mb-12">
+      <header ref={headerRef} data-work-reveal className="mb-12">
         <h2 className="text-base font-bold uppercase leading-none text-[#919191] md:text-xl">
           01 / WORK
         </h2>
@@ -158,6 +162,7 @@ function ProjectItem({
 
   return (
     <div
+      data-work-reveal
       className={cn(
         'project-item tablet-project-item relative grid grid-cols-1 items-center gap-6 border-t border-[#DCDCDC] py-8 lg:grid-cols-2 lg:gap-12',
         !project.inDevelopment && 'min-[1201px]:cursor-none'
@@ -255,17 +260,17 @@ function ProjectItem({
   );
 }
 
-function ProjectMedia({ 
+function ProjectMedia({
   videoRef,
-  imageUrl, 
-  projectName, 
+  imageUrl,
+  projectName,
   projectId,
   imageHint,
   isHovered,
-}: { 
+}: {
   videoRef: React.RefObject<HTMLVideoElement | null>;
-  imageUrl: string; 
-  projectName: string; 
+  imageUrl: string;
+  projectName: string;
   projectId: string;
   imageHint: string;
   isHovered: boolean;
@@ -290,7 +295,7 @@ function ProjectMedia({
         )}
         data-ai-hint={imageHint}
       />
-      
+
       {/* Video */}
       {videoSource && (<video
         ref={videoRef}

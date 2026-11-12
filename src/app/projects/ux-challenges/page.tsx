@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { UxChallengesAnimations } from '@/components/projects/ux-challenges-animations';
-import Image from 'next/image';
+import { ProjectImage as Image } from '@/components/shared/project-image';
 import Link from 'next/link';
 import { Footer } from '@/components/shared/footer';
 import { ExploreMoreWork } from '@/components/projects/hapttic-project-page';

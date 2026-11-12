@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef } from 'react';
 import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { whenProjectLayoutReady } from '@/lib/project-layout-ready';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,18 +14,21 @@ export function NoxttonCaseSection({ title, children }: { title: string; childre
   const contentRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    const context = gsap.context(() => {
-      const timeline = gsap.timeline();
-      timeline.fromTo(headingRef.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.65, ease: 'power2.out' });
-      timeline.fromTo(contentRef.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, '-=0.25');
-      ScrollTrigger.create({ trigger: sectionRef.current, start: 'top 72%', once: true, animation: timeline }).refresh();
-    }, sectionRef);
-    return () => context.revert();
+    return whenProjectLayoutReady(() => {
+      if (!sectionRef.current || !headingRef.current || !contentRef.current) return;
+      const context = gsap.context(() => {
+        const timeline = gsap.timeline({ paused: true });
+        timeline.fromTo(headingRef.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.65, ease: 'power2.out' });
+        timeline.fromTo(contentRef.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, '-=0.25');
+        ScrollTrigger.create({ trigger: sectionRef.current, start: 'top 72%', once: true, animation: timeline }).refresh();
+      }, sectionRef);
+      return () => context.revert();
+    });
   }, []);
 
   return <section ref={sectionRef} className="mt-12">
-    <h2 ref={headingRef} className="mb-2 text-2xl font-bold uppercase leading-[1.5] text-[#030C0C] md:mb-3 md:text-[32px] md:leading-[1.2]">{title}</h2>
-    <div ref={contentRef} className="space-y-4 text-base font-medium leading-[1.5] text-[#919191] md:text-xl">{children}</div>
+    <h2 data-project-text-reveal ref={headingRef} className="mb-2 text-2xl font-bold uppercase leading-[1.5] text-[#030C0C] md:mb-3 md:text-[32px] md:leading-[1.2]">{title}</h2>
+    <div data-project-text-reveal ref={contentRef} className="space-y-4 text-base font-medium leading-[1.5] text-[#919191] md:text-xl">{children}</div>
   </section>;
 }
 

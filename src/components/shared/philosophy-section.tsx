@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { whenProjectLayoutReady } from '@/lib/project-layout-ready';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,72 +21,74 @@ export function PhilosophySection() {
       return;
     }
 
-    const media = gsap.matchMedia();
-    const ctx = gsap.context(() => {
+    return whenProjectLayoutReady(() => {
+      const media = gsap.matchMedia();
+      const ctx = gsap.context(() => {
 
-      media.add('(max-width: 1024px)', () => {
-        gsap.fromTo(
-          textContainerRef.current,
-          { scale: 0.78, opacity: 0 },
-          {
+        media.add('(max-width: 1024px)', () => {
+          gsap.fromTo(
+            textContainerRef.current,
+            { scale: 0.78, opacity: 0 },
+            {
+              scale: 1,
+              opacity: 1,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: 'top 60%',
+                end: 'top top',
+                scrub: 1,
+              },
+            }
+          );
+        });
+
+        media.add('(min-width: 1025px)', () => {
+          gsap.set(textContainerRef.current, { scale: 0.5, opacity: 0 });
+        });
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: '+=160%', // Keep the highlight readable without holding up laptop scrolling
+            pin: true,
+            scrub: 1,
+          },
+        });
+
+        if (window.matchMedia('(min-width: 1025px)').matches) {
+          tl.to(textContainerRef.current, {
             scale: 1,
             opacity: 1,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top 60%',
-              end: 'top top',
-              scrub: 1,
-            },
-          }
+            ease: 'power1.inOut',
+          });
+        }
+
+        tl.fromTo(
+          line1Ref.current,
+          { clipPath: 'inset(0 100% 0 0)' },
+          { clipPath: 'inset(0 0% 0 0)', ease: 'none' }
+        ).fromTo(
+          line2Ref.current,
+          { clipPath: 'inset(0 100% 0 0)' },
+          { clipPath: 'inset(0 0% 0 0)', ease: 'none' }
+        ).fromTo(
+          line3Ref.current,
+          { clipPath: 'inset(0 100% 0 0)' },
+          { clipPath: 'inset(0 0% 0 0)', ease: 'none' }
+        ).fromTo(
+          line4Ref.current,
+          { clipPath: 'inset(0 100% 0 0)' },
+          { clipPath: 'inset(0 0% 0 0)', ease: 'none' }
         );
-      });
+      }, sectionRef);
 
-      media.add('(min-width: 1025px)', () => {
-        gsap.set(textContainerRef.current, { scale: 0.5, opacity: 0 });
-      });
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top top',
-          end: '+=160%', // Keep the highlight readable without holding up laptop scrolling
-          pin: true,
-          scrub: 1,
-        },
-      });
-
-      if (window.matchMedia('(min-width: 1025px)').matches) {
-        tl.to(textContainerRef.current, {
-          scale: 1,
-          opacity: 1,
-          ease: 'power1.inOut',
-        });
-      }
-
-      tl.fromTo(
-        line1Ref.current,
-        { clipPath: 'inset(0 100% 0 0)' },
-        { clipPath: 'inset(0 0% 0 0)', ease: 'none' }
-      ).fromTo(
-        line2Ref.current,
-        { clipPath: 'inset(0 100% 0 0)' },
-        { clipPath: 'inset(0 0% 0 0)', ease: 'none' }
-      ).fromTo(
-        line3Ref.current,
-        { clipPath: 'inset(0 100% 0 0)' },
-        { clipPath: 'inset(0 0% 0 0)', ease: 'none' }
-      ).fromTo(
-        line4Ref.current,
-        { clipPath: 'inset(0 100% 0 0)' },
-        { clipPath: 'inset(0 0% 0 0)', ease: 'none' }
-      );
-    }, sectionRef);
-
-    return () => {
-      media.revert();
-      ctx.revert();
-    };
+      return () => {
+        media.revert();
+        ctx.revert();
+      };
+    });
   }, []);
 
   const line1 = 'I design with purpose, creating clarity, simplicity and';
@@ -95,8 +98,8 @@ export function PhilosophySection() {
 
   return (
     <section ref={sectionRef} className="flex min-h-screen items-center justify-center px-4 py-8 min-[821px]:px-8">
-      <div ref={textContainerRef} className="tablet-philosophy-text w-full max-w-7xl space-y-1 text-center text-2xl font-bold uppercase leading-normal min-[821px]:text-[clamp(1.5rem,2.53vw,2rem)]">
-        
+      <div ref={textContainerRef} data-section-reveal className="tablet-philosophy-text w-full max-w-7xl space-y-1 text-center text-2xl font-bold uppercase leading-normal min-[821px]:text-[clamp(1.5rem,2.53vw,2rem)]">
+
         {/* Line 1 */}
         <div className="relative">
           {/* Base layer (gray) */}

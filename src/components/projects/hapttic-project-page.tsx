@@ -2,10 +2,12 @@
 
 import { useLayoutEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import { ProjectImage as Image } from '@/components/shared/project-image';
+import { whenSiteReveal } from '@/lib/site-loader';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { animateProjectGallery } from '@/lib/project-gallery-animations';
+import { whenProjectLayoutReady } from '@/lib/project-layout-ready';
 import { Button } from '@/components/ui/button';
 import { NoxttonIntroduction, NoxttonChallenge, NoxttonRole, NoxttonOutcome, NoxttonReflection } from '@/components/projects/noxtton-case-sections';
 import { Footer } from '@/components/shared/footer';
@@ -152,14 +154,17 @@ function useSectionReveal(enabled = true) {
   const contentRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    if (!enabled || !sectionRef.current || !headingRef.current || !contentRef.current) return;
-    const ctx = gsap.context(() => {
-      const timeline = gsap.timeline();
-      timeline.fromTo(headingRef.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.65, ease: 'power2.out' });
-      timeline.fromTo(contentRef.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, '-=0.25');
-      ScrollTrigger.create({ trigger: sectionRef.current, start: 'top 72%', once: true, animation: timeline }).refresh();
-    }, sectionRef);
-    return () => ctx.revert();
+    if (!enabled) return;
+    return whenProjectLayoutReady(() => {
+      if (!sectionRef.current || !headingRef.current || !contentRef.current) return;
+      const ctx = gsap.context(() => {
+        const timeline = gsap.timeline({ paused: true });
+        timeline.fromTo(headingRef.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.65, ease: 'power2.out' });
+        timeline.fromTo(contentRef.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, '-=0.25');
+        ScrollTrigger.create({ trigger: sectionRef.current, start: 'top 72%', once: true, animation: timeline }).refresh();
+      }, sectionRef);
+      return () => ctx.revert();
+    });
   }, [enabled]);
 
   return { sectionRef, headingRef, contentRef };
@@ -169,8 +174,8 @@ function ProjectOverview({ items = overview }: { items?: string[][] }) {
   const { sectionRef, headingRef, contentRef } = useSectionReveal();
   return (
     <section ref={sectionRef} className="mt-12">
-      <div ref={headingRef}><SectionTitle>Project Overview</SectionTitle></div>
-      <div ref={contentRef}>
+      <div data-project-text-reveal ref={headingRef}><SectionTitle>Project Overview</SectionTitle></div>
+      <div data-project-text-reveal ref={contentRef}>
         <dl className="mt-4 grid overflow-hidden rounded-lg border border-[#DCDCDC] sm:grid-cols-2 lg:grid-cols-3">
           {items.map(([label, value], index) => (
             <div key={label} className={cn('flex min-h-32 flex-col justify-end gap-1.5 p-4 md:min-h-40', index < 5 && 'border-b', index >= 4 && 'sm:border-b-0', index % 2 === 0 && 'sm:border-r', index % 3 === 2 && 'lg:border-r-0', index % 3 !== 2 && 'lg:border-r', index < 3 && 'lg:border-b', index >= 3 && 'lg:border-b-0')}>
@@ -198,8 +203,8 @@ function TextSection({
   const { sectionRef, headingRef, contentRef } = useSectionReveal(reveal);
   return (
     <section ref={sectionRef} className="mt-12 flex flex-col gap-4">
-      <div ref={headingRef}><SectionTitle>{title}</SectionTitle></div>
-      <div ref={contentRef} className="flex flex-col gap-2">
+      <div data-project-text-reveal={reveal || undefined} ref={headingRef}><SectionTitle>{title}</SectionTitle></div>
+      <div data-project-text-reveal={reveal || undefined} ref={contentRef} className="flex flex-col gap-2">
         {intro && <p className="text-base font-medium leading-[1.5] text-[#919191] md:text-xl">{intro}</p>}
         {points && (
           <ul className="list-disc space-y-1 pl-6 text-base leading-[1.6] md:text-xl">
@@ -221,8 +226,8 @@ function OutcomeSection({ items = outcomes }: { items?: string[] }) {
   const { sectionRef, headingRef, contentRef } = useSectionReveal();
   return (
     <section ref={sectionRef} className="mt-12 flex flex-col gap-4">
-      <div ref={headingRef}><SectionTitle>Outcome</SectionTitle></div>
-      <div ref={contentRef} className="flex flex-col gap-2">
+      <div data-project-text-reveal ref={headingRef}><SectionTitle>Outcome</SectionTitle></div>
+      <div data-project-text-reveal ref={contentRef} className="flex flex-col gap-2">
         {items.map((paragraph) => (
           <p key={paragraph} className="text-base font-medium leading-[1.5] text-[#919191] md:text-xl">
             {paragraph}
@@ -248,6 +253,7 @@ function ReferenceVisual({
       className={cn('relative overflow-hidden rounded-lg bg-[#E4E4E4]', className)}
     >
       <Image
+        loading={src.endsWith('/First Image.webp') ? 'eager' : 'lazy'}
         src={src}
         alt={label}
         fill
@@ -378,13 +384,13 @@ export function ExploreMoreWork({ currentProjectId }: { currentProjectId: string
 
   return (
     <section ref={sectionRef} className="mt-12" aria-labelledby="explore-more-work-title">
-      <div ref={headingRef}>
+      <div data-project-text-reveal ref={headingRef}>
         <h2 id="explore-more-work-title" className="text-2xl font-bold uppercase leading-[1.2] text-[#030C0C] md:text-[32px]">
           Explore More Work
         </h2>
       </div>
 
-      <div ref={contentRef} className="mt-6 grid gap-8 md:grid-cols-2 md:gap-4">
+      <div data-project-text-reveal ref={contentRef} className="mt-6 grid gap-8 md:grid-cols-2 md:gap-4">
         {otherProjects.map((item) => (
           <ExploreProjectCard
             key={item.id}
@@ -478,43 +484,45 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
   useLayoutEffect(() => {
     if (!headerRef.current || !projectHeadingRef.current || !projectVideoRef.current) return;
 
-    const ctx = gsap.context(() => {
-      const timeline = gsap.timeline({ delay: 0.2 });
+    return whenSiteReveal(() => {
+      const ctx = gsap.context(() => {
+        const timeline = gsap.timeline({ delay: 0.2 });
 
-      timeline.fromTo(
-        headerRef.current,
-        { opacity: 0, y: -80 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.75,
-          ease: 'power2.out',
-        }
-      );
+        timeline.fromTo(
+          headerRef.current,
+          { opacity: 0, y: -80 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.75,
+            ease: 'power2.out',
+          }
+        );
 
-      timeline.fromTo(
-        projectHeadingRef.current,
-        { opacity: 0, y: 64 },
-        { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' },
-        '-=0.35'
-      );
+        timeline.fromTo(
+          projectHeadingRef.current,
+          { opacity: 0, y: 64 },
+          { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' },
+          '-=0.35'
+        );
 
-      if (projectDescriptionRef.current) timeline.fromTo(
-        projectDescriptionRef.current,
-        { opacity: 0, y: 64 },
-        { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' },
-        '-=0.4'
-      );
+        if (projectDescriptionRef.current) timeline.fromTo(
+          projectDescriptionRef.current,
+          { opacity: 0, y: 64 },
+          { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' },
+          '-=0.4'
+        );
 
-      timeline.fromTo(
-        projectVideoRef.current,
-        { opacity: 0, y: 64 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
-        '-=0.4'
-      );
+        timeline.fromTo(
+          projectVideoRef.current,
+          { opacity: 0, y: 64 },
+          { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
+          '-=0.4'
+        );
+      });
+
+      return () => ctx.revert();
     });
-
-    return () => ctx.revert();
   }, []);
 
   useLayoutEffect(() => {

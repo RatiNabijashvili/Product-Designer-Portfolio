@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { ProjectImage as Image } from '@/components/shared/project-image';
 import { cn } from '@/lib/utils';
 import { NoxttonCaseSection as Section } from '@/components/projects/noxtton-case-sections';
 const swatches = [
@@ -25,6 +25,7 @@ function ReferenceVisual({
       className={cn('relative overflow-hidden rounded-lg bg-[#E4E4E4]', className)}
     >
       <Image
+        loading={src.endsWith('/First Image.webp') ? 'eager' : 'lazy'}
         src={src}
         alt={label}
         fill

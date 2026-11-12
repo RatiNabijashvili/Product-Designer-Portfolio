@@ -4,6 +4,8 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import { createPageMetadata } from '@/lib/seo-metadata';
 import { seoPages, siteConfig } from '@/lib/site-config';
+import { SiteLoader } from '@/components/shared/site-loader';
+import { siteLoaderBootstrap } from '@/lib/site-loader';
 
 const satoshi = localFont({
   src: [
@@ -43,11 +45,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script data-cfasync="false" dangerouslySetInnerHTML={{ __html: siteLoaderBootstrap }} />
+        <link rel="preload" href="/Background-pattern.webp" as="image" />
+      </head>
       <body className={`${satoshi.variable} ${anton.variable} font-body antialiased`}>
-        <noscript><style>{'[data-gallery-item] { opacity: 1 !important; }'}</style></noscript>
-        {children}
-        <Toaster />
+        <noscript><style>{'[data-section-reveal], [data-work-reveal], [data-gallery-item], [data-project-text-reveal], .project-animations [data-challenge-copy] > *, .project-animations [data-challenge-title], .project-animations [data-challenge-result], .project-animations [data-challenge-visual], .project-animations [data-comparison-step] > * { opacity: 1 !important; }'}</style></noscript>
+        <SiteLoader />
+        <div id="site-content">
+          {children}
+          <Toaster />
+        </div>
       </body>
     </html>
   );

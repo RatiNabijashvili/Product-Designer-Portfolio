@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { ProjectImage as Image } from '@/components/shared/project-image';
 import Link from 'next/link';
 import { Footer } from '@/components/shared/footer';
 import { ExploreMoreWork } from '@/components/projects/hapttic-project-page';
@@ -6,7 +6,7 @@ import { UxChallengesAnimations as ProjectPageAnimations } from '@/components/pr
 import { NoxttonCaseSection, NoxttonIntroduction, NoxttonChallenge, NoxttonRole, NoxttonOutcome, NoxttonReflection } from '@/components/projects/noxtton-case-sections';
 
 function Visual({ file, alt, width = 2400, height = 1350, original = false }: { file: string; alt: string; width?: number; height?: number; original?: boolean }) {
-  return <Image data-challenge-visual src={`/Projects/Noxtton-Wallet/${file} Image${original ? '' : ' Full Case'}.webp`} alt={alt} width={width} height={height} sizes={width < 2400 ? '(max-width: 767px) 100vw, 42vw' : '(max-width: 767px) 100vw, 84vw'} unoptimized className="mt-8 h-auto w-full rounded-lg md:mt-12" />;
+  return <Image loading={file === 'First' ? 'eager' : 'lazy'} data-challenge-visual src={`/Projects/Noxtton-Wallet/${file} Image${original ? '' : ' Full Case'}.webp`} alt={alt} width={width} height={height} sizes={width < 2400 ? '(max-width: 767px) 100vw, 42vw' : '(max-width: 767px) 100vw, 84vw'} unoptimized className="mt-8 h-auto w-full rounded-lg md:mt-12" />;
 }
 
 function Chapter({ children }: { children: React.ReactNode }) {
@@ -57,7 +57,10 @@ export function NoxttonFullCase() {
           <ul className="list-disc space-y-1 pl-6 font-bold text-[#474747]">{['Recipient address.', 'Selected network.', 'Asset and amount.', 'Transaction fee.', 'A clear explanation of the consequences of confirming.'].map(item => <li key={item}>{item}</li>)}</ul>
           <p>The intention was to make the review screen a meaningful decision point rather than a final button users passed through automatically.</p>
         </NoxttonCaseSection>
-        <div className="grid gap-4 md:grid-cols-2"><Visual file="Fifth" width={1184} height={888} alt="Send flow: choose an asset, enter the recipient and specify the amount" /><Visual file="Sixth" width={1184} height={888} alt="Send flow: review transfer details, authenticate and see confirmation" /></div>
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="min-w-0"><Visual file="Fifth" width={1184} height={888} alt="Send flow: choose an asset, enter the recipient and specify the amount" /></div>
+          <div className="min-w-0"><Visual file="Sixth" width={1184} height={888} alt="Send flow: review transfer details, authenticate and see confirmation" /></div>
+        </div>
         <NoxttonCaseSection title="Guardian Mode">
           <p>Guardian Mode was the proposed safety-check layer within the sending experience.</p>
           <p>Its design included address validation, network-related warnings, unknown-token warnings, fee information and an additional confirmation step.</p>

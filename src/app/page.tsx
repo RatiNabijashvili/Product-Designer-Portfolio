@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { whenSiteReveal } from '@/lib/site-loader';
 import { gsap } from 'gsap';
 import { Button } from '@/components/ui/button';
 import { HeroVideo } from '@/components/shared/hero-video';
@@ -29,60 +30,62 @@ export default function Home() {
   });
 
   useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: 0.2 });
+    return whenSiteReveal(() => {
+      const ctx = gsap.context(() => {
+        const tl = gsap.timeline({ delay: 0.2 });
 
-      // 1. Navigation slides from top
-      if (headerRef.current) {
-        tl.fromTo(
-          headerRef.current,
-          { opacity: 0, y: -80 },
-          { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' }
-        );
-      }
+        // 1. Navigation slides from top
+        if (headerRef.current) {
+          tl.fromTo(
+            headerRef.current,
+            { opacity: 0, y: -80 },
+            { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' }
+          );
+        }
 
-      // 2. "A Quietly Confident" slides from bottom
-      if (quietlyRef.current) {
-        tl.fromTo(
-          quietlyRef.current,
-          { opacity: 0, y: 60 },
-          { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' },
-          '-=0.4'
-        );
-      }
+        // 2. "A Quietly Confident" slides from bottom
+        if (quietlyRef.current) {
+          tl.fromTo(
+            quietlyRef.current,
+            { opacity: 0, y: 60 },
+            { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' },
+            '-=0.4'
+          );
+        }
 
-      // 3. "Product Designer" slides from bottom (middle of quietly animation)
-      if (headlineRef.current) {
-        tl.fromTo(
-          headlineRef.current,
-          { opacity: 0, y: 80 },
-          { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
-          '-=0.5'
-        );
-      }
+        // 3. "Product Designer" slides from bottom (middle of quietly animation)
+        if (headlineRef.current) {
+          tl.fromTo(
+            headlineRef.current,
+            { opacity: 0, y: 80 },
+            { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
+            '-=0.5'
+          );
+        }
 
-      // 4. Hero video slides from right
-      if (videoRef.current) {
-        tl.fromTo(
-          videoRef.current,
-          { opacity: 0, x: 100 },
-          { opacity: 1, x: 0, duration: 0.75, ease: 'power2.out' },
-          '-=0.3'
-        );
-      }
+        // 4. Hero video slides from right
+        if (videoRef.current) {
+          tl.fromTo(
+            videoRef.current,
+            { opacity: 0, x: 100 },
+            { opacity: 1, x: 0, duration: 0.75, ease: 'power2.out' },
+            '-=0.3'
+          );
+        }
 
-      // 5. "Scroll Me" slides from left
-      if (scrollMeRef.current) {
-        tl.fromTo(
-          scrollMeRef.current,
-          { opacity: 0, x: -80 },
-          { opacity: 1, x: 0, duration: 0.75, ease: 'power2.out' },
-          '-=0.4'
-        );
-      }
+        // 5. "Scroll Me" slides from left
+        if (scrollMeRef.current) {
+          tl.fromTo(
+            scrollMeRef.current,
+            { opacity: 0, x: -80 },
+            { opacity: 1, x: 0, duration: 0.75, ease: 'power2.out' },
+            '-=0.4'
+          );
+        }
+      });
+
+      return () => ctx.revert();
     });
-
-    return () => ctx.revert();
   }, []);
   return (
     <div 

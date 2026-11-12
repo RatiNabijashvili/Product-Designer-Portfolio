@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { whenProjectLayoutReady } from '@/lib/project-layout-ready';
 
 import { services } from '@/lib/services-data';
 
@@ -24,131 +25,140 @@ export function ServicesSection() {
       return;
     }
 
-    const ctx = gsap.context(() => {
-      // KEEP: Animate the header
-      gsap.fromTo(
-        headerRef.current,
-        { opacity: 0, y: 64 },
-        {
-          opacity: 1,
-          y: 0,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 70%',
-            end: 'top 40%',
-            scrub: 1,
-            once: true,
-          },
-        }
-      );
-
-      // KEEP: Animate the entire content block wrapper
-      gsap.fromTo(
-        contentRef.current,
-        { opacity: 0, y: 64 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.4,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: contentRef.current,
-            start: 'top 85%',
-            once: true,
-          },
-        }
-      );
-
+    return whenProjectLayoutReady(() => {
       const media = gsap.matchMedia();
-
-      media.add('(min-width: 769px)', () => {
-        // Animate text for each service block
-        serviceBlockRefs.current.forEach((block, index) => {
-          if (!block) return;
-          const textWrapper = block.querySelector('.service-text-wrapper');
-          if (!textWrapper) return;
-
-          const isFirstService = index === 0;
-          const isLastService = index === serviceBlockRefs.current.length - 1;
-
-          const moveTl = gsap.timeline({
+      const ctx = gsap.context(() => {
+        // KEEP: Animate the header
+        gsap.fromTo(
+          headerRef.current,
+          { opacity: 0, y: 64 },
+          {
+            opacity: 1,
+            y: 0,
             scrollTrigger: {
-              trigger: block,
-              start: 'top bottom',
-              end: isLastService ? 'center center' : 'bottom 50%',
-              scrub: 1.5,
-            },
-          });
-
-          if (isFirstService) {
-            moveTl
-              .fromTo(textWrapper, { y: 0 }, { y: 0, ease: 'power1.in' })
-              .to(textWrapper, { y: 240, ease: 'power1.out' });
-          } else if (isLastService) {
-            moveTl.fromTo(textWrapper, { y: -240 }, { y: 0, ease: 'power1.in' });
-          } else {
-            moveTl
-              .fromTo(textWrapper, { y: -240 }, { y: 0, ease: 'power1.in' })
-              .to(textWrapper, { y: 240, ease: 'power1.out' });
-          }
-
-          const fadeTl = gsap.timeline({
-            scrollTrigger: {
-              trigger: block,
-              start: 'top bottom',
-              end: isLastService ? 'center center' : 'bottom 50%',
+              trigger: sectionRef.current,
+              start: 'top 70%',
+              end: 'top 40%',
               scrub: 1,
+              once: true,
             },
-          });
-
-          if (isFirstService) {
-            fadeTl
-              .fromTo(textWrapper, { opacity: 1 }, { opacity: 1, ease: 'power1.in' })
-              .to(textWrapper, { opacity: 0, ease: 'power1.out' });
-          } else if (isLastService) {
-            fadeTl.fromTo(textWrapper, { opacity: 0 }, { opacity: 1, ease: 'power1.in' });
-          } else {
-            fadeTl
-              .fromTo(textWrapper, { opacity: 0 }, { opacity: 1, ease: 'power1.in' })
-              .to(textWrapper, { opacity: 0, ease: 'power1.out' });
           }
-        });
-      });
+        );
 
-      const animateStackedServices = () => {
-        const mobileItems = gsap.utils.toArray<HTMLElement>('.mobile-service-item');
-        gsap.set(mobileItems, { opacity: 0, y: 64 });
+        // KEEP: Animate the entire content block wrapper
+        gsap.fromTo(
+          contentRef.current,
+          { opacity: 0, y: 64 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.4,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: contentRef.current,
+              start: 'top 85%',
+              once: true,
+            },
+          }
+        );
 
-        ScrollTrigger.batch(mobileItems, {
-          start: 'top 85%',
-          onEnter: (batch) =>
-            gsap.to(batch, {
-              opacity: 1,
-              y: 0,
-              duration: 1.4,
-              ease: 'power2.out',
-              stagger: 0.2,
-            }),
-          once: true,
+
+        media.add('(min-width: 769px)', () => {
+          // Animate text for each service block
+          serviceBlockRefs.current.forEach((block, index) => {
+            if (!block) return;
+            const textWrapper = block.querySelector('.service-text-wrapper');
+            if (!textWrapper) return;
+
+            const isFirstService = index === 0;
+            const isLastService = index === serviceBlockRefs.current.length - 1;
+
+            const moveTl = gsap.timeline({
+              scrollTrigger: {
+                trigger: block,
+                start: 'top bottom',
+                end: isLastService ? 'center center' : 'bottom 50%',
+                scrub: 1.5,
+              },
+            });
+
+            if (isFirstService) {
+              moveTl
+                .fromTo(textWrapper, { y: 0 }, { y: 0, ease: 'power1.in' })
+                .to(textWrapper, { y: 240, ease: 'power1.out' });
+            } else if (isLastService) {
+              moveTl.fromTo(textWrapper, { y: -240 }, { y: 0, ease: 'power1.in' });
+            } else {
+              moveTl
+                .fromTo(textWrapper, { y: -240 }, { y: 0, ease: 'power1.in' })
+                .to(textWrapper, { y: 240, ease: 'power1.out' });
+            }
+
+            const fadeTl = gsap.timeline({
+              scrollTrigger: {
+                trigger: block,
+                start: 'top bottom',
+                end: isLastService ? 'center center' : 'bottom 50%',
+                scrub: 1,
+              },
+            });
+
+            if (isFirstService) {
+              fadeTl
+                .fromTo(textWrapper, { opacity: 1 }, { opacity: 1, ease: 'power1.in' })
+                .to(textWrapper, { opacity: 0, ease: 'power1.out' });
+            } else if (isLastService) {
+              fadeTl.fromTo(textWrapper, { opacity: 0 }, { opacity: 1, ease: 'power1.in' });
+            } else {
+              fadeTl
+                .fromTo(textWrapper, { opacity: 0 }, { opacity: 1, ease: 'power1.in' })
+                .to(textWrapper, { opacity: 0, ease: 'power1.out' });
+            }
+          });
         });
+
+        const animateStackedServices = () => {
+          const stackedContext = gsap.context((context) => {
+            const mobileItems = Array.from(sectionRef.current!.querySelectorAll<HTMLElement>('.mobile-service-item'));
+            gsap.set(mobileItems, { opacity: 0, y: 64 });
+
+            ScrollTrigger.batch(mobileItems, {
+              start: 'top 85%',
+              onEnter: (batch) => context.add(() => {
+                gsap.to(batch, {
+                  opacity: 1,
+                  y: 0,
+                  duration: 1.4,
+                  ease: 'power2.out',
+                  stagger: 0.2,
+                });
+              }),
+              once: true,
+            });
+          });
+          return () => stackedContext.revert();
+        };
+
+        media.add('(max-width: 768px)', animateStackedServices);
+      }, sectionRef);
+
+      return () => {
+        media.revert();
+        ctx.revert();
       };
-
-      media.add('(max-width: 768px)', animateStackedServices);
-    }, sectionRef);
-
-    return () => ctx.revert();
+    });
   }, []);
 
   return (
     <section ref={sectionRef} className="mt-[72px] md:mt-40">
       <div className="px-4 md:px-8">
-        <header ref={headerRef} className="mb-12">
+        <header ref={headerRef} data-section-reveal className="mb-12">
           <h2 className="text-base font-bold uppercase leading-none text-[#919191] md:text-xl">
             02 / SERVICES
           </h2>
         </header>
       </div>
-      <div ref={contentRef} className="border-y border-[#DCDCDC]">
+      <div ref={contentRef} data-section-reveal className="border-y border-[#DCDCDC]">
         {services.map((service, index) => {
           const isIconOnLeft = index % 2 !== 0;
           const Icon = service.icon;

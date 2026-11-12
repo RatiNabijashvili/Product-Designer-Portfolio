@@ -1,4 +1,5 @@
-import Image from 'next/image';
+import NextImage from 'next/image';
+import { ProjectImage as Image } from '@/components/shared/project-image';
 import Link from 'next/link';
 import { Footer } from '@/components/shared/footer';
 import { ExploreMoreWork } from '@/components/projects/hapttic-project-page';
@@ -31,10 +32,11 @@ function Visual({ file, height = 1350, alt }: { file: string; height?: number; a
   if (file === 'Fourth') {
     return <picture data-challenge-visual className="block">
       <source media="(max-width: 767px)" srcSet="/Projects/White-Square/Fourth%20Image%20Mobile.webp" width={716} height={360} />
-      <Image src="/Projects/White-Square/Fourth Image.webp" alt={alt} width={2400} height={height} unoptimized className="h-auto w-full rounded-lg" />
+      <NextImage src="/Projects/White-Square/Fourth Image.webp" alt={alt} width={2400} height={height} unoptimized className="h-auto w-full rounded-lg" />
     </picture>;
   }
-  return <Image data-challenge-visual src={`/Projects/White-Square/${file} Image.webp`} alt={alt} width={2400} height={height} sizes="(max-width: 768px) 100vw, 84vw" unoptimized className="h-auto w-full rounded-lg" />;
+  const filename = file === 'Second' ? 'Second image.webp' : `${file} Image.webp`;
+  return <Image data-challenge-visual src={`/Projects/White-Square/${filename}`} alt={alt} width={2400} height={height} sizes="(max-width: 768px) 100vw, 84vw" loading={file === 'Second' ? 'eager' : 'lazy'} className="h-auto w-full rounded-lg" />;
 }
 
 function Section({ title, children, compact = false }: { title: string; children: React.ReactNode; compact?: boolean }) {

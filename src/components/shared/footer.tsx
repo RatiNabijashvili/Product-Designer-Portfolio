@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useFitTextWidth } from '@/hooks/use-fit-text-width';
+import { whenProjectLayoutReady } from '@/lib/project-layout-ready';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -96,67 +97,69 @@ export function Footer({ showHomeLink = false }: { showHomeLink?: boolean }) {
   };
 
   useLayoutEffect(() => {
-    if (!footerRef.current) return;
+    return whenProjectLayoutReady(() => {
+      if (!footerRef.current) return;
 
-    const media = gsap.matchMedia();
-    const ctx = gsap.context(() => {
-      media.add('(max-width: 768px)', () => {
-        const footerItems = [
-          headingRef.current,
-          emailRef.current,
-          infoContainerRef.current,
-          dividerRef.current,
-          copyrightRef.current,
-          patternRef.current,
-        ].filter((item): item is HTMLDivElement => item !== null);
+      const media = gsap.matchMedia();
+      const ctx = gsap.context(() => {
+        media.add('(max-width: 768px)', () => {
+          const footerItems = [
+            headingRef.current,
+            emailRef.current,
+            infoContainerRef.current,
+            dividerRef.current,
+            copyrightRef.current,
+            patternRef.current,
+          ].filter((item): item is HTMLDivElement => item !== null);
 
-        if (patternRef.current) gsap.set(patternRef.current, { x: 204 });
+          if (patternRef.current) gsap.set(patternRef.current, { x: 204 });
 
-        gsap.fromTo(footerItems, { opacity: 0, y: 64 }, {
-          opacity: 1,
-          y: 0,
-          duration: 1.4,
-          ease: 'power2.out',
-          stagger: 0.2,
-          scrollTrigger: { trigger: footerRef.current, start: 'top 85%', once: true },
+          gsap.fromTo(footerItems, { opacity: 0, y: 64 }, {
+            opacity: 1,
+            y: 0,
+            duration: 1.4,
+            ease: 'power2.out',
+            stagger: 0.2,
+            scrollTrigger: { trigger: footerRef.current, start: 'top 85%', once: true },
+          });
         });
-      });
 
-      media.add('(min-width: 769px)', () => {
-        const tl = gsap.timeline();
+        media.add('(min-width: 769px)', () => {
+          const tl = gsap.timeline({ paused: true });
 
-        if (headingRef.current) {
-          tl.fromTo(headingRef.current, { opacity: 0, y: -100 }, { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' });
-        }
-        if (emailRef.current) {
-          tl.fromTo(emailRef.current, { opacity: 0, y: -80 }, { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' }, '-=0.4');
-        }
-        if (infoContainerRef.current) {
-          tl.fromTo(infoContainerRef.current, { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' }, '-=0.3');
-        }
-        if (dividerRef.current) {
-          tl.fromTo(dividerRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.3');
-        }
-        if (copyrightRef.current) {
-          tl.fromTo(copyrightRef.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.2');
-        }
-        if (patternRef.current) {
-          tl.fromTo(patternRef.current, { opacity: 0, x: 408 }, { opacity: 1, x: 204, duration: 1, ease: 'power2.out' }, '-=0.4');
-        }
-        ScrollTrigger.create({
-          trigger: footerRef.current,
-          start: () => Math.max(0, ScrollTrigger.maxScroll(window) - 1),
-          end: 'max',
-          once: true,
-          animation: tl,
-        }).refresh();
-      });
-    }, footerRef);
+          if (headingRef.current) {
+            tl.fromTo(headingRef.current, { opacity: 0, y: -100 }, { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' });
+          }
+          if (emailRef.current) {
+            tl.fromTo(emailRef.current, { opacity: 0, y: -80 }, { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' }, '-=0.4');
+          }
+          if (infoContainerRef.current) {
+            tl.fromTo(infoContainerRef.current, { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' }, '-=0.3');
+          }
+          if (dividerRef.current) {
+            tl.fromTo(dividerRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: 'power2.out' }, '-=0.3');
+          }
+          if (copyrightRef.current) {
+            tl.fromTo(copyrightRef.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.2');
+          }
+          if (patternRef.current) {
+            tl.fromTo(patternRef.current, { opacity: 0, x: 408 }, { opacity: 1, x: 204, duration: 1, ease: 'power2.out' }, '-=0.4');
+          }
+          ScrollTrigger.create({
+            trigger: footerRef.current,
+            start: () => Math.max(0, ScrollTrigger.maxScroll(window) - 1),
+            end: 'max',
+            once: true,
+            animation: tl,
+          }).refresh();
+        });
+      }, footerRef);
 
-    return () => {
-      media.revert();
-      ctx.revert();
-    };
+      return () => {
+        media.revert();
+        ctx.revert();
+      };
+    });
   }, []);
 
   const handleCopyEmail = async () => {
@@ -189,14 +192,14 @@ export function Footer({ showHomeLink = false }: { showHomeLink?: boolean }) {
       {/* Top section: Heading and Email */}
       <div className="relative z-10 flex flex-col items-start gap-6 sm:gap-16">
         {/* Main heading - full width like hero */}
-        <div ref={headingRef} className="w-full">
+        <div data-project-text-reveal ref={headingRef} className="w-full">
           <h2 className="footer-display-title w-full whitespace-nowrap text-center font-headline leading-[0.82] tracking-normal uppercase text-primary">
             <span ref={headingTextRef} className="inline-block">Let's Work Together</span>
           </h2>
         </div>
 
         {/* Email with copy button */}
-        <div ref={emailRef} className="relative">
+        <div data-project-text-reveal ref={emailRef} className="relative">
           <button
             onClick={handleCopyEmail}
             onMouseEnter={() => setShowTooltip(true)}
@@ -233,15 +236,15 @@ export function Footer({ showHomeLink = false }: { showHomeLink?: boolean }) {
 
       {/* Bottom container with 64px gap */}
       <div className="relative z-10 mt-[320px] md:mt-0">
-        <div ref={infoContainerRef} className="mt-0 md:mt-16">
+        <div data-project-text-reveal ref={infoContainerRef} className="mt-0 md:mt-16">
           <FooterInfo currentTime={currentTime} />
         </div>
 
         {/* Divider line */}
-        <div ref={dividerRef} className="my-8 h-px w-full bg-[#DCDCDC] md:my-16"></div>
+        <div data-project-text-reveal ref={dividerRef} className="my-8 h-px w-full bg-[#DCDCDC] md:my-16"></div>
 
         {/* Copyright and Back to Top */}
-        <div ref={copyrightRef} className="flex w-full flex-col items-center justify-between gap-6 md:flex-row md:gap-4">
+        <div data-project-text-reveal ref={copyrightRef} className="flex w-full flex-col items-center justify-between gap-6 md:flex-row md:gap-4">
         <p className="max-w-[28rem] text-center text-body font-bold leading-[1.2] text-[#030C0C] md:max-w-none md:text-left">
           Copyright © 2026 Rati Nabijashvili. All rights reserved.
         </p>

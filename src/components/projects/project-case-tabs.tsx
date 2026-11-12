@@ -2,6 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
+import { whenSiteReveal } from '@/lib/site-loader';
 
 
 
@@ -19,14 +20,16 @@ export function ProjectCaseTabs({ id, label, children }: { id: string; label: st
 
   useLayoutEffect(() => {
     if (!tabsRef.current) return;
-    const context = gsap.context(() => {
-      gsap.fromTo(
-        tabsRef.current,
-        { opacity: 0, y: 80 },
-        { opacity: 1, y: 0, delay: 0.2, duration: 0.75, ease: 'power2.out' },
-      );
-    }, tabsRef);
-    return () => context.revert();
+    return whenSiteReveal(() => {
+      const context = gsap.context(() => {
+        gsap.fromTo(
+          tabsRef.current,
+          { opacity: 0, y: 80 },
+          { opacity: 1, y: 0, delay: 0.2, duration: 0.75, ease: 'power2.out' },
+        );
+      }, tabsRef);
+      return () => context.revert();
+    });
   }, []);
 
   const selectView = (next: typeof view) => {

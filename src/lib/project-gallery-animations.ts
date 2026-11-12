@@ -1,5 +1,6 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { whenProjectLayoutReady } from '@/lib/project-layout-ready';
 
 // Run inside the page's GSAP context so unmounting or switching views reverts
 // every tween and trigger, including ones created for a responsive breakpoint.
@@ -51,16 +52,11 @@ export function animateProjectGallery(root: HTMLElement) {
     });
   };
 
-  // A font swap can change the height of all preceding text. Measuring before
-  // fonts settle can finish a once-only reveal before its final scroll position.
-  if (document.fonts?.status === 'loading') {
-    document.fonts.ready.then(initialize);
-  } else {
-    initialize();
-  }
+  const stopWaiting = whenProjectLayoutReady(initialize);
 
   return () => {
     disposed = true;
+    stopWaiting();
     media.revert();
   };
 }
