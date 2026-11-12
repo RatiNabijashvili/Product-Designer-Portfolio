@@ -15,12 +15,6 @@ const nextConfig: NextConfig = {
     // The critical stylesheet is small enough to inline, removing a render-blocking request.
     inlineCss: true,
   },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   images: {
     remotePatterns: [
       {

@@ -44,6 +44,8 @@ export function FooterInfo({ currentTime }: { currentTime: string }) {
 
 export function Footer({ showHomeLink = false }: { showHomeLink?: boolean }) {
   const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState(false);
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [showTooltip, setShowTooltip] = useState(false);
   const [currentTime, setCurrentTime] = useState('');
   
@@ -55,6 +57,10 @@ export function Footer({ showHomeLink = false }: { showHomeLink?: boolean }) {
   const dividerRef = useRef<HTMLDivElement>(null);
   const copyrightRef = useRef<HTMLDivElement>(null);
   const patternRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => () => {
+    if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+  }, []);
 
   useFitTextWidth(headingRef, headingTextRef, {
     variableName: '--footer-title-size',
@@ -117,14 +123,7 @@ export function Footer({ showHomeLink = false }: { showHomeLink?: boolean }) {
       });
 
       media.add('(min-width: 769px)', () => {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: footerRef.current,
-            start: () => Math.max(0, ScrollTrigger.maxScroll(window) - 1), // Allow 1px for scroll rounding.
-            end: 'max',
-            once: true,
-          },
-        });
+        const tl = gsap.timeline();
 
         if (headingRef.current) {
           tl.fromTo(headingRef.current, { opacity: 0, y: -100 }, { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out' });
@@ -144,6 +143,13 @@ export function Footer({ showHomeLink = false }: { showHomeLink?: boolean }) {
         if (patternRef.current) {
           tl.fromTo(patternRef.current, { opacity: 0, x: 408 }, { opacity: 1, x: 204, duration: 1, ease: 'power2.out' }, '-=0.4');
         }
+        ScrollTrigger.create({
+          trigger: footerRef.current,
+          start: () => Math.max(0, ScrollTrigger.maxScroll(window) - 1),
+          end: 'max',
+          once: true,
+          animation: tl,
+        }).refresh();
       });
     }, footerRef);
 
@@ -153,10 +159,17 @@ export function Footer({ showHomeLink = false }: { showHomeLink?: boolean }) {
     };
   }, []);
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText('r.nabijashvili@gmail.com');
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopyEmail = async () => {
+    if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+    setCopied(false);
+    setCopyError(false);
+    try {
+      await navigator.clipboard.writeText('r.nabijashvili@gmail.com');
+      setCopied(true);
+      copyTimerRef.current = setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopyError(true);
+    }
   };
 
   return (
@@ -203,11 +216,13 @@ export function Footer({ showHomeLink = false }: { showHomeLink?: boolean }) {
           </button>
           
           {/* Tooltip - button style */}
-          {showTooltip && !copied && (
+          {showTooltip && !copied && !copyError && (
             <div className="absolute left-1/2 top-full mt-2 -translate-x-1/2 rounded-full bg-[#181818] px-6 py-3 text-base font-bold leading-[120%] capitalize text-[#FCFAFA] shadow-lg">
               Click to copy!
             </div>
           )}
+          <span className="sr-only" role="status">{copied ? 'Email copied.' : copyError ? 'Could not copy. Select the email address to copy it manually.' : ''}</span>
+          {copyError && <p className="mt-2 text-sm" role="alert">Could not copy. You can select the email address and copy it manually.</p>}
           {copied && (
             <div className="absolute left-1/2 top-full mt-2 -translate-x-1/2 rounded-full bg-green-600 px-6 py-3 text-base font-bold leading-[120%] capitalize text-white shadow-lg">
               Copied!

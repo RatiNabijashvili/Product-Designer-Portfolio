@@ -7,6 +7,8 @@ type SeoPage = {
   description: string;
   image: string;
   imageAlt: string;
+  imageWidth?: number;
+  imageHeight?: number;
 };
 
 export function createPageMetadata(page: SeoPage): Metadata {
@@ -27,7 +29,7 @@ export function createPageMetadata(page: SeoPage): Metadata {
       siteName: siteConfig.name,
       type: 'website',
       locale: siteConfig.openGraphLocale,
-      images: [{ url: image, width: 1200, height: 630, type: 'image/png', alt: page.imageAlt }],
+      images: [{ url: image, width: page.imageWidth ?? 1200, height: page.imageHeight ?? 630, type: page.image.endsWith('.webp') ? 'image/webp' : 'image/png', alt: page.imageAlt }],
     },
     twitter: {
       card: 'summary_large_image',

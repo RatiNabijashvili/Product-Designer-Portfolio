@@ -26,9 +26,15 @@
     },
     {
       "id": "project-white-square",
-      "description": "White Square real estate project",
+      "description": "White Square Design System",
       "imageUrl": "/Projects/White-Square/First Image.webp",
-      "imageHint": "real estate website case study"
+      "imageHint": "real estate design system case study"
+    },
+    {
+      "id": "project-ux-challenges",
+      "description": "Selected UX Challenges",
+      "imageUrl": "/Projects/UX-Challenges/First Image.webp",
+      "imageHint": "Mobile and web usability improvements"
     }
   ]
 }

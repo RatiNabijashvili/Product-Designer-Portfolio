@@ -4,6 +4,7 @@ export type Project = {
   name: string;
   description: string;
   imageId: string;
+  actionLabel?: string;
   inDevelopment?: boolean;
 };
 
@@ -13,7 +14,7 @@ export const projects: Project[] = [
     tags: ['SaaS', 'B2B', 'B2C', 'Marketing Page'],
     name: 'HAPTTIC',
     description:
-      'Hapttic is a real-time brand intelligence platform that helps teams track mentions across every online channel, analyze sentiment instantly, and take action with confidence.',
+      'Hapttic is a real-time brand intelligence platform that helps teams track mentions across every online channel, analyze sentiment instantly and take action with confidence.',
     imageId: 'project-hapttic',
   },
   {
@@ -26,10 +27,18 @@ export const projects: Project[] = [
   },
   {
     id: 'white-square',
-    tags: ['Real Estate', 'B2C', 'Marketing Page'],
-    name: 'WHITE SQUARE',
+    tags: ['Real Estate', 'Design System'],
+    name: 'White Square Design System',
     description:
-      'White Square is a Georgian real estate development company presenting residential projects, available apartments, company information and direct sales opportunities through its website.',
+      'A documented design system for White Square’s real estate website, connecting shared visual foundations, configurable components and responsive behavior across distinct residential projects.',
     imageId: 'project-white-square',
+  },
+  {
+    id: 'ux-challenges',
+    tags: ['UX Improvements', 'Mobile & Web'],
+    name: 'Selected UX Challenges',
+    description: 'Exploring how I identify usability problems, work within constraints and evaluate trade-offs. Each example reveals the reasoning behind practical solutions that make interactions clearer.',
+    imageId: 'project-ux-challenges',
+    actionLabel: 'View Challenges',
   },
 ];

@@ -30,8 +30,8 @@ function LogoSet({ hidden = false }: { hidden?: boolean }) {
           <img
             src={logo.src}
             alt={hidden ? '' : logo.alt}
-            className="max-h-6 w-auto object-contain sm:max-h-none"
-            style={{ height: `${logo.height}px` }}
+            className="h-5 w-auto object-contain sm:h-[var(--logo-height)]"
+            style={{ '--logo-height': `${logo.height}px` } as React.CSSProperties}
           />
         </div>
       ))}

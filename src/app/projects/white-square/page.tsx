@@ -8,5 +8,5 @@ import { createCreativeWorkStructuredData } from '@/lib/structured-data';
 export const metadata: Metadata = createPageMetadata(seoPages.whiteSquare);
 
 export default function Page() {
-  return <><JsonLd data={createCreativeWorkStructuredData({ name: 'White Square real estate website UX case study', description: seoPages.whiteSquare.description, path: seoPages.whiteSquare.path, image: seoPages.whiteSquare.image, keywords: ['Real estate website UX', 'Project discovery', 'Website redesign', 'Design system', 'Product design'] })} /><WhiteSquareProjectPage /></>;
+  return <><JsonLd data={createCreativeWorkStructuredData({ name: 'White Square Design System', description: seoPages.whiteSquare.description, path: seoPages.whiteSquare.path, image: seoPages.whiteSquare.image, keywords: ['Real estate', 'Design system', 'Component variants', 'Responsive design', 'Figma'] })} /><WhiteSquareProjectPage /></>;
 }

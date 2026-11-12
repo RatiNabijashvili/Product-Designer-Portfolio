@@ -3,7 +3,6 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Lock } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -22,6 +21,7 @@ export function WorkSection() {
   const headerRef = useRef<HTMLHeadingElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
   const [showProjectCursor, setShowProjectCursor] = useState(false);
+  const [cursorLabel, setCursorLabel] = useState('View Project');
 
   const moveProjectCursor = (clientX: number, clientY: number) => {
     if (!cursorRef.current) return;
@@ -82,7 +82,7 @@ export function WorkSection() {
         </h2>
       </header>
       <div className="flex flex-col">
-        {projects.map((project, index) => {
+        {projects.map((project) => {
           const projectImage = PlaceHolderImages.find(
             (p) => p.id === project.imageId
           );
@@ -94,6 +94,7 @@ export function WorkSection() {
               projectImage={projectImage}
               onCursorEnter={(event) => {
                 moveProjectCursor(event.clientX, event.clientY);
+                setCursorLabel(project.actionLabel ?? 'View Project');
                 setShowProjectCursor(true);
               }}
               onCursorMove={(event) => moveProjectCursor(event.clientX, event.clientY)}
@@ -109,7 +110,7 @@ export function WorkSection() {
           showProjectCursor ? 'opacity-100' : 'opacity-0'
         )}
       >
-        View Project
+        {cursorLabel}
       </div>
     </section>
   );
@@ -136,7 +137,9 @@ function ProjectItem({
 
     onCursorEnter(event);
     setIsHovered(true);
-    void videoRef.current?.play();
+    void videoRef.current?.play().catch(() => {
+      setIsHovered(false);
+    });
   };
 
   const handleMouseLeave = () => {
@@ -163,7 +166,7 @@ function ProjectItem({
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
     >
-      {(project.id === 'hapttic' || project.id === 'noxtton-wallet' || project.id === 'white-square') && (
+      {!project.inDevelopment && (
         <Link
           href={`/projects/${project.id}`}
           className="absolute inset-0 z-10 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#030C0C] focus-visible:ring-offset-4 min-[1201px]:cursor-none"
@@ -223,7 +226,7 @@ function ProjectItem({
                       tabIndex={-1}
                       className="pointer-events-none h-12 w-full rounded-full bg-[#181818] px-6 text-base font-bold capitalize leading-[120%] text-[#FCFAFA] min-[1201px]:hidden"
                     >
-                      View Project
+                      {project.actionLabel ?? 'View Project'}
                     </Button>
                   )}
                 </div>
@@ -271,7 +274,7 @@ function ProjectMedia({
     ? '/Projects/Noxtton-Wallet/Noxxton-Video.webm'
     : projectId === 'hapttic'
       ? '/Projects/Happtic/Happtic-video.webm'
-      : '/Projects/White-Square/WhiteSquare-Video.webm';
+      : projectId === 'white-square' ? '/Projects/White-Square/WhiteSquare-Video.webm' : undefined;
 
   return (
     <div className="group relative aspect-[680/382] w-full overflow-hidden rounded-lg">
@@ -283,13 +286,13 @@ function ProjectMedia({
         unoptimized
         className={cn(
           "object-cover transition-opacity duration-300",
-          isHovered ? "opacity-0" : "opacity-100"
+          isHovered && videoSource ? "opacity-0" : "opacity-100"
         )}
         data-ai-hint={imageHint}
       />
       
       {/* Video */}
-      <video
+      {videoSource && (<video
         ref={videoRef}
         className={cn(
           "absolute inset-0 w-full h-full object-cover transition-opacity duration-300",
@@ -300,7 +303,7 @@ function ProjectMedia({
         playsInline
       >
         <source src={videoSource} type="video/webm" />
-      </video>
+      </video>)}
 
     </div>
   );

@@ -17,6 +17,15 @@ export const siteConfig = {
 } as const;
 
 export const seoPages = {
+  uxChallenges: {
+    path: '/projects/ux-challenges',
+    title: 'Selected UX Challenges | Rati Nabijashvili',
+    description: 'Exploring how I identify usability problems, work within constraints and evaluate trade-offs. Each example reveals the reasoning behind practical solutions that make interactions clearer.',
+    image: '/Projects/UX-Challenges/Second Image.webp',
+    imageAlt: 'Selected mobile and web UX challenges',
+    imageWidth: 2400,
+    imageHeight: 1350,
+  },
   home: {
     path: '/',
     title: 'Rati Nabijashvili | End-to-End Product Designer',
@@ -40,10 +49,10 @@ export const seoPages = {
   },
   whiteSquare: {
     path: '/projects/white-square',
-    title: 'White Square Website UX Case Study | Rati Nabijashvili',
-    description: 'Product design case study for White Square, a real estate developer. See the website redesign, clearer project discovery, storytelling and design system.',
+    title: 'White Square Design System | Rati Nabijashvili',
+    description: 'A documented Figma design system for White Square’s real estate website, covering visual foundations, configurable components, responsive behavior and developer guidance.',
     image: '/Seo/og-white-square.png',
-    imageAlt: 'White Square real estate website case study',
+    imageAlt: 'White Square real estate design system case study',
   },
 } as const;
 

@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Button } from '@/components/ui/button';
+import { NoxttonIntroduction, NoxttonChallenge, NoxttonRole, NoxttonOutcome, NoxttonReflection } from '@/components/projects/noxtton-case-sections';
 import { Footer } from '@/components/shared/footer';
 import { cn } from '@/lib/utils';
 import { projects } from '@/lib/projects-data';
@@ -152,9 +153,10 @@ function useSectionReveal(enabled = true) {
   useLayoutEffect(() => {
     if (!enabled || !sectionRef.current || !headingRef.current || !contentRef.current) return;
     const ctx = gsap.context(() => {
-      const timeline = gsap.timeline({ scrollTrigger: { trigger: sectionRef.current, start: 'top 72%', once: true } });
+      const timeline = gsap.timeline();
       timeline.fromTo(headingRef.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.65, ease: 'power2.out' });
       timeline.fromTo(contentRef.current, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, '-=0.25');
+      ScrollTrigger.create({ trigger: sectionRef.current, start: 'top 72%', once: true, animation: timeline }).refresh();
     }, sectionRef);
     return () => ctx.revert();
   }, [enabled]);
@@ -287,13 +289,15 @@ function ExploreProjectCard({
     ? '/Projects/Noxtton-Wallet/Noxxton-Video.webm'
     : item.id === 'hapttic'
       ? '/Projects/Happtic/Happtic-video.webm'
-      : '/Projects/White-Square/WhiteSquare-Video.webm';
+      : item.id === 'white-square' ? '/Projects/White-Square/WhiteSquare-Video.webm' : undefined;
 
   const handleMouseEnter = (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (!supportsExploreHover()) return;
     setIsHovered(true);
     onCursorEnter(event);
-    void videoRef.current?.play();
+    void videoRef.current?.play().catch(() => {
+      setIsHovered(false);
+    });
   };
 
   const handleMouseLeave = () => {
@@ -322,9 +326,9 @@ function ExploreProjectCard({
               alt={item.name}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
-              className={cn('object-cover transition-opacity duration-300', isHovered ? 'opacity-0' : 'opacity-100')}
+              className={cn('object-cover transition-opacity duration-300', isHovered && videoSource ? 'opacity-0' : 'opacity-100')}
             />
-            <video
+            {videoSource && (<video
               ref={videoRef}
               muted
               playsInline
@@ -333,7 +337,7 @@ function ExploreProjectCard({
               className={cn('absolute inset-0 h-full w-full object-cover transition-opacity duration-300', isHovered ? 'opacity-100' : 'opacity-0')}
             >
               <source src={videoSource} type="video/webm" />
-            </video>
+            </video>)}
           </div>
         )}
 
@@ -350,7 +354,7 @@ function ExploreProjectCard({
           <p className="mt-2 flex-1 text-base font-medium leading-[1.5] text-[#919191] min-[1201px]:text-xl">{item.description}</p>
 
           <span className="mt-6 inline-flex h-12 w-full items-center justify-center rounded-full bg-[#181818] px-6 text-base font-bold capitalize leading-[1.2] text-[#FCFAFA] min-[1201px]:hidden">
-            View Project
+            {item.actionLabel ?? 'View Project'}
           </span>
         </div>
       </article>
@@ -358,11 +362,12 @@ function ExploreProjectCard({
   );
 }
 
-function ExploreMoreWork({ currentProjectId }: { currentProjectId: string }) {
+export function ExploreMoreWork({ currentProjectId }: { currentProjectId: string }) {
   const { sectionRef, headingRef, contentRef } = useSectionReveal();
-  const otherProjects = projects.filter((item) => item.id !== currentProjectId);
+  const otherProjects = projects.filter((item) => item.id !== currentProjectId).slice(0, 2);
   const cursorRef = useRef<HTMLDivElement>(null);
   const [showProjectCursor, setShowProjectCursor] = useState(false);
+  const [cursorLabel, setCursorLabel] = useState('View Project');
 
   const moveProjectCursor = (clientX: number, clientY: number) => {
     if (!cursorRef.current) return;
@@ -385,7 +390,8 @@ function ExploreMoreWork({ currentProjectId }: { currentProjectId: string }) {
             image={PlaceHolderImages.find((placeholder) => placeholder.id === item.imageId)}
             onCursorEnter={(event) => {
               moveProjectCursor(event.clientX, event.clientY);
-              setShowProjectCursor(true);
+              setCursorLabel(item.actionLabel ?? 'View Project');
+                setShowProjectCursor(true);
             }}
             onCursorMove={(event) => moveProjectCursor(event.clientX, event.clientY)}
             onCursorLeave={() => setShowProjectCursor(false)}
@@ -400,7 +406,7 @@ function ExploreMoreWork({ currentProjectId }: { currentProjectId: string }) {
           showProjectCursor ? 'opacity-100' : 'opacity-0'
         )}
       >
-        View Project
+        {cursorLabel}
       </div>
     </section>
   );
@@ -479,7 +485,7 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
   const solutionGalleryBottomThirdRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    if (!headerRef.current || !projectHeadingRef.current || !projectDescriptionRef.current || !projectVideoRef.current) return;
+    if (!headerRef.current || !projectHeadingRef.current || !projectVideoRef.current) return;
 
     const ctx = gsap.context(() => {
       const timeline = gsap.timeline({ delay: 0.2 });
@@ -502,7 +508,7 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
         '-=0.35'
       );
 
-      timeline.fromTo(
+      if (projectDescriptionRef.current) timeline.fromTo(
         projectDescriptionRef.current,
         { opacity: 0, y: 64 },
         { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' },
@@ -603,13 +609,11 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
                 {projectTags.map((tag) => <span key={tag} className="flex h-10 items-center rounded-full border border-[#706F6F] px-3 text-sm font-bold text-[#706F6F]">{tag}</span>)}
               </div>
             </div>
-            <p ref={projectDescriptionRef} className="w-full text-base font-medium leading-[1.5] text-[#919191] md:w-[560px] md:text-xl">
+            {!isNoxtton && <p ref={projectDescriptionRef} className="w-full text-base font-medium leading-[1.5] text-[#919191] md:w-[560px] md:text-xl">
               {isWhiteSquare
                 ? 'White Square is a Georgian real estate development company presenting residential projects, available apartments, company information and direct sales opportunities through its website.'
-                : isNoxtton
-                ? 'Noxtton Wallet is a self-custodial mobile wallet for EVM networks, designed to make managing and transferring digital assets feel safer and more understandable for newcomers.'
                 : 'Hapttic is a real-time brand intelligence platform that helps teams track online mentions, analyze sentiment, monitor campaigns, and respond to important conversations.'}
-            </p>
+            </p>}
           </section>
         </div>
 
@@ -623,10 +627,10 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
           />
         </div>
 
-        <div className="px-4 sm:px-8">
-          <ProjectOverview items={projectOverview} />
-          <TextSection reveal title="The Challenge" intro={isWhiteSquare ? 'The website needed to present multiple residential projects while helping potential buyers quickly understand what made each development different. The main challenges were:' : isNoxtton ? 'Most self-custodial wallets assume that users already understand networks, recovery phrases, transaction fees, and wallet addresses. For newcomers, this creates several challenges:' : 'The existing experience made it difficult for teams to quickly understand brand performance. The main issues were:'} points={projectChallengePoints} />
-          <TextSection reveal title="Product Analysis" intro={isWhiteSquare ? 'I reviewed the existing website structure, project presentation, content hierarchy, repeated interface patterns, and the journey from discovering a development to contacting the sales team. The analysis highlighted three main opportunities:' : isNoxtton ? 'I reviewed the product requirements, core wallet journeys, security risks, and the needs of the “Cautious Newcomer” persona. The analysis highlighted three main design opportunities:' : 'I reviewed the existing dashboard, product requirements, information architecture, and core brand-monitoring workflows. The analysis highlighted three main opportunities:'} points={projectAnalysisPoints} />
+        <div className={isNoxtton ? 'mx-auto w-full max-w-[2464px] px-4 sm:px-8 md:w-5/6 md:px-0' : 'px-4 sm:px-8'}>
+          {isNoxtton ? <NoxttonIntroduction /> : <ProjectOverview items={projectOverview} />}
+          {isNoxtton ? <NoxttonChallenge /> : <TextSection reveal title="The Challenge" intro={isWhiteSquare ? 'The website needed to present multiple residential projects while helping potential buyers quickly understand what made each development different. The main challenges were:' : isNoxtton ? 'Most self-custodial wallets assume that users already understand networks, recovery phrases, transaction fees, and wallet addresses. For newcomers, this creates several challenges:' : 'The existing experience made it difficult for teams to quickly understand brand performance. The main issues were:'} points={projectChallengePoints} />}
+          {isNoxtton ? <NoxttonRole /> : <TextSection reveal title="Product Analysis" intro={isWhiteSquare ? 'I reviewed the existing website structure, project presentation, content hierarchy, repeated interface patterns, and the journey from discovering a development to contacting the sales team. The analysis highlighted three main opportunities:' : isNoxtton ? 'I reviewed the product requirements, core wallet journeys, security risks, and the needs of the “Cautious Newcomer” persona. The analysis highlighted three main design opportunities:' : 'I reviewed the existing dashboard, product requirements, information architecture, and core brand-monitoring workflows. The analysis highlighted three main opportunities:'} points={projectAnalysisPoints} />}
 
           <section ref={firstGalleryRef} className="mt-12 flex flex-col gap-4" aria-label={`${projectName} brand gallery`}>
             <div ref={galleryFirstImageRef}>
@@ -686,7 +690,7 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
             </div>
           </section>
 
-          <OutcomeSection items={projectOutcomes} />
+          {isNoxtton ? <><NoxttonOutcome /><NoxttonReflection /></> : <OutcomeSection items={projectOutcomes} />}
 
           <ExploreMoreWork currentProjectId={currentProjectId} />
         </div>
