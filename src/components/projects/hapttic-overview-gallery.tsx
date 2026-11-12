@@ -21,6 +21,7 @@ function ReferenceVisual({
 }) {
   return (
     <div
+      data-gallery-visual
       className={cn('relative overflow-hidden rounded-lg bg-[#E4E4E4]', className)}
     >
       <Image
@@ -53,35 +54,33 @@ const projectImageAlts = [          'Hapttic marketing website and analytics das
           'Hapttic date range comparison picker',
 ];
 return <>          <section className="mt-12 flex flex-col gap-4" aria-label="Hapttic design gallery">
-            <div>
-              <ReferenceVisual src={`${assetBase}/First Image.webp`} label={projectImageAlts[0]} className="aspect-[1376/640] w-full" />
+            <div data-gallery-row>
+              <div data-gallery-item="up"><ReferenceVisual src={`${assetBase}/First Image.webp`} label={projectImageAlts[0]} className="aspect-[1376/640] w-full" /></div>
             </div>
-            <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,560px)]">
-              <div className="flex flex-col gap-4">
+            <div data-gallery-row className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,560px)]">
+              <div data-gallery-item="left" className="flex flex-col gap-4">
                 <div className="grid gap-4 sm:grid-cols-[304fr_480fr]">
-                  <div className="flex h-24 items-center justify-center overflow-hidden rounded-lg bg-[#E4E4E4] p-6 md:h-[120px]"><img src={`${assetBase}/First Logo.svg`} alt="" className="h-8 w-auto max-w-[80%] object-contain md:h-10" /></div>
-                  <div className="flex h-24 items-center justify-center overflow-hidden rounded-lg bg-[#222] p-6 md:h-[120px]"><img src={`${assetBase}/Second Logo.svg`} alt="" className="h-8 w-auto max-w-[80%] object-contain md:h-10" /></div>
+                  <div data-gallery-visual className="flex h-24 items-center justify-center overflow-hidden rounded-lg bg-[#E4E4E4] p-6 md:h-[120px]"><img src={`${assetBase}/First Logo.svg`} alt="" className="h-8 w-auto max-w-[80%] object-contain md:h-10" /></div>
+                  <div data-gallery-visual className="flex h-24 items-center justify-center overflow-hidden rounded-lg bg-[#222] p-6 md:h-[120px]"><img src={`${assetBase}/Second Logo.svg`} alt="" className="h-8 w-auto max-w-[80%] object-contain md:h-10" /></div>
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="grid gap-4">
                     <ReferenceVisual src={`${assetBase}/Second image.webp`} label={projectImageAlts[1]} className="aspect-[392/294]" />
                     <ReferenceVisual src={`${assetBase}/Third Image.webp`} label={projectImageAlts[2]} className="aspect-[392/294]" />
                   </div>
-                  <div className="grid grid-rows-5 gap-2">
+                  <div data-gallery-visual className="grid grid-rows-5 gap-2">
                     {projectSwatches.map(([code, color]) => <div key={code} className={cn('flex h-20 items-center justify-center overflow-hidden rounded-lg p-2 font-body text-xl font-bold uppercase leading-[1.2] sm:h-auto sm:min-h-14 sm:text-2xl', (isNoxtton && code !== '#F7F7FF') || (isWhiteSquare && (code === '#283B40' || code === '#161414')) ? 'text-white' : 'text-[#030C0C]')} style={{ backgroundColor: color }}>{code}</div>)}
                   </div>
                 </div>
               </div>
-              <div className="h-full">
+              <div data-gallery-item="right" className="h-full">
                 <ReferenceVisual src={`${assetBase}/Fourth Image.webp`} label={projectImageAlts[3]} className="aspect-[560/740] h-full lg:aspect-auto" />
               </div>
             </div>
-            <div className="grid gap-4 md:grid-cols-2">
-              <div>
-                <ReferenceVisual src={`${assetBase}/Fifth Image.webp`} label={projectImageAlts[4]} className="aspect-[680/510]" />
+            <div data-gallery-row className="grid gap-4 md:grid-cols-2">
+              <div data-gallery-item="up"><ReferenceVisual src={`${assetBase}/Fifth Image.webp`} label={projectImageAlts[4]} className="aspect-[680/510]" />
               </div>
-              <div>
-                <ReferenceVisual src={`${assetBase}/Sixth Image.webp`} label={projectImageAlts[5]} className="aspect-[680/510]" />
+              <div data-gallery-item="up"><ReferenceVisual src={`${assetBase}/Sixth Image.webp`} label={projectImageAlts[5]} className="aspect-[680/510]" />
               </div>
             </div>
           </section>
@@ -99,22 +98,18 @@ return <>          <section className="mt-12 flex flex-col gap-4" aria-label="Ha
           </Section>
 
           <section className="mt-12 flex flex-col gap-4" aria-label="Hapttic design gallery">
-            <div className="grid gap-4 md:grid-cols-2">
-              <div>
-                <ReferenceVisual src={`${assetBase}/Seventh Image.webp`} label={projectImageAlts[6]} className="aspect-[680/510]" />
+            <div data-gallery-row className="grid gap-4 md:grid-cols-2">
+              <div data-gallery-item="up"><ReferenceVisual src={`${assetBase}/Seventh Image.webp`} label={projectImageAlts[6]} className="aspect-[680/510]" />
               </div>
-              <div>
-                <ReferenceVisual src={`${assetBase}/Eigth Image.webp`} label={projectImageAlts[7]} className="aspect-[680/510]" />
+              <div data-gallery-item="up"><ReferenceVisual src={`${assetBase}/Eigth Image.webp`} label={projectImageAlts[7]} className="aspect-[680/510]" />
               </div>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <div>
-                <ReferenceVisual src={`${assetBase}/Ninth Image.webp`} label={projectImageAlts[8]} className="aspect-[448/336]" />
+            <div data-gallery-row data-gallery-stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div data-gallery-item="left"><ReferenceVisual src={`${assetBase}/Ninth Image.webp`} label={projectImageAlts[8]} className="aspect-[448/336]" />
               </div>
-              <div>
-                <ReferenceVisual src={`${assetBase}/Tenth Image.webp`} label={projectImageAlts[9]} className="aspect-[448/336]" />
+              <div data-gallery-item="left"><ReferenceVisual src={`${assetBase}/Tenth Image.webp`} label={projectImageAlts[9]} className="aspect-[448/336]" />
               </div>
-              <div className="sm:col-span-2 lg:col-span-1">
+              <div data-gallery-item="left" className="sm:col-span-2 lg:col-span-1">
                 <ReferenceVisual src={`${assetBase}/Eleventh Image.webp`} label={projectImageAlts[10]} className="aspect-[448/336]" />
               </div>
             </div>

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { animateProjectGallery } from '@/lib/project-gallery-animations';
 import { Button } from '@/components/ui/button';
 import { NoxttonIntroduction, NoxttonChallenge, NoxttonRole, NoxttonOutcome, NoxttonReflection } from '@/components/projects/noxtton-case-sections';
 import { Footer } from '@/components/shared/footer';
@@ -243,6 +244,7 @@ function ReferenceVisual({
 }) {
   return (
     <div
+      data-gallery-visual
       className={cn('relative overflow-hidden rounded-lg bg-[#E4E4E4]', className)}
     >
       <Image
@@ -471,18 +473,7 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
   const projectHeadingRef = useRef<HTMLDivElement>(null);
   const projectDescriptionRef = useRef<HTMLParagraphElement>(null);
   const projectVideoRef = useRef<HTMLDivElement>(null);
-  const firstGalleryRef = useRef<HTMLElement>(null);
-  const galleryFirstImageRef = useRef<HTMLDivElement>(null);
-  const gallerySecondLeftRef = useRef<HTMLDivElement>(null);
-  const gallerySecondRightRef = useRef<HTMLDivElement>(null);
-  const galleryThirdLeftRef = useRef<HTMLDivElement>(null);
-  const galleryThirdRightRef = useRef<HTMLDivElement>(null);
-  const secondGalleryRef = useRef<HTMLElement>(null);
-  const solutionGalleryTopLeftRef = useRef<HTMLDivElement>(null);
-  const solutionGalleryTopRightRef = useRef<HTMLDivElement>(null);
-  const solutionGalleryBottomFirstRef = useRef<HTMLDivElement>(null);
-  const solutionGalleryBottomSecondRef = useRef<HTMLDivElement>(null);
-  const solutionGalleryBottomThirdRef = useRef<HTMLDivElement>(null);
+  const galleriesRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     if (!headerRef.current || !projectHeadingRef.current || !projectVideoRef.current) return;
@@ -527,64 +518,10 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
   }, []);
 
   useLayoutEffect(() => {
-    const gallery = secondGalleryRef.current;
-    const topLeft = solutionGalleryTopLeftRef.current;
-    const topRight = solutionGalleryTopRightRef.current;
-    const bottomFirst = solutionGalleryBottomFirstRef.current;
-    const bottomSecond = solutionGalleryBottomSecondRef.current;
-    const bottomThird = solutionGalleryBottomThirdRef.current;
-
-    if (!gallery || !topLeft || !topRight || !bottomFirst || !bottomSecond || !bottomThird) return;
-
-    const isMobile = window.matchMedia('(max-width: 767px)').matches;
-    let ctx: gsap.Context | undefined;
-    const frame = window.requestAnimationFrame(() => {
-      ctx = gsap.context(() => {
-        const topRow = gsap.timeline({ scrollTrigger: { trigger: topLeft, start: 'top 78%', once: true } });
-        topRow.fromTo(topLeft, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' });
-        topRow.fromTo(topRight, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' }, '<');
-
-        const bottomRow = gsap.timeline({ scrollTrigger: { trigger: bottomFirst, start: 'top 78%', once: true } });
-        [bottomFirst, bottomSecond, bottomThird].forEach((image, index) => {
-          bottomRow.fromTo(image, { opacity: 0, x: isMobile ? 0 : -80, y: isMobile ? 64 : 0 }, { opacity: 1, x: 0, y: 0, duration: 0.8, ease: 'power2.out' }, index === 0 ? 0 : '-=0.4');
-        });
-      }, gallery);
-    });
-
-    return () => {
-      window.cancelAnimationFrame(frame);
-      ctx?.revert();
-    };
-  }, []);
-
-  useLayoutEffect(() => {
-    const gallery = firstGalleryRef.current;
-    const firstImage = galleryFirstImageRef.current;
-    const secondLeft = gallerySecondLeftRef.current;
-    const secondRight = gallerySecondRightRef.current;
-    const thirdLeft = galleryThirdLeftRef.current;
-    const thirdRight = galleryThirdRightRef.current;
-
-    if (!gallery || !firstImage || !secondLeft || !secondRight || !thirdLeft || !thirdRight) return;
-
-    const isMobile = window.matchMedia('(max-width: 767px)').matches;
-    let ctx: gsap.Context | undefined;
-    const frame = window.requestAnimationFrame(() => {
-      ctx = gsap.context(() => {
-        gsap.fromTo(firstImage, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out', scrollTrigger: { trigger: firstImage, start: 'top 78%', once: true } });
-        const secondRow = gsap.timeline({ scrollTrigger: { trigger: secondLeft, start: 'top 78%', once: true } });
-        secondRow.fromTo(secondLeft, { opacity: 0, x: isMobile ? 0 : -80, y: isMobile ? 64 : 0 }, { opacity: 1, x: 0, y: 0, duration: 0.9, ease: 'power2.out' });
-        secondRow.fromTo(secondRight, { opacity: 0, x: isMobile ? 0 : 80, y: isMobile ? 64 : 0 }, { opacity: 1, x: 0, y: 0, duration: 0.9, ease: 'power2.out' }, '<');
-        const thirdRow = gsap.timeline({ scrollTrigger: { trigger: thirdLeft, start: 'top 78%', once: true } });
-        thirdRow.fromTo(thirdLeft, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' });
-        thirdRow.fromTo(thirdRight, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' }, '<');
-      }, gallery);
-    });
-
-    return () => {
-      window.cancelAnimationFrame(frame);
-      ctx?.revert();
-    };
+    const root = galleriesRef.current;
+    if (!root) return;
+    const context = gsap.context(() => animateProjectGallery(root), root);
+    return () => context.revert();
   }, []);
 
   return (
@@ -627,40 +564,42 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
           />
         </div>
 
-        <div className={isNoxtton ? 'mx-auto w-full max-w-[2464px] px-4 sm:px-8 md:w-5/6 md:px-0' : 'px-4 sm:px-8'}>
+        <div ref={galleriesRef} className={isNoxtton ? 'mx-auto w-full max-w-[2464px] px-4 sm:px-8 md:w-5/6 md:px-0' : 'px-4 sm:px-8'}>
           {isNoxtton ? <NoxttonIntroduction /> : <ProjectOverview items={projectOverview} />}
           {isNoxtton ? <NoxttonChallenge /> : <TextSection reveal title="The Challenge" intro={isWhiteSquare ? 'The website needed to present multiple residential projects while helping potential buyers quickly understand what made each development different. The main challenges were:' : isNoxtton ? 'Most self-custodial wallets assume that users already understand networks, recovery phrases, transaction fees, and wallet addresses. For newcomers, this creates several challenges:' : 'The existing experience made it difficult for teams to quickly understand brand performance. The main issues were:'} points={projectChallengePoints} />}
           {isNoxtton ? <NoxttonRole /> : <TextSection reveal title="Product Analysis" intro={isWhiteSquare ? 'I reviewed the existing website structure, project presentation, content hierarchy, repeated interface patterns, and the journey from discovering a development to contacting the sales team. The analysis highlighted three main opportunities:' : isNoxtton ? 'I reviewed the product requirements, core wallet journeys, security risks, and the needs of the “Cautious Newcomer” persona. The analysis highlighted three main design opportunities:' : 'I reviewed the existing dashboard, product requirements, information architecture, and core brand-monitoring workflows. The analysis highlighted three main opportunities:'} points={projectAnalysisPoints} />}
 
-          <section ref={firstGalleryRef} className="mt-12 flex flex-col gap-4" aria-label={`${projectName} brand gallery`}>
-            <div ref={galleryFirstImageRef}>
+          <section className="mt-12 flex flex-col gap-4" aria-label={`${projectName} brand gallery`}>
+            <div data-gallery-row>
+            <div data-gallery-item="up">
               <ReferenceVisual src={`${assetBase}/First Image.webp`} label={projectImageAlts[0]} className="aspect-[1376/640] w-full" />
             </div>
-            <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,560px)]">
-              <div ref={gallerySecondLeftRef} className="flex flex-col gap-4">
+            </div>
+            <div data-gallery-row className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,560px)]">
+              <div data-gallery-item="left" className="flex flex-col gap-4">
                 <div className="grid gap-4 sm:grid-cols-[304fr_480fr]">
-                  <div className="flex h-24 items-center justify-center overflow-hidden rounded-lg bg-[#E4E4E4] p-6 md:h-[120px]"><img src={`${assetBase}/First Logo.svg`} alt="" className="h-8 w-auto max-w-[80%] object-contain md:h-10" /></div>
-                  <div className="flex h-24 items-center justify-center overflow-hidden rounded-lg bg-[#222] p-6 md:h-[120px]"><img src={`${assetBase}/Second Logo.svg`} alt="" className="h-8 w-auto max-w-[80%] object-contain md:h-10" /></div>
+                  <div data-gallery-visual className="flex h-24 items-center justify-center overflow-hidden rounded-lg bg-[#E4E4E4] p-6 md:h-[120px]"><img src={`${assetBase}/First Logo.svg`} alt="" className="h-8 w-auto max-w-[80%] object-contain md:h-10" /></div>
+                  <div data-gallery-visual className="flex h-24 items-center justify-center overflow-hidden rounded-lg bg-[#222] p-6 md:h-[120px]"><img src={`${assetBase}/Second Logo.svg`} alt="" className="h-8 w-auto max-w-[80%] object-contain md:h-10" /></div>
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="grid gap-4">
                     <ReferenceVisual src={`${assetBase}/Second image.webp`} label={projectImageAlts[1]} className="aspect-[392/294]" />
                     <ReferenceVisual src={`${assetBase}/Third Image.webp`} label={projectImageAlts[2]} className="aspect-[392/294]" />
                   </div>
-                  <div className="grid grid-rows-5 gap-2">
+                  <div data-gallery-visual className="grid grid-rows-5 gap-2">
                     {projectSwatches.map(([code, color]) => <div key={code} className={cn('flex h-20 items-center justify-center overflow-hidden rounded-lg p-2 font-body text-xl font-bold uppercase leading-[1.2] sm:h-auto sm:min-h-14 sm:text-2xl', (isNoxtton && code !== '#F7F7FF') || (isWhiteSquare && (code === '#283B40' || code === '#161414')) ? 'text-white' : 'text-[#030C0C]')} style={{ backgroundColor: color }}>{code}</div>)}
                   </div>
                 </div>
               </div>
-              <div ref={gallerySecondRightRef} className="h-full">
+              <div data-gallery-item="right" className="h-full">
                 <ReferenceVisual src={`${assetBase}/Fourth Image.webp`} label={projectImageAlts[3]} className="aspect-[560/740] h-full lg:aspect-auto" />
               </div>
             </div>
-            <div className="grid gap-4 md:grid-cols-2">
-              <div ref={galleryThirdLeftRef}>
+            <div data-gallery-row className="grid gap-4 md:grid-cols-2">
+              <div data-gallery-item="up">
                 <ReferenceVisual src={`${assetBase}/Fifth Image.webp`} label={projectImageAlts[4]} className="aspect-[680/510]" />
               </div>
-              <div ref={galleryThirdRightRef}>
+              <div data-gallery-item="up">
                 <ReferenceVisual src={`${assetBase}/Sixth Image.webp`} label={projectImageAlts[5]} className="aspect-[680/510]" />
               </div>
             </div>
@@ -668,23 +607,23 @@ export function HaptticProjectPage({ project = 'hapttic' }: { project?: 'hapttic
 
           <TextSection reveal title="The Solution" points={projectSolutionPoints} />
 
-          <section ref={secondGalleryRef} className="mt-12 flex flex-col gap-4" aria-label={`${projectName} solution gallery`}>
-            <div className="grid gap-4 md:grid-cols-2">
-              <div ref={solutionGalleryTopLeftRef}>
+          <section className="mt-12 flex flex-col gap-4" aria-label={`${projectName} solution gallery`}>
+            <div data-gallery-row className="grid gap-4 md:grid-cols-2">
+              <div data-gallery-item="up">
                 <ReferenceVisual src={`${assetBase}/Seventh Image.webp`} label={projectImageAlts[6]} className="aspect-[680/510]" />
               </div>
-              <div ref={solutionGalleryTopRightRef}>
+              <div data-gallery-item="up">
                 <ReferenceVisual src={`${assetBase}/Eigth Image.webp`} label={projectImageAlts[7]} className="aspect-[680/510]" />
               </div>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <div ref={solutionGalleryBottomFirstRef}>
+            <div data-gallery-row data-gallery-stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div data-gallery-item="left">
                 <ReferenceVisual src={`${assetBase}/Ninth Image.webp`} label={projectImageAlts[8]} className="aspect-[448/336]" />
               </div>
-              <div ref={solutionGalleryBottomSecondRef}>
+              <div data-gallery-item="left">
                 <ReferenceVisual src={`${assetBase}/Tenth Image.webp`} label={projectImageAlts[9]} className="aspect-[448/336]" />
               </div>
-              <div ref={solutionGalleryBottomThirdRef} className="sm:col-span-2 lg:col-span-1">
+              <div data-gallery-item="left" className="sm:col-span-2 lg:col-span-1">
                 <ReferenceVisual src={`${assetBase}/Eleventh Image.webp`} label={projectImageAlts[10]} className="aspect-[448/336]" />
               </div>
             </div>

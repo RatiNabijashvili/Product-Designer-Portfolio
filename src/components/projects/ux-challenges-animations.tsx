@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { animateProjectGallery } from '@/lib/project-gallery-animations';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,15 +38,36 @@ export function UxChallengesAnimations({ children }: { children: React.ReactNode
         gsap.fromTo(element, { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out', scrollTrigger: { trigger: element, start: 'top 78%', once: true } });
       });
 
-      const isMobile = window.matchMedia('(max-width: 767px)').matches;
-      root.querySelectorAll('[data-comparison-step]').forEach((element, index) => {
-        const [visual, copy] = Array.from(element.children);
-        const timeline = gsap.timeline();
-        const direction = index === 1 ? 80 : -80;
-        timeline.fromTo(visual, { opacity: 0, x: isMobile ? 0 : direction, y: isMobile ? 64 : 0 }, { opacity: 1, x: 0, y: 0, duration: 0.9, ease: 'power2.out' });
-        timeline.fromTo(copy, { opacity: 0, x: isMobile ? 0 : -direction, y: isMobile ? 64 : 0 }, { opacity: 1, x: 0, y: 0, duration: 0.9, ease: 'power2.out' }, '<');
-        ScrollTrigger.create({ trigger: element, start: 'top 78%', once: true, animation: timeline }).refresh();
+      const comparisonMedia = gsap.matchMedia();
+      comparisonMedia.add({ mobile: '(max-width: 767px)', desktop: '(min-width: 768px)' }, (mediaContext) => {
+        root.querySelectorAll('[data-comparison-step]').forEach((element, index) => {
+          const [visual, copy] = Array.from(element.children);
+          if (!visual || !copy) return;
+
+          if (mediaContext.conditions?.mobile) {
+            // Each stacked item enters at a different scroll position.
+            [visual, copy].forEach((item) => {
+              gsap.fromTo(item, { opacity: 0, x: 0, y: 64 }, {
+                opacity: 1, x: 0, y: 0, duration: 0.9, ease: 'power2.out',
+                scrollTrigger: { trigger: item, start: 'top 78%', once: true },
+              });
+            });
+            return;
+          }
+
+          const timeline = gsap.timeline({ paused: true });
+          const direction = index % 2 === 1 ? 80 : -80;
+          timeline.fromTo(visual, { opacity: 0, x: direction, y: 0 }, { opacity: 1, x: 0, y: 0, duration: 0.9, ease: 'power2.out' });
+          timeline.fromTo(copy, { opacity: 0, x: -direction, y: 0 }, { opacity: 1, x: 0, y: 0, duration: 0.9, ease: 'power2.out' }, '<');
+          ScrollTrigger.create({ trigger: element, start: 'top 78%', once: true, animation: timeline }).refresh();
+        });
       });
+
+      const revertGallery = animateProjectGallery(root);
+      return () => {
+        comparisonMedia.revert();
+        revertGallery();
+      };
     }, root);
 
     return () => context.revert();

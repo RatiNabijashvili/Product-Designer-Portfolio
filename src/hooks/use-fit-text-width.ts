@@ -16,7 +16,11 @@ export function useFitTextWidth(
     const text = textRef.current;
     if (!container || !text) return;
 
+    let disposed = false;
+    let fontsReady = !document.fonts || document.fonts.status === 'loaded';
+
     const fitText = () => {
+      if (disposed || !fontsReady) return;
       container.style.removeProperty(variableName);
 
       const availableWidth = container.clientWidth;
@@ -34,10 +38,15 @@ export function useFitTextWidth(
     const resizeObserver = new ResizeObserver(fitText);
     resizeObserver.observe(container);
 
-    document.fonts?.ready.then(fitText);
+    document.fonts?.ready.then(() => {
+      if (disposed) return;
+      fontsReady = true;
+      fitText();
+    });
     window.addEventListener('resize', fitText);
 
     return () => {
+      disposed = true;
       resizeObserver.disconnect();
       window.removeEventListener('resize', fitText);
     };

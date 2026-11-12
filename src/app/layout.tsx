@@ -12,7 +12,7 @@ const satoshi = localFont({
     { path: './fonts/satoshi-700.woff2', weight: '700', style: 'normal' },
   ],
   variable: '--font-satoshi',
-  display: 'swap',
+  display: 'block',
   preload: true,
 });
 
@@ -21,7 +21,7 @@ const anton = localFont({
   weight: '400',
   style: 'normal',
   variable: '--font-anton',
-  display: 'swap',
+  display: 'block',
   preload: true,
 });
 

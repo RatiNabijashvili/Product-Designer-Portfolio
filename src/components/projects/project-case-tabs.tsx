@@ -14,11 +14,6 @@ export function ProjectCaseTabs({ id, label, children }: { id: string; label: st
   const indicatorRef = useRef<HTMLSpanElement>(null);
 
   const slideRef = useRef<Animation | null>(null);
-  const hasSwitchedRef = useRef(false);
-
-  useLayoutEffect(() => {
-    if (hasSwitchedRef.current) window.scrollTo({ top: 0, behavior: 'instant' });
-  }, [displayedView]);
 
   useEffect(() => () => slideRef.current?.cancel(), []);
 
@@ -43,7 +38,9 @@ export function ProjectCaseTabs({ id, label, children }: { id: string; label: st
     const to = next === 'full-case' ? 'translateX(100%)' : 'translateX(0%)';
     pill.style.transform = to;
     const finish = () => {
-      hasSwitchedRef.current = true;
+      // New scroll triggers must measure at the top, rather than completing
+      // immediately at the previous view's scroll position during mount.
+      window.scrollTo({ top: 0, behavior: 'instant' });
       setDisplayedView(next);
       slideRef.current = null;
     };
